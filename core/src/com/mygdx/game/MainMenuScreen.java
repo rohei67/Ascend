@@ -31,6 +31,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
 	@Override
 	public void render(float delta) {
+		update();
 		draw();
 	}
 
@@ -42,8 +43,15 @@ public class MainMenuScreen extends ScreenAdapter {
 		_batch.setProjectionMatrix(_camera.combined);
 
 		_batch.begin();
-		_batch.draw(Assets.title, 0, 0);
+		_batch.draw(Assets.titleTexture, 0, 0);
 		_batch.end();
+	}
+
+	public void update () {
+		if (Gdx.input.justTouched()) {
+			_camera.unproject(_touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+			Gdx.app.debug("touchPoint", "X:" + _touchPoint.x + ", Y:" + _touchPoint.y);
+		}
 	}
 
 	@Override

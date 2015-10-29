@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 
 public class Ascend extends Game {
 	public static final int GAME_WIDTH = 480;
@@ -8,6 +10,7 @@ public class Ascend extends Game {
 
 	@Override
 	public void create () {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Assets.load();
 		setScreen(new MainMenuScreen(this));
 	}
