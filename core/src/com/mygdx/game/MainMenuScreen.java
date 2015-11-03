@@ -27,6 +27,8 @@ public class MainMenuScreen extends ScreenAdapter {
 
 		_batch = new SpriteBatch();
 		_touchPoint = new Vector3();
+
+		Assets.titleMusicPlay();
 	}
 
 	@Override
@@ -51,6 +53,9 @@ public class MainMenuScreen extends ScreenAdapter {
 		if (Gdx.input.justTouched()) {
 			_camera.unproject(_touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 			Gdx.app.debug("touchPoint", "X:" + _touchPoint.x + ", Y:" + _touchPoint.y);
+
+			Assets.titleMusicStop();
+			_game.setScreen(new GameScreen(_game));
 		}
 	}
 

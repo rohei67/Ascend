@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+ <tileset firstgid="1" name="stage" tilewidth="32" tileheight="32" tilecount="48">
+  <image source="tiledmap.png" width="256" height="192"/>
+  <tile id="8">
+   <properties>
+    <property name="block" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="block" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="block" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6Grf9MTsS8krJqqqqqqqvp60UQF3Q==
+  </data>
+ </layer>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt1NEKABAMheHlbrz/+6IoyY2yZP6vzq22WRMBAAAAAABY05LYki7X8iKP8xt78tabJatd0MPv/ab/S51huFzLy7zduvnG7SQDwAwBpw==
+  </data>
+ </layer>
+</map>
