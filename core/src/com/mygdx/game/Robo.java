@@ -101,7 +101,8 @@ public class Robo {
 
 	public void tiltMove() {
 		float accelX = Gdx.input.getAccelerometerX();
-		_velocity.x = -accelX / 10 * MOVE_VELOCITY;
+		Gdx.app.debug("debug", "tiltAccelX:"+accelX);
+		_velocity.x = -accelX * MOVE_VELOCITY * 10;
 	}
 
 	public float getWidth() {
