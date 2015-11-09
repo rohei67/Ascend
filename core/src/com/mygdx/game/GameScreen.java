@@ -155,9 +155,9 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		_batch.begin();
 		_particle.render(_batch);
 		_robo.draw(_batch);
-		_batch.draw(Assets.slowgauge, 50, _camera.position.y+Ascend.GAME_HEIGHT/2-30, _robo.getSlowGauge(), 24);
+		_batch.draw(Assets.slowgauge, 50, _camera.position.y+Ascend.GAME_HEIGHT/2-40, _robo.getSlowGauge()*2, 24);
 		for (int i = 0; i < _robo.getHitPoint(); i++) {
-			_batch.draw(Assets.hitpoint, 300+i*40, _camera.position.y+Ascend.GAME_HEIGHT/2-40, 32, 32);
+			_batch.draw(Assets.hitpoint, 300+i*40, _camera.position.y+Ascend.GAME_HEIGHT/2-45, 32, 32);
 		}
 
 		switch (_state) {
