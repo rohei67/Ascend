@@ -17,15 +17,18 @@ public class Robo {
 	static final int HEIGHT = 32;
 	static final float GRAVITY = -820;
 
-	final Vector2 _velocity;
-	final Vector2 _accel;
-	final Vector2 _position;
-	final Rectangle _bounds;
+	Vector2 _velocity;
+	Vector2 _accel;
+	Vector2 _position;
+	Rectangle _bounds;
 
 	int _state;
 	float _stateTime;
 	boolean _isFaceRight;
 	float _heightSoFar;
+	int _hitPoint;
+	int _slowGauge;
+	final int MAX_SLOW_GAUGE = 100;
 
 	public Robo(float x, float y) {
 		this._position = new Vector2(x, y);
@@ -34,23 +37,25 @@ public class Robo {
 		_accel = new Vector2();
 		_state = STATE_FALL;
 		_stateTime = 0;
+		_hitPoint = 3;
+		_slowGauge = MAX_SLOW_GAUGE;
 	}
 
-	public void updateX(){
+	public void updateX() {
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		_position.add(_velocity.x * deltaTime, 0);
 		_bounds.x = _position.x - _bounds.width / 2;
-		if (_position.x < 0) _position.x = Ascend.GAME_WIDTH;
-		if (_position.x > Ascend.GAME_WIDTH) _position.x = 0;
+		if (_position.x < -getWidth() / 2) _position.x = Ascend.GAME_WIDTH - getWidth() / 2;
+		if (_position.x > Ascend.GAME_WIDTH - getWidth() / 2) _position.x = -getWidth() / 2;
 	}
 
-	public void updateY(){
-		float deltaTime = Gdx.graphics.getDeltaTime();
+	public void updateY(float maxHeight, float slowRate) {
+		float deltaTime = Gdx.graphics.getDeltaTime() * slowRate;
 		_velocity.add(0, GRAVITY * deltaTime);
 		_position.add(0, _velocity.y * deltaTime);
 		_bounds.y = _position.y - _bounds.height / 2;
 
-		if (_velocity.y > 0 ) {
+		if (_velocity.y > 0) {
 			if (_state != STATE_JUMP) {
 				_state = STATE_JUMP;
 				_stateTime = 0;
@@ -64,9 +69,11 @@ public class Robo {
 		}
 		_stateTime += deltaTime;
 		_heightSoFar = Math.max(_position.y, _heightSoFar);
+		if (_heightSoFar > maxHeight)
+			_heightSoFar = maxHeight;
 	}
 
-	public void jump () {
+	public void jump() {
 		_velocity.y = JUMP_VELOCITY;
 		_state = STATE_JUMP;
 		_stateTime = 0;
@@ -75,8 +82,8 @@ public class Robo {
 	public void draw(SpriteBatch batch) {
 		_stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame = Assets.roboJumpAnim.getKeyFrame(_stateTime);
-		if(_isFaceRight)
-			batch.draw(currentFrame, getX(), getY(), -getWidth(), getHeight());
+		if (_isFaceRight)
+			batch.draw(currentFrame, getX() + getWidth(), getY(), -getWidth(), getHeight());
 		else
 			batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
 	}
@@ -101,8 +108,9 @@ public class Robo {
 
 	public void tiltMove() {
 		float accelX = Gdx.input.getAccelerometerX();
-		Gdx.app.debug("debug", "tiltAccelX:"+accelX);
+		if (accelX == 0) return;
 		_velocity.x = -accelX * MOVE_VELOCITY * 10;
+		_isFaceRight = (-accelX > 0) ? true : false;
 	}
 
 	public float getWidth() {
@@ -122,8 +130,30 @@ public class Robo {
 	}
 
 	public boolean checkFallout() {
-		if(_position.y < _heightSoFar-Ascend.GAME_HEIGHT/2-getHeight())
+		if (_position.y < _heightSoFar - Ascend.GAME_HEIGHT / 2 - getHeight())
 			return true;
 		return false;
+	}
+
+	public boolean canSlow() {
+		return _slowGauge > 0;
+	}
+	public void increaseSlowGauge() {
+		_slowGauge++;
+		if(_slowGauge > MAX_SLOW_GAUGE)
+			_slowGauge = MAX_SLOW_GAUGE;
+	}
+	public void decreaseSlowGauge() {
+		_slowGauge--;
+		if(_slowGauge < 0)
+			_slowGauge = 0;
+	}
+
+	public int getSlowGauge() {
+		return _slowGauge;
+	}
+
+	public float getHitPoint() {
+		return _hitPoint;
 	}
 }

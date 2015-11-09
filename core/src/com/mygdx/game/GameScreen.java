@@ -14,13 +14,14 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen extends ScreenAdapter implements InputProcessor {
-	static final int GAME_READY = 0;
-	static final int GAME_RUNNING = 1;
-	static final int GAME_PAUSED = 2;
-	static final int GAME_LEVEL_END = 3;
-	static final int GAME_OVER = 4;
 
-	private Ascend _game;
+	private static final float SLOW_RATE = 0.3f;
+
+	public enum State {
+		READY, RUNNING, GAMEOVER, GAMECLEAR
+	}
+
+	private Ascend _game;    // setScreen()で必要
 	private OrthographicCamera _camera;
 	private Viewport _viewport;
 
@@ -30,11 +31,21 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	private SpriteBatch _batch;
 	private KeyInput _keyInput;
 	Robo _robo;
-	private int _state = GAME_READY;
+	GameParticle _particle;
+
+	float _slowRate;
+	private State _state = State.READY;
 
 	public GameScreen(Ascend game) {
 		this._game = game;
 		initGame();
+	}
+
+	public void setSlow(boolean isSlow) {
+		if (isSlow)
+			_slowRate = SLOW_RATE;
+		else
+			_slowRate = 1;
 	}
 
 	private void initGame() {
@@ -52,7 +63,9 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		_font.setColor(Color.BLACK);
 		_robo = new Robo(Ascend.GAME_WIDTH / 2, Ascend.GAME_HEIGHT / 2);
 		_keyInput = new KeyInput();
+		_particle = new GameParticle();
 		Assets.stage1MusicPlay();
+		_slowRate = 1;
 	}
 
 	@Override
@@ -63,64 +76,70 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 	public void update() {
 		switch (_state) {
-			case GAME_READY:
+			case READY:
 				updateReady();
 				break;
-			case GAME_RUNNING:
+			case RUNNING:
 				updateRunning();
 				break;
-			case GAME_PAUSED:
-//				updatePaused();
-				break;
-			case GAME_LEVEL_END:
-//				updateLevelEnd();
-				break;
-			case GAME_OVER:
+			case GAMEOVER:
 				updateGameOver();
 				break;
 		}
 	}
 
 	private void updateReady() {
-		_robo = new Robo(Ascend.GAME_WIDTH / 2, Ascend.GAME_HEIGHT / 2);
+		_robo = new Robo(Ascend.GAME_WIDTH / 2 - _robo.getWidth() / 2, Ascend.GAME_HEIGHT / 2);
 		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
 		if (Gdx.input.justTouched()) {
-			_state = GAME_RUNNING;
+			_state = State.RUNNING;
 		}
 	}
 
 	private void updateGameOver() {
 		if (Gdx.input.justTouched()) {
-			_state = GAME_READY;
+			_state = State.READY;
 		}
 	}
 
 	private void updateRunning() {
-		if (_keyInput.isPressing(Input.Keys.LEFT)) {
+		if (_keyInput.isPressing(Input.Keys.LEFT))
 			_robo.moveLeft();
-		}
-		if (_keyInput.isPressing(Input.Keys.RIGHT)) {
+		if (_keyInput.isPressing(Input.Keys.RIGHT))
 			_robo.moveRight();
-		}
+
 		_robo.tiltMove();
 		_robo.updateX();
-		_robo.updateY();
+
+		// スロー判定してY座標移動
+		if (isSlow())
+			_robo.decreaseSlowGauge();
+		else
+			_robo.increaseSlowGauge();
+		if (!_robo.canSlow())
+			setSlow(false);
+		_robo.updateY(_map.getMaxHeight(), _slowRate);
 		mapCollisionDetect();
 
 		_camera.position.y = _robo.getMaxHeight();
-		if(_robo.checkFallout()) {
-			_state = GAME_OVER;
+		if (_robo.checkFallout()) {
+			_state = State.GAMEOVER;
 		}
+	}
+
+	private boolean isSlow() {
+		return _slowRate != 1;
 	}
 
 	private void mapCollisionDetect() {
 		if (_robo.isFall()) {
-			// bottom left
-			if(_map.isCellBlocked(_robo.getX(), _robo.getY()))
+			boolean canJump = _map.isCellPlatform(_robo.getX(), _robo.getY());    // bottom left
+			canJump |= _map.isCellPlatform(_robo.getX() + _robo.getWidth(), _robo.getY());    // bottom right
+
+			if (canJump) {
 				_robo.jump();
-			// bottom right
-			if(_map.isCellBlocked(_robo.getX() + _robo.getWidth(), _robo.getY()))
-				_robo.jump();
+				_particle.setParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY());
+			}
 		}
 	}
 
@@ -134,8 +153,23 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
+		_particle.render(_batch);
 		_robo.draw(_batch);
+		_batch.draw(Assets.slowgauge, 50, _camera.position.y+Ascend.GAME_HEIGHT/2-30, _robo.getSlowGauge(), 24);
+		for (int i = 0; i < _robo.getHitPoint(); i++) {
+			_batch.draw(Assets.hitpoint, 300+i*40, _camera.position.y+Ascend.GAME_HEIGHT/2-40, 32, 32);
+		}
+
+		switch (_state) {
+			case READY:
+				_batch.draw(Assets.ready, Ascend.GAME_WIDTH / 2 - Assets.ready.getRegionWidth() / 2, Ascend.GAME_HEIGHT / 2 + 100);
+				break;
+			case GAMEOVER:
+				_batch.draw(Assets.gameover, Ascend.GAME_WIDTH / 2 - Assets.gameover.getRegionWidth() / 2, _camera.position.y);
+				break;
+		}
 		_batch.end();
+
 	}
 
 	@Override
@@ -147,13 +181,16 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		_keyInput.keyPressed(keycode);
-//		Gdx.app.debug("debug", "keyPressed");
+		if (keycode == Input.Keys.UP)
+			setSlow(true);
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
 		_keyInput.keyReleased(keycode);
+		if (keycode == Input.Keys.UP)
+			setSlow(false);
 		return true;
 	}
 
@@ -164,12 +201,14 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+		setSlow(true);
+		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		return false;
+		setSlow(false);
+		return true;
 	}
 
 	@Override

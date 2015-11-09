@@ -61,16 +61,19 @@ public class GameMap {
 		return (TiledMapTileLayer) _tiledMap.getLayers().get("foreground");
 	}
 
-	public boolean isCellBlocked(float x, float y) {
+	public boolean isCellPlatform(float x, float y) {
 		int cellX = (int)(x / getCollisionLayer().getTileWidth());
 		int cellY = (int)(y / getCollisionLayer().getTileHeight());
 
 		TiledMapTileLayer.Cell cell = getCollisionLayer().getCell(cellX, cellY);
 		if (cell == null) return false;
 		if (cell.getTile() == null) return false;
-		if (cell.getTile().getProperties().containsKey("block"))
+		if (cell.getTile().getProperties().containsKey("platform"))
 			return true;
 		return false;
 	}
 
+	public float getMaxHeight() {
+		return _mapPixelHeight-Ascend.GAME_HEIGHT/2;
+	}
 }

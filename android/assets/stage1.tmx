@@ -4,17 +4,17 @@
   <image source="tiledmap.png" width="256" height="192"/>
   <tile id="8">
    <properties>
-    <property name="block" value=""/>
+    <property name="platform" value=""/>
    </properties>
   </tile>
   <tile id="9">
    <properties>
-    <property name="block" value=""/>
+    <property name="platform" value=""/>
    </properties>
   </tile>
   <tile id="10">
    <properties>
-    <property name="block" value=""/>
+    <property name="platform" value=""/>
    </properties>
   </tile>
  </tileset>
@@ -25,7 +25,7 @@
  </layer>
  <layer name="foreground" width="15" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1NEKABAMheHlbrz/+6IoyY2yZP6vzq22WRMBAAAAAABY05LYki7X8iKP8xt78tabJatd0MPv/ab/S51huFzLy7zduvnG7SQDwAwBpw==
+   eJztl1EKwDAIQ8v+1t3/vmsZhTKECSWzhjzwX1ONthTROVvUFld0Ig5GrlnyRcKuRa9PdYk/yOSBTMwe9hV6m73QzNggdWHf+RG8PUi64vHMiO6kB/XnXsiD12DUz7pjWWpDguoF7Y415v18BOeSGTav8/7VrbgBh1cDzQ==
   </data>
  </layer>
 </map>

@@ -52,7 +52,6 @@ public class MainMenuScreen extends ScreenAdapter {
 	public void update () {
 		if (Gdx.input.justTouched()) {
 			_camera.unproject(_touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
-			Gdx.app.debug("touchPoint", "X:" + _touchPoint.x + ", Y:" + _touchPoint.y);
 
 			Assets.titleMusicStop();
 			_game.setScreen(new GameScreen(_game));
