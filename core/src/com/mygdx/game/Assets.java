@@ -12,6 +12,7 @@ public class Assets {
 
 	public static TextureAtlas textureAtlas;
 	public static Animation roboJumpAnim;
+	public static Animation devilAnim;
 
 	// 表示テキスト画像
 	public static TextureRegion ready;
@@ -35,10 +36,12 @@ public class Assets {
 
 		// キャラクタ画像
 		TextureRegion robo = textureAtlas.findRegion("robo");
-		roboJumpAnim = new Animation(0.2f,
-				new TextureRegion(robo.getTexture(), robo.getRegionX(),robo.getRegionY(), 32, 32),
-				new TextureRegion(robo.getTexture(), robo.getRegionX()+32, robo.getRegionY(), 32, 32));
+		roboJumpAnim = new Animation(0.2f, robo.split(32, 32)[0]);
 		roboJumpAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+		TextureRegion devil = textureAtlas.findRegion("devil");
+		devilAnim = new Animation(0.1f, devil.split(32, 32)[0]);
+		devilAnim.setPlayMode(Animation.PlayMode.LOOP);
 
 		// 画像文字
 		ready = textureAtlas.findRegion("ready");
@@ -78,5 +81,14 @@ public class Assets {
 
 	public static void stage1MusicStop() {
 		stage1Music.stop();
+	}
+
+	public static void dispose() {
+		titleTexture.dispose();
+		textureAtlas.dispose();
+
+		titleMusic.dispose();
+		stage1Music.dispose();
+
 	}
 }

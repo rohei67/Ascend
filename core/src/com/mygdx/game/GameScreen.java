@@ -15,10 +15,10 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import java.util.ArrayList;
+
 public class GameScreen extends ScreenAdapter implements InputProcessor {
-
 	private static final float SLOW_RATE = 0.3f;
-
 	public enum State {
 		READY, RUNNING, GAMEOVER, GAMECLEAR
 	}
@@ -32,11 +32,14 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	private BitmapFont _font;
 	private SpriteBatch _batch;
 	private KeyInput _keyInput;
-	Robo _robo;
 	GameParticle _particle;
 
 	float _slowRate;
 	private State _state = State.READY;
+
+	// Character
+	Robo _robo;
+	ArrayList<Devil> _devils;
 
 	public GameScreen(Ascend game) {
 		this._game = game;
@@ -63,11 +66,15 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 		_font = new BitmapFont();
 		_font.setColor(Color.BLACK);
-		_robo = new Robo(Ascend.GAME_WIDTH / 2, Ascend.GAME_HEIGHT / 2);
 		_keyInput = new KeyInput();
 		_particle = new GameParticle();
 		Assets.stage1MusicPlay();
 		_slowRate = 1;
+
+		// Character
+		_robo = new Robo(Ascend.GAME_WIDTH / 2, Ascend.GAME_HEIGHT / 2);
+		_devils = new ArrayList<Devil>();
+		_map.generateDevils(_devils);
 	}
 
 	@Override
@@ -114,18 +121,37 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	private void updateRunning() {
-		if(_map.reachGoal(_robo.getbounds())) {
+		_robo.updateY(_map.getMaxHeight(), _slowRate);
+
+		if (_robo.checkFallout())
+			_state = State.GAMEOVER;
+		if (_robo.isDead())	return;
+
+		if(_map.reachGoal(_robo.getBounds()))
 			_state = State.GAMECLEAR;
-		}
 
-		if (_keyInput.isPressing(Input.Keys.LEFT))
-			_robo.moveLeft();
-		if (_keyInput.isPressing(Input.Keys.RIGHT))
-			_robo.moveRight();
-
+		moveWithKeyboard();
 		_robo.tiltMove();
 		_robo.updateX();
+		determineSlowMode();
+		mapPlatformCollision();
+		_camera.position.y = _robo.getMaxHeight();
 
+		enemyUpdate();
+	}
+
+	private void enemyUpdate() {
+		for (Devil devil :_devils) {
+			devil.update(_slowRate);
+			if(_robo.getBounds().overlaps(devil.getBounds())) {
+//				_state = State.GAMEOVER;
+				_robo.dead();
+				setSlow(false);
+			}
+		}
+	}
+
+	private void determineSlowMode() {
 		// スロー判定してY座標移動
 		if (isSlow()) {
 			_particle.setSlowParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY() + _robo.getHeight() / 2);
@@ -134,14 +160,13 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 			_robo.increaseSlowGauge();
 		if (!_robo.canSlow())
 			setSlow(false);
-		_robo.updateY(_map.getMaxHeight(), _slowRate);
-		mapPlatformCollision();
+	}
 
-		_camera.position.y = _robo.getMaxHeight();
-
-		if (_robo.checkFallout()) {
-			_state = State.GAMEOVER;
-		}
+	private void moveWithKeyboard() {
+		if (_keyInput.isPressing(Input.Keys.LEFT))
+			_robo.moveLeft();
+		if (_keyInput.isPressing(Input.Keys.RIGHT))
+			_robo.moveRight();
 	}
 
 	private boolean isSlow() {
@@ -161,22 +186,35 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	private void draw() {
-		GL20 gl = Gdx.gl;
-		gl.glClearColor(0, 0, 0, 1);
-		gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		Gdx.gl20.glClearColor(0, 0, 0, 1);
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		_camera.update();
-
 		_map.render(_camera);
 
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
 		_particle.render(_batch);
-		_robo.draw(_batch);
-		_batch.draw(Assets.slowgauge, 50, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 40, _robo.getSlowGauge() * 2, 24);
-		for (int i = 0; i < _robo.getHitPoint(); i++) {
-			_batch.draw(Assets.hitpoint, 300 + i * 40, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 45, 32, 32);
-		}
+		drawCharacter();
+		drawUI();
+		drawMessage();
+		_batch.end();
 
+		// todo:暫定的なデバッグ用描画
+		drawDebug();
+	}
+
+	ShapeRenderer _shapeRenderer = new ShapeRenderer();
+	private void drawDebug() {
+		Rectangle rect = _map.getGoalRect();
+
+		_shapeRenderer.setProjectionMatrix(_camera.combined);
+		_shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		_shapeRenderer.setColor(Color.RED);
+		_shapeRenderer.rect(rect.getX(), rect.getY(), 64, 64);
+		_shapeRenderer.end();
+	}
+
+	private void drawMessage() {
 		switch (_state) {
 			case READY:
 				_batch.draw(Assets.ready, Ascend.GAME_WIDTH / 2 - Assets.ready.getRegionWidth() / 2, Ascend.GAME_HEIGHT / 2 + 100);
@@ -188,18 +226,21 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 				_batch.draw(Assets.gameclear, Ascend.GAME_WIDTH / 2 - Assets.gameclear.getRegionWidth() / 2, _camera.position.y);
 				break;
 		}
-		_batch.end();
-
-		Rectangle rect = _map.getGoalRect();
-
-		shapeRenderer.setProjectionMatrix(_camera.combined);
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.setColor(Color.RED);
-		shapeRenderer.rect(rect.getX(), rect.getY(), 64, 64);
-		shapeRenderer.end();
 	}
-	//  todo:goalを暫定的に表示
-	ShapeRenderer shapeRenderer = new ShapeRenderer();
+
+	private void drawCharacter() {
+		_robo.draw(_batch);
+		for (Devil devil :_devils) {
+			devil.draw(_batch);
+		}
+	}
+
+	private void drawUI() {
+		_batch.draw(Assets.slowgauge, 50, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 40, _robo.getSlowGauge() * 2, 24);
+		for (int i = 0; i < _robo.getHitPoint(); i++) {
+			_batch.draw(Assets.hitpoint, 300 + i * 40, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 45, 32, 32);
+		}
+	}
 
 	@Override
 	public void resize(int width, int height) {

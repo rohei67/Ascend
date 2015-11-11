@@ -7,10 +7,9 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robo {
-	static final int STATE_JUMP = 0;
-	static final int STATE_FALL = 1;
-	static final int STATE_HIT = 2;
-
+	enum State {
+		JUMP, FALL, HIT, DEAD
+	}
 	static final float JUMP_VELOCITY = 600;
 	static final float MOVE_VELOCITY = 10;
 	static final int WIDTH = 32;
@@ -22,7 +21,7 @@ public class Robo {
 	Vector2 _position;
 	Rectangle _bounds;
 
-	int _state;
+	State _state;
 	float _stateTime;
 	boolean _isFaceRight;
 	float _heightSoFar;
@@ -35,7 +34,7 @@ public class Robo {
 		this._bounds = new Rectangle(x, y, WIDTH, HEIGHT);
 		_velocity = new Vector2();
 		_accel = new Vector2();
-		_state = STATE_FALL;
+		_state = State.JUMP;
 		_stateTime = 0;
 		_hitPoint = 3;
 		_slowGauge = MAX_SLOW_GAUGE;
@@ -54,21 +53,9 @@ public class Robo {
 		_velocity.add(0, GRAVITY * deltaTime);
 		_position.add(0, _velocity.y * deltaTime);
 
-		if (_velocity.y > 0) {
-			if (_state != STATE_JUMP) {
-				_state = STATE_JUMP;
-				_stateTime = 0;
-			}
-		}
-		if (_velocity.y < 0 && _state != STATE_HIT) {
-			if (_state != STATE_FALL) {
-				_state = STATE_FALL;
-				_stateTime = 0;
-			}
-		}
 		_bounds.y = _position.y;
-
 		_stateTime += deltaTime;
+
 		_heightSoFar = Math.max(_position.y, _heightSoFar);
 		if (_heightSoFar > maxHeight)
 			_heightSoFar = maxHeight;
@@ -76,7 +63,6 @@ public class Robo {
 
 	public void jump() {
 		_velocity.y = JUMP_VELOCITY;
-		_state = STATE_JUMP;
 		_stateTime = 0;
 	}
 
@@ -111,7 +97,7 @@ public class Robo {
 		float accelX = Gdx.input.getAccelerometerX();
 		if (accelX == 0) return;
 		_velocity.x = -accelX * MOVE_VELOCITY * 10;
-		_isFaceRight = (-accelX > 0) ? true : false;
+		_isFaceRight = (-accelX > 0);
 	}
 
 	public float getWidth() {
@@ -131,9 +117,7 @@ public class Robo {
 	}
 
 	public boolean checkFallout() {
-		if (_position.y < _heightSoFar - Ascend.GAME_HEIGHT / 2 - getHeight())
-			return true;
-		return false;
+		return _position.y < _heightSoFar - Ascend.GAME_HEIGHT / 2 - getHeight();
 	}
 
 	public boolean canSlow() {
@@ -158,7 +142,15 @@ public class Robo {
 		return _hitPoint;
 	}
 
-	public Rectangle getbounds() {
+	public Rectangle getBounds() {
 		return _bounds;
+	}
+
+	public boolean isDead() {
+		return _state == State.DEAD;
+	}
+	public void dead() {
+		_state = State.DEAD;
+		_velocity.x = _velocity.y = 0;
 	}
 }

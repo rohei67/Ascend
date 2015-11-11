@@ -5,49 +5,49 @@ filter: Nearest,Nearest
 repeat: none
 gameclear
   rotate: false
-  xy: 1, 137
+  xy: 1, 144
   size: 435, 109
   orig: 435, 109
   offset: 0, 0
   index: -1
 gameover
   rotate: false
-  xy: 1, 28
+  xy: 1, 35
   size: 427, 107
   orig: 427, 107
   offset: 0, 0
   index: -1
 devil
   rotate: false
-  xy: 438, 54
-  size: 256, 192
-  orig: 256, 192
-  offset: 0, 0
-  index: -1
-robo
-  rotate: false
-  xy: 696, 54
-  size: 256, 192
-  orig: 256, 192
+  xy: 438, 221
+  size: 192, 32
+  orig: 192, 32
   offset: 0, 0
   index: -1
 ready
   rotate: false
-  xy: 430, 1
+  xy: 438, 168
   size: 107, 51
   orig: 107, 51
   offset: 0, 0
   index: -1
+robo
+  rotate: false
+  xy: 1, 1
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
 hitpoint
   rotate: false
-  xy: 954, 214
+  xy: 632, 221
   size: 36, 32
   orig: 36, 32
   offset: 0, 0
   index: -1
 slowgauge
   rotate: false
-  xy: 1, 2
+  xy: 430, 118
   size: 1, 24
   orig: 1, 24
   offset: 0, 0
