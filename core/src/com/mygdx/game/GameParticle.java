@@ -8,20 +8,34 @@ import com.badlogic.gdx.utils.Array;
 
 public class GameParticle {
 	ParticleEffect _jumpParticle;
-	ParticleEffectPool _pool;
+	ParticleEffectPool _jumpPool;
+
+	ParticleEffect _slowParticle;
+	ParticleEffectPool _slowPool;
 	Array<ParticleEffectPool.PooledEffect> _effects;
-	final int MAX_POOL_SIZE = 20;
+	final int JUMP_POOL_SIZE = 5;
+	final int SLOW_POOL_SIZE = 100;
 
 	public GameParticle() {
 		_jumpParticle = new ParticleEffect();
 		_jumpParticle.load(Gdx.files.internal("jump.party"), Gdx.files.internal(""));
+		_jumpPool = new ParticleEffectPool(_jumpParticle, 0, JUMP_POOL_SIZE);
 
-		_pool = new ParticleEffectPool(_jumpParticle, 0, MAX_POOL_SIZE);
+		_slowParticle = new ParticleEffect();
+		_slowParticle.load(Gdx.files.internal("slowmode.party"), Gdx.files.internal(""));
+		_slowPool = new ParticleEffectPool(_slowParticle, 0, SLOW_POOL_SIZE);
+
 		_effects = new Array<ParticleEffectPool.PooledEffect>();
 	}
 
-	public void setParticle(float screenX, float screenY) {
-		ParticleEffectPool.PooledEffect effect = _pool.obtain();
+	public void setJumpParticle(float screenX, float screenY) {
+		ParticleEffectPool.PooledEffect effect = _jumpPool.obtain();
+		effect.setPosition(screenX, screenY);
+		_effects.add(effect);
+	}
+
+	public void setSlowParticle(float screenX, float screenY) {
+		ParticleEffectPool.PooledEffect effect = _slowPool.obtain();
 		effect.setPosition(screenX, screenY);
 		_effects.add(effect);
 	}

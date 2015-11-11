@@ -32,7 +32,7 @@ public class Robo {
 
 	public Robo(float x, float y) {
 		this._position = new Vector2(x, y);
-		this._bounds = new Rectangle(x - WIDTH / 2, y - HEIGHT / 2, WIDTH, HEIGHT);
+		this._bounds = new Rectangle(x, y, WIDTH, HEIGHT);
 		_velocity = new Vector2();
 		_accel = new Vector2();
 		_state = STATE_FALL;
@@ -44,16 +44,15 @@ public class Robo {
 	public void updateX() {
 		float deltaTime = Gdx.graphics.getDeltaTime();
 		_position.add(_velocity.x * deltaTime, 0);
-		_bounds.x = _position.x - _bounds.width / 2;
 		if (_position.x < -getWidth() / 2) _position.x = Ascend.GAME_WIDTH - getWidth() / 2;
 		if (_position.x > Ascend.GAME_WIDTH - getWidth() / 2) _position.x = -getWidth() / 2;
+		_bounds.x = _position.x;
 	}
 
 	public void updateY(float maxHeight, float slowRate) {
 		float deltaTime = Gdx.graphics.getDeltaTime() * slowRate;
 		_velocity.add(0, GRAVITY * deltaTime);
 		_position.add(0, _velocity.y * deltaTime);
-		_bounds.y = _position.y - _bounds.height / 2;
 
 		if (_velocity.y > 0) {
 			if (_state != STATE_JUMP) {
@@ -67,6 +66,8 @@ public class Robo {
 				_stateTime = 0;
 			}
 		}
+		_bounds.y = _position.y;
+
 		_stateTime += deltaTime;
 		_heightSoFar = Math.max(_position.y, _heightSoFar);
 		if (_heightSoFar > maxHeight)
@@ -155,5 +156,9 @@ public class Robo {
 
 	public float getHitPoint() {
 		return _hitPoint;
+	}
+
+	public Rectangle getbounds() {
+		return _bounds;
 	}
 }

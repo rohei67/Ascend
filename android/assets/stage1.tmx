@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="5">
  <tileset firstgid="1" name="stage" tilewidth="32" tileheight="32" tilecount="48">
   <image source="tiledmap.png" width="256" height="192"/>
   <tile id="8">
@@ -23,6 +23,13 @@
    eJztw0ENAAAMA6Grf9MTsS8krJqqqqqqqvp60UQF3Q==
   </data>
  </layer>
+ <objectgroup color="#aaffff" draworder="index" name="object">
+  <object id="2" x="208" y="65" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
  <layer name="foreground" width="15" height="100">
   <data encoding="base64" compression="zlib">
    eJztl1EKwDAIQ8v+1t3/vmsZhTKECSWzhjzwX1ONthTROVvUFld0Ig5GrlnyRcKuRa9PdYk/yOSBTMwe9hV6m73QzNggdWHf+RG8PUi64vHMiO6kB/XnXsiD12DUz7pjWWpDguoF7Y415v18BOeSGTav8/7VrbgBh1cDzQ==

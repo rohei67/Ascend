@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -85,6 +87,15 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 			case GAMEOVER:
 				updateGameOver();
 				break;
+			case GAMECLEAR:
+				updateGameClear();
+				break;
+		}
+	}
+
+	private void updateGameClear() {
+		if (Gdx.input.justTouched()) {
+			_state = State.READY;
 		}
 	}
 
@@ -103,6 +114,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	private void updateRunning() {
+		if(_map.reachGoal(_robo.getbounds())) {
+			_state = State.GAMECLEAR;
+		}
+
 		if (_keyInput.isPressing(Input.Keys.LEFT))
 			_robo.moveLeft();
 		if (_keyInput.isPressing(Input.Keys.RIGHT))
@@ -112,16 +127,18 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		_robo.updateX();
 
 		// スロー判定してY座標移動
-		if (isSlow())
+		if (isSlow()) {
+			_particle.setSlowParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY() + _robo.getHeight() / 2);
 			_robo.decreaseSlowGauge();
-		else
+		} else
 			_robo.increaseSlowGauge();
 		if (!_robo.canSlow())
 			setSlow(false);
 		_robo.updateY(_map.getMaxHeight(), _slowRate);
-		mapCollisionDetect();
+		mapPlatformCollision();
 
 		_camera.position.y = _robo.getMaxHeight();
+
 		if (_robo.checkFallout()) {
 			_state = State.GAMEOVER;
 		}
@@ -131,14 +148,14 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		return _slowRate != 1;
 	}
 
-	private void mapCollisionDetect() {
+	private void mapPlatformCollision() {
 		if (_robo.isFall()) {
 			boolean canJump = _map.isCellPlatform(_robo.getX(), _robo.getY());    // bottom left
 			canJump |= _map.isCellPlatform(_robo.getX() + _robo.getWidth(), _robo.getY());    // bottom right
 
 			if (canJump) {
 				_robo.jump();
-				_particle.setParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY());
+				_particle.setJumpParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY());
 			}
 		}
 	}
@@ -155,9 +172,9 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		_batch.begin();
 		_particle.render(_batch);
 		_robo.draw(_batch);
-		_batch.draw(Assets.slowgauge, 50, _camera.position.y+Ascend.GAME_HEIGHT/2-40, _robo.getSlowGauge()*2, 24);
+		_batch.draw(Assets.slowgauge, 50, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 40, _robo.getSlowGauge() * 2, 24);
 		for (int i = 0; i < _robo.getHitPoint(); i++) {
-			_batch.draw(Assets.hitpoint, 300+i*40, _camera.position.y+Ascend.GAME_HEIGHT/2-45, 32, 32);
+			_batch.draw(Assets.hitpoint, 300 + i * 40, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 45, 32, 32);
 		}
 
 		switch (_state) {
@@ -167,10 +184,22 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 			case GAMEOVER:
 				_batch.draw(Assets.gameover, Ascend.GAME_WIDTH / 2 - Assets.gameover.getRegionWidth() / 2, _camera.position.y);
 				break;
+			case GAMECLEAR:
+				_batch.draw(Assets.gameclear, Ascend.GAME_WIDTH / 2 - Assets.gameclear.getRegionWidth() / 2, _camera.position.y);
+				break;
 		}
 		_batch.end();
 
+		Rectangle rect = _map.getGoalRect();
+
+		shapeRenderer.setProjectionMatrix(_camera.combined);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(Color.RED);
+		shapeRenderer.rect(rect.getX(), rect.getY(), 64, 64);
+		shapeRenderer.end();
 	}
+	//  todo:goalを暫定的に表示
+	ShapeRenderer shapeRenderer = new ShapeRenderer();
 
 	@Override
 	public void resize(int width, int height) {
@@ -201,7 +230,8 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		setSlow(true);
+		if (_state == State.RUNNING)
+			setSlow(true);
 		return true;
 	}
 
