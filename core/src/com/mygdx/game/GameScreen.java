@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter implements InputProcessor {
 	private static final float SLOW_RATE = 0.3f;
+
 	public enum State {
 		READY, RUNNING, GAMEOVER, GAMECLEAR
 	}
@@ -125,9 +126,9 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 		if (_robo.checkFallout())
 			_state = State.GAMEOVER;
-		if (_robo.isDead())	return;
+		if (_robo.isDead()) return;
 
-		if(_map.reachGoal(_robo.getBounds()))
+		if (_map.reachGoal(_robo.getBounds()))
 			_state = State.GAMECLEAR;
 
 		moveWithKeyboard();
@@ -141,18 +142,19 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	private void enemyUpdate() {
-		for (Devil devil :_devils) {
+		for (Devil devil : _devils) {
 			devil.update(_slowRate);
-			if(_robo.getBounds().overlaps(devil.getBounds())) {
-//				_state = State.GAMEOVER;
-				_robo.dead();
+			if (_robo.isHit()) continue;
+			if (_robo.getBounds().overlaps(devil.getBounds())) {
+				_robo.hit();
 				setSlow(false);
+				if (_robo.getHitPoint() == 0)
+					_robo.dead();
 			}
 		}
 	}
 
 	private void determineSlowMode() {
-		// スロー判定してY座標移動
 		if (isSlow()) {
 			_particle.setSlowParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY() + _robo.getHeight() / 2);
 			_robo.decreaseSlowGauge();
@@ -204,6 +206,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	ShapeRenderer _shapeRenderer = new ShapeRenderer();
+
 	private void drawDebug() {
 		Rectangle rect = _map.getGoalRect();
 
@@ -230,7 +233,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 	private void drawCharacter() {
 		_robo.draw(_batch);
-		for (Devil devil :_devils) {
+		for (Devil devil : _devils) {
 			devil.draw(_batch);
 		}
 	}

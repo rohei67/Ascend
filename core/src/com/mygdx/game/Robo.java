@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robo {
+
 	enum State {
 		JUMP, FALL, HIT, DEAD
 	}
@@ -28,6 +29,7 @@ public class Robo {
 	int _hitPoint;
 	int _slowGauge;
 	final int MAX_SLOW_GAUGE = 100;
+	final int HIT_RECOVER_TIME = 3;
 
 	public Robo(float x, float y) {
 		this._position = new Vector2(x, y);
@@ -38,6 +40,16 @@ public class Robo {
 		_stateTime = 0;
 		_hitPoint = 3;
 		_slowGauge = MAX_SLOW_GAUGE;
+	}
+
+	public void hit() {
+		_state = State.HIT;
+		_stateTime = 0;
+		_hitPoint--;
+	}
+
+	public boolean isHit() {
+		return _state == State.HIT;
 	}
 
 	public void updateX() {
@@ -59,11 +71,16 @@ public class Robo {
 		_heightSoFar = Math.max(_position.y, _heightSoFar);
 		if (_heightSoFar > maxHeight)
 			_heightSoFar = maxHeight;
+
+		// Hit状態なら一定時間後にJump状態に戻る
+		// todo: debug表示
+		Gdx.app.debug("debug", "stateTime:"+_stateTime);
+		if(isHit() && _stateTime > HIT_RECOVER_TIME)
+			_state = State.JUMP;
 	}
 
 	public void jump() {
 		_velocity.y = JUMP_VELOCITY;
-		_stateTime = 0;
 	}
 
 	public void draw(SpriteBatch batch) {
@@ -123,14 +140,16 @@ public class Robo {
 	public boolean canSlow() {
 		return _slowGauge > 0;
 	}
+
 	public void increaseSlowGauge() {
 		_slowGauge++;
-		if(_slowGauge > MAX_SLOW_GAUGE)
+		if (_slowGauge > MAX_SLOW_GAUGE)
 			_slowGauge = MAX_SLOW_GAUGE;
 	}
+
 	public void decreaseSlowGauge() {
 		_slowGauge--;
-		if(_slowGauge < 0)
+		if (_slowGauge < 0)
 			_slowGauge = 0;
 	}
 
@@ -149,6 +168,7 @@ public class Robo {
 	public boolean isDead() {
 		return _state == State.DEAD;
 	}
+
 	public void dead() {
 		_state = State.DEAD;
 		_velocity.x = _velocity.y = 0;
