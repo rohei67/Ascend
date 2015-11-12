@@ -58,13 +58,13 @@ public class Assets {
 	}
 
 	private static void loadMusic() {
-		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/mainmenu.mp3"));
+		titleMusic = Gdx.audio.newMusic(Gdx.files.internal("sound/mainmenu.ogg"));
 		titleMusic.setLooping(true);
-		titleMusic.setVolume(0.1f);
+		titleMusic.setVolume(1.0f);
 
-		stage1Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage1.mp3"));
+		stage1Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage1.ogg"));
 		stage1Music.setLooping(true);
-		stage1Music.setVolume(0.3f);
+		stage1Music.setVolume(1.0f);
 	}
 
 	public static void titleMusicPlay() {
