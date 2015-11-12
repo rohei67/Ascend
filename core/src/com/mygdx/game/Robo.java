@@ -7,15 +7,18 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robo {
-
 	enum State {
 		JUMP, FALL, HIT, DEAD
 	}
+
 	static final float JUMP_VELOCITY = 600;
 	static final float MOVE_VELOCITY = 10;
 	static final int WIDTH = 32;
 	static final int HEIGHT = 32;
 	static final float GRAVITY = -820;
+	static final int MAX_SLOW_GAUGE = 100;
+	static final int HIT_RECOVER_TIME = 3;
+	static final float SLOW_RATE = 0.3f;
 
 	Vector2 _velocity;
 	Vector2 _accel;
@@ -28,8 +31,7 @@ public class Robo {
 	float _heightSoFar;
 	int _hitPoint;
 	int _slowGauge;
-	final int MAX_SLOW_GAUGE = 100;
-	final int HIT_RECOVER_TIME = 3;
+	float _slowRate;
 
 	public Robo(float x, float y) {
 		this._position = new Vector2(x, y);
@@ -40,6 +42,19 @@ public class Robo {
 		_stateTime = 0;
 		_hitPoint = 3;
 		_slowGauge = MAX_SLOW_GAUGE;
+		_slowRate = 1;
+	}
+
+	public float getCenterX() {
+		return getX()+getWidth()/2;
+	}
+
+	public float getCenterY() {
+		return getY()+getHeight()/2;
+	}
+
+	public float getSlowRate() {
+		return _slowRate;
 	}
 
 	public void hit() {
@@ -60,8 +75,8 @@ public class Robo {
 		_bounds.x = _position.x;
 	}
 
-	public void updateY(float maxHeight, float slowRate) {
-		float deltaTime = Gdx.graphics.getDeltaTime() * slowRate;
+	public void updateY(float maxHeight) {
+		float deltaTime = Gdx.graphics.getDeltaTime() * _slowRate;
 		_velocity.add(0, GRAVITY * deltaTime);
 		_position.add(0, _velocity.y * deltaTime);
 
@@ -73,9 +88,7 @@ public class Robo {
 			_heightSoFar = maxHeight;
 
 		// Hit状態なら一定時間後にJump状態に戻る
-		// todo: debug表示
-		Gdx.app.debug("debug", "stateTime:"+_stateTime);
-		if(isHit() && _stateTime > HIT_RECOVER_TIME)
+		if (isHit() && _stateTime > HIT_RECOVER_TIME)
 			_state = State.JUMP;
 	}
 
@@ -85,7 +98,13 @@ public class Robo {
 
 	public void draw(SpriteBatch batch) {
 		_stateTime += Gdx.graphics.getDeltaTime();
-		TextureRegion currentFrame = Assets.roboJumpAnim.getKeyFrame(_stateTime);
+		TextureRegion currentFrame;
+		if (isHit() || isDead()) {
+			currentFrame = Assets.roboHitAnim.getKeyFrame(_stateTime);
+			batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+			return;
+		} else
+			currentFrame = Assets.roboJumpAnim.getKeyFrame(_stateTime);
 		if (_isFaceRight)
 			batch.draw(currentFrame, getX() + getWidth(), getY(), -getWidth(), getHeight());
 		else
@@ -137,7 +156,19 @@ public class Robo {
 		return _position.y < _heightSoFar - Ascend.GAME_HEIGHT / 2 - getHeight();
 	}
 
+	public void setSlow(boolean isSlow) {
+		if(canSlow() && isSlow)
+			_slowRate = SLOW_RATE;
+		else
+			_slowRate = 1;
+	}
+	public boolean isSlowMode() {
+		return _slowRate != 1;
+	}
+
 	public boolean canSlow() {
+		if(isHit() || isDead())
+			return false;
 		return _slowGauge > 0;
 	}
 

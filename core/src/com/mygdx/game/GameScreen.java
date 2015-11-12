@@ -18,8 +18,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.ArrayList;
 
 public class GameScreen extends ScreenAdapter implements InputProcessor {
-	private static final float SLOW_RATE = 0.3f;
-
 	public enum State {
 		READY, RUNNING, GAMEOVER, GAMECLEAR
 	}
@@ -35,7 +33,6 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	private KeyInput _keyInput;
 	GameParticle _particle;
 
-	float _slowRate;
 	private State _state = State.READY;
 
 	// Character
@@ -45,13 +42,6 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	public GameScreen(Ascend game) {
 		this._game = game;
 		initGame();
-	}
-
-	public void setSlow(boolean isSlow) {
-		if (isSlow)
-			_slowRate = SLOW_RATE;
-		else
-			_slowRate = 1;
 	}
 
 	private void initGame() {
@@ -70,7 +60,6 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		_keyInput = new KeyInput();
 		_particle = new GameParticle();
 		Assets.stage1MusicPlay();
-		_slowRate = 1;
 
 		// Character
 		_robo = new Robo(Ascend.GAME_WIDTH / 2, Ascend.GAME_HEIGHT / 2);
@@ -122,7 +111,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	private void updateRunning() {
-		_robo.updateY(_map.getMaxHeight(), _slowRate);
+		_robo.updateY(_map.getMaxHeight());
 
 		if (_robo.checkFallout())
 			_state = State.GAMEOVER;
@@ -138,16 +127,17 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		mapPlatformCollision();
 		_camera.position.y = _robo.getMaxHeight();
 
-		enemyUpdate();
+		enemyUpdate(_camera.position.y);
 	}
 
-	private void enemyUpdate() {
+	private void enemyUpdate(float hpPositionY) {
 		for (Devil devil : _devils) {
-			devil.update(_slowRate);
+			devil.update(_robo.getSlowRate());
 			if (_robo.isHit()) continue;
 			if (_robo.getBounds().overlaps(devil.getBounds())) {
 				_robo.hit();
-				setSlow(false);
+				_robo.setSlow(false);
+				_particle.generateHitParticle(_robo.getCenterX(), _robo.getCenterY());
 				if (_robo.getHitPoint() == 0)
 					_robo.dead();
 			}
@@ -155,13 +145,16 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	}
 
 	private void determineSlowMode() {
-		if (isSlow()) {
-			_particle.setSlowParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY() + _robo.getHeight() / 2);
+		if (_robo.isSlowMode()) {
+			if(!_robo.canSlow()) {
+				_robo.setSlow(false);
+				return;
+			}
+			_particle.generateSlowParticle(_robo.getCenterX(), _robo.getCenterY());
 			_robo.decreaseSlowGauge();
-		} else
+		} else {
 			_robo.increaseSlowGauge();
-		if (!_robo.canSlow())
-			setSlow(false);
+		}
 	}
 
 	private void moveWithKeyboard() {
@@ -171,10 +164,6 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 			_robo.moveRight();
 	}
 
-	private boolean isSlow() {
-		return _slowRate != 1;
-	}
-
 	private void mapPlatformCollision() {
 		if (_robo.isFall()) {
 			boolean canJump = _map.isCellPlatform(_robo.getX(), _robo.getY());    // bottom left
@@ -182,7 +171,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 			if (canJump) {
 				_robo.jump();
-				_particle.setJumpParticle(_robo.getX() + _robo.getWidth() / 2, _robo.getY());
+				_particle.generateJumpParticle(_robo.getCenterX(), _robo.getY());
 			}
 		}
 	}
@@ -255,7 +244,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		_keyInput.keyPressed(keycode);
 		if (keycode == Input.Keys.UP)
-			setSlow(true);
+			_robo.setSlow(true);
 		return true;
 	}
 
@@ -263,7 +252,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	public boolean keyUp(int keycode) {
 		_keyInput.keyReleased(keycode);
 		if (keycode == Input.Keys.UP)
-			setSlow(false);
+			_robo.setSlow(false);
 		return true;
 	}
 
@@ -275,13 +264,13 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if (_state == State.RUNNING)
-			setSlow(true);
+			_robo.setSlow(true);
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		setSlow(false);
+		_robo.setSlow(false);
 		return true;
 	}
 

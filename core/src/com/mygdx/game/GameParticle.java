@@ -9,6 +9,8 @@ import com.badlogic.gdx.utils.Array;
 public class GameParticle {
 	ParticleEffect _jumpParticle;
 	ParticleEffectPool _jumpPool;
+	ParticleEffect _hitParticle;
+	ParticleEffectPool _hitPool;
 
 	ParticleEffect _slowParticle;
 	ParticleEffectPool _slowPool;
@@ -18,24 +20,34 @@ public class GameParticle {
 
 	public GameParticle() {
 		_jumpParticle = new ParticleEffect();
-		_jumpParticle.load(Gdx.files.internal("jump.party"), Gdx.files.internal(""));
+		_jumpParticle.load(Gdx.files.internal("particle/jump.party"), Gdx.files.internal(""));
 		_jumpPool = new ParticleEffectPool(_jumpParticle, 0, JUMP_POOL_SIZE);
 
+		_hitParticle = new ParticleEffect();
+		_hitParticle.load(Gdx.files.internal("particle/hit.party"), Gdx.files.internal(""));
+		_hitPool = new ParticleEffectPool(_hitParticle, 0, 2);
+
 		_slowParticle = new ParticleEffect();
-		_slowParticle.load(Gdx.files.internal("slowmode.party"), Gdx.files.internal(""));
+		_slowParticle.load(Gdx.files.internal("particle/slowmode.party"), Gdx.files.internal(""));
 		_slowPool = new ParticleEffectPool(_slowParticle, 0, SLOW_POOL_SIZE);
 
 		_effects = new Array<ParticleEffectPool.PooledEffect>();
 	}
 
-	public void setJumpParticle(float screenX, float screenY) {
+	public void generateJumpParticle(float screenX, float screenY) {
 		ParticleEffectPool.PooledEffect effect = _jumpPool.obtain();
 		effect.setPosition(screenX, screenY);
 		_effects.add(effect);
 	}
 
-	public void setSlowParticle(float screenX, float screenY) {
+	public void generateSlowParticle(float screenX, float screenY) {
 		ParticleEffectPool.PooledEffect effect = _slowPool.obtain();
+		effect.setPosition(screenX, screenY);
+		_effects.add(effect);
+	}
+
+	public void generateHitParticle(float screenX, float screenY) {
+		ParticleEffectPool.PooledEffect effect = _hitPool.obtain();
 		effect.setPosition(screenX, screenY);
 		_effects.add(effect);
 	}
@@ -48,6 +60,5 @@ public class GameParticle {
 				effect.free();
 			}
 		}
-		_jumpParticle.draw(batch, Gdx.graphics.getDeltaTime());
 	}
 }

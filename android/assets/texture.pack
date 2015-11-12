@@ -38,9 +38,16 @@ robo
   orig: 64, 32
   offset: 0, 0
   index: -1
-hitpoint
+robo_hit
   rotate: false
   xy: 632, 221
+  size: 64, 32
+  orig: 64, 32
+  offset: 0, 0
+  index: -1
+hitpoint
+  rotate: false
+  xy: 547, 187
   size: 36, 32
   orig: 36, 32
   offset: 0, 0

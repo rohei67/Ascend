@@ -12,6 +12,7 @@ public class Assets {
 
 	public static TextureAtlas textureAtlas;
 	public static Animation roboJumpAnim;
+	public static Animation roboHitAnim;
 	public static Animation devilAnim;
 
 	// 表示テキスト画像
@@ -34,11 +35,16 @@ public class Assets {
 	public static void load() {
 		textureAtlas = new TextureAtlas("texture.pack");
 
-		// キャラクタ画像
+		// 主人公アニメーションの読み込み
 		TextureRegion robo = textureAtlas.findRegion("robo");
 		roboJumpAnim = new Animation(0.2f, robo.split(32, 32)[0]);
 		roboJumpAnim.setPlayMode(Animation.PlayMode.LOOP);
 
+		robo = textureAtlas.findRegion("robo_hit");
+		roboHitAnim = new Animation(0.1f, robo.split(32, 32)[0]);
+		roboHitAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+		// 敵キャラ
 		TextureRegion devil = textureAtlas.findRegion("devil");
 		devilAnim = new Animation(0.1f, devil.split(32, 32)[0]);
 		devilAnim.setPlayMode(Animation.PlayMode.LOOP);
