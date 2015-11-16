@@ -31,6 +31,13 @@ ready
   orig: 107, 51
   offset: 0, 0
   index: -1
+gate
+  rotate: false
+  xy: 547, 155
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 robo
   rotate: false
   xy: 1, 1
@@ -47,7 +54,7 @@ robo_hit
   index: -1
 hitpoint
   rotate: false
-  xy: 547, 187
+  xy: 613, 187
   size: 36, 32
   orig: 36, 32
   offset: 0, 0

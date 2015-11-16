@@ -46,11 +46,11 @@ public class Robo {
 	}
 
 	public float getCenterX() {
-		return getX()+getWidth()/2;
+		return getX() + getWidth() / 2;
 	}
 
 	public float getCenterY() {
-		return getY()+getHeight()/2;
+		return getY() + getHeight() / 2;
 	}
 
 	public float getSlowRate() {
@@ -96,12 +96,16 @@ public class Robo {
 		_velocity.y = JUMP_VELOCITY;
 	}
 
+	boolean _blinkSwitcher;
+
 	public void draw(SpriteBatch batch) {
 		_stateTime += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame;
 		if (isHit() || isDead()) {
 			currentFrame = Assets.roboHitAnim.getKeyFrame(_stateTime);
-			batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+			if (_blinkSwitcher || isDead()) 
+				batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
+			_blinkSwitcher = !_blinkSwitcher;
 			return;
 		} else
 			currentFrame = Assets.roboJumpAnim.getKeyFrame(_stateTime);
@@ -157,17 +161,18 @@ public class Robo {
 	}
 
 	public void setSlow(boolean isSlow) {
-		if(canSlow() && isSlow)
+		if (canSlow() && isSlow)
 			_slowRate = SLOW_RATE;
 		else
 			_slowRate = 1;
 	}
+
 	public boolean isSlowMode() {
 		return _slowRate != 1;
 	}
 
 	public boolean canSlow() {
-		if(isHit() || isDead())
+		if (isHit() || isDead())
 			return false;
 		return _slowGauge > 0;
 	}

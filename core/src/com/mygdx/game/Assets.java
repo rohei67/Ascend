@@ -14,6 +14,7 @@ public class Assets {
 	public static Animation roboJumpAnim;
 	public static Animation roboHitAnim;
 	public static Animation devilAnim;
+	public static TextureRegion gate;
 
 	// 表示テキスト画像
 	public static TextureRegion ready;
@@ -58,6 +59,9 @@ public class Assets {
 		slowgauge = textureAtlas.findRegion("slowgauge");
 		hitpoint = textureAtlas.findRegion("hitpoint");
 
+		// 背景要素
+		gate = textureAtlas.findRegion("gate");
+
 		titleTexture = loadTexture("title.png");
 
 		loadMusic();
@@ -95,6 +99,5 @@ public class Assets {
 
 		titleMusic.dispose();
 		stage1Music.dispose();
-
 	}
 }

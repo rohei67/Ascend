@@ -11,9 +11,13 @@ public class GameParticle {
 	ParticleEffectPool _jumpPool;
 	ParticleEffect _hitParticle;
 	ParticleEffectPool _hitPool;
-
 	ParticleEffect _slowParticle;
 	ParticleEffectPool _slowPool;
+	ParticleEffect _goalParticle;
+	ParticleEffectPool _goalPool;
+	ParticleEffect _gateParticle;
+	ParticleEffectPool _gatePool;
+
 	Array<ParticleEffectPool.PooledEffect> _effects;
 	final int JUMP_POOL_SIZE = 5;
 	final int SLOW_POOL_SIZE = 100;
@@ -31,6 +35,14 @@ public class GameParticle {
 		_slowParticle.load(Gdx.files.internal("particle/slowmode.party"), Gdx.files.internal(""));
 		_slowPool = new ParticleEffectPool(_slowParticle, 0, SLOW_POOL_SIZE);
 
+		_goalParticle = new ParticleEffect();
+		_goalParticle.load(Gdx.files.internal("particle/goal.party"), Gdx.files.internal(""));
+		_goalPool = new ParticleEffectPool(_goalParticle, 0, 1/*goal pool size*/);
+
+		_gateParticle = new ParticleEffect();
+		_gateParticle.load(Gdx.files.internal("particle/gate.party"), Gdx.files.internal(""));
+		_gatePool = new ParticleEffectPool(_gateParticle, 0, 5);
+
 		_effects = new Array<ParticleEffectPool.PooledEffect>();
 	}
 
@@ -46,8 +58,20 @@ public class GameParticle {
 		_effects.add(effect);
 	}
 
+	public void generateGoalParticle(float screenX, float screenY) {
+		ParticleEffectPool.PooledEffect effect = _goalPool.obtain();
+		effect.setPosition(screenX, screenY);
+		_effects.add(effect);
+	}
+
 	public void generateHitParticle(float screenX, float screenY) {
 		ParticleEffectPool.PooledEffect effect = _hitPool.obtain();
+		effect.setPosition(screenX, screenY);
+		_effects.add(effect);
+	}
+
+	public void generateGateParticle(float screenX, float screenY) {
+		ParticleEffectPool.PooledEffect effect = _gatePool.obtain();
 		effect.setPosition(screenX, screenY);
 		_effects.add(effect);
 	}

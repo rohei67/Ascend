@@ -38,6 +38,7 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 	// Character
 	Robo _robo;
 	ArrayList<Devil> _devils;
+	GoalGate _gate;
 
 	public GameScreen(Ascend game) {
 		this._game = game;
@@ -65,6 +66,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		_robo = new Robo(Ascend.GAME_WIDTH / 2, Ascend.GAME_HEIGHT / 2);
 		_devils = new ArrayList<Devil>();
 		_map.generateDevils(_devils);
+
+		Rectangle rect = _map.getGoalRect();
+		_particle.generateGateParticle(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
+		_gate = new GoalGate(rect.getX(), rect.getY());
 	}
 
 	@Override
@@ -117,8 +122,10 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 			_state = State.GAMEOVER;
 		if (_robo.isDead()) return;
 
-		if (_map.reachGoal(_robo.getBounds()))
+		if(_gate.isReach(_robo.getBounds())) {
 			_state = State.GAMECLEAR;
+			_particle.generateGoalParticle(_robo.getCenterX(), _robo.getCenterY());
+		}
 
 		moveWithKeyboard();
 		_robo.tiltMove();
@@ -127,11 +134,13 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		mapPlatformCollision();
 		_camera.position.y = _robo.getMaxHeight();
 
-		enemyUpdate(_camera.position.y);
+		enemyUpdate();
 	}
 
-	private void enemyUpdate(float hpPositionY) {
+	private void enemyUpdate() {
 		for (Devil devil : _devils) {
+			if (!inDisplay(devil.getY(), devil.getHeight()))
+				continue;
 			devil.update(_robo.getSlowRate());
 			if (_robo.isHit()) continue;
 			if (_robo.getBounds().overlaps(devil.getBounds())) {
@@ -144,9 +153,14 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 		}
 	}
 
+	private boolean inDisplay(float y, int h) {
+		return y < _camera.position.y + Ascend.GAME_HEIGHT / 2 &&    // キャラの下端
+				y + h > _camera.position.y - Ascend.GAME_HEIGHT / 2;    // キャラの上端
+	}
+
 	private void determineSlowMode() {
 		if (_robo.isSlowMode()) {
-			if(!_robo.canSlow()) {
+			if (!_robo.canSlow()) {
 				_robo.setSlow(false);
 				return;
 			}
@@ -184,25 +198,26 @@ public class GameScreen extends ScreenAdapter implements InputProcessor {
 
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
-		_particle.render(_batch);
+		_particle.render(_batch);	// パーティクルエフェクト描画
+		_gate.draw(_batch);
 		drawCharacter();
 		drawUI();
 		drawMessage();
 		_batch.end();
 
 		// todo:暫定的なデバッグ用描画
-		drawDebug();
+//		drawDebug();
 	}
 
 	ShapeRenderer _shapeRenderer = new ShapeRenderer();
 
 	private void drawDebug() {
-		Rectangle rect = _map.getGoalRect();
+		Rectangle rect = _gate.getBounds();
 
 		_shapeRenderer.setProjectionMatrix(_camera.combined);
 		_shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		_shapeRenderer.setColor(Color.RED);
-		_shapeRenderer.rect(rect.getX(), rect.getY(), 64, 64);
+		_shapeRenderer.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 		_shapeRenderer.end();
 	}
 
