@@ -11,27 +11,32 @@ import java.util.Random;
 public class Devil {
 	static final int WIDTH = 32;
 	static final int HEIGHT = 32;
-	static final int SPEED = 150;
+	static final int MIN_SPEED = 150;
+	static final int MAX_SPEED = 250;
 
 	private Vector2 _position;
 	private Vector2 _velocity;
 	private Rectangle _bounds;
+	private Random rand = new Random();
 
 	float _stateTime;
 	boolean _isFaceRight;
 
 	public Devil(float x, float y) {
 		this._position = new Vector2(x, y);
-		Random rand = new Random();
 		if (rand.nextBoolean()) {
-			this._velocity = new Vector2(SPEED, 0);
+			this._velocity = new Vector2(getRandomVelocity(), 0);
 			_isFaceRight = true;
 		} else {
-			this._velocity = new Vector2(-SPEED, 0);
+			this._velocity = new Vector2(-getRandomVelocity(), 0);
 			_isFaceRight = false;
 		}
 		this._bounds = new Rectangle(x, y, WIDTH, HEIGHT);
 		_stateTime = 0;
+	}
+
+	private int getRandomVelocity(){
+		return rand.nextInt(MAX_SPEED-MIN_SPEED)+MIN_SPEED;
 	}
 
 	public void update(float slowRate) {

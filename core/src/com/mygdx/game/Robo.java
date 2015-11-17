@@ -21,7 +21,6 @@ public class Robo {
 	static final float SLOW_RATE = 0.3f;
 
 	Vector2 _velocity;
-	Vector2 _accel;
 	Vector2 _position;
 	Rectangle _bounds;
 
@@ -33,16 +32,25 @@ public class Robo {
 	int _slowGauge;
 	float _slowRate;
 
-	public Robo(float x, float y) {
-		this._position = new Vector2(x, y);
-		this._bounds = new Rectangle(x, y, WIDTH, HEIGHT);
-		_velocity = new Vector2();
-		_accel = new Vector2();
+	public void initialize() {
+		_position.set(Ascend.GAME_WIDTH / 2 - getWidth() / 2, Ascend.GAME_HEIGHT / 2);
+		_heightSoFar = _position.y;
+		_bounds.set(_position.x, _position.y, WIDTH, HEIGHT);
+		_velocity.set(0, 0);
+
 		_state = State.JUMP;
 		_stateTime = 0;
 		_hitPoint = 3;
 		_slowGauge = MAX_SLOW_GAUGE;
 		_slowRate = 1;
+		_isFaceRight = false;
+	}
+
+	public Robo() {
+		_position = new Vector2();
+		_bounds = new Rectangle();
+		_velocity = new Vector2();
+		initialize();
 	}
 
 	public float getCenterX() {
@@ -103,7 +111,7 @@ public class Robo {
 		TextureRegion currentFrame;
 		if (isHit() || isDead()) {
 			currentFrame = Assets.roboHitAnim.getKeyFrame(_stateTime);
-			if (_blinkSwitcher || isDead()) 
+			if (_blinkSwitcher || isDead())
 				batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
 			_blinkSwitcher = !_blinkSwitcher;
 			return;
@@ -161,9 +169,10 @@ public class Robo {
 	}
 
 	public void setSlow(boolean isSlow) {
-		if (canSlow() && isSlow)
+		if (canSlow() && isSlow) {
+			Assets.playSound(Assets.slowSound);
 			_slowRate = SLOW_RATE;
-		else
+		} else
 			_slowRate = 1;
 	}
 

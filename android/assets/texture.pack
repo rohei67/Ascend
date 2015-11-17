@@ -38,6 +38,20 @@ gate
   orig: 64, 64
   offset: 0, 0
   index: -1
+pause
+  rotate: false
+  xy: 632, 189
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+resume
+  rotate: false
+  xy: 698, 189
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 robo
   rotate: false
   xy: 1, 1
@@ -47,16 +61,23 @@ robo
   index: -1
 robo_hit
   rotate: false
-  xy: 632, 221
+  xy: 764, 221
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 hitpoint
   rotate: false
-  xy: 613, 187
+  xy: 67, 1
   size: 36, 32
   orig: 36, 32
+  offset: 0, 0
+  index: -1
+clockUI
+  rotate: false
+  xy: 830, 221
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 slowgauge
