@@ -9,12 +9,22 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static Texture titleTexture;
-
 	public static TextureAtlas textureAtlas;
+	// タイトル画面
+	public static Texture titleTexture;
+	public static TextureRegion playTexture;
+	public static TextureRegion selectTexture;
+	public static TextureRegion soundTexture;
+	public static TextureRegion onTexture;
+	public static TextureRegion offTexture;
+	public static TextureRegion quitTexture;
+
+	// キャラクター
 	public static Animation roboJumpAnim;
 	public static Animation roboHitAnim;
 	public static Animation devilAnim;
+
+	// ステージ構造物
 	public static TextureRegion gate;
 
 	// 表示テキスト画像
@@ -37,6 +47,10 @@ public class Assets {
 	public static Sound hitSound;
 	public static Sound goalSound;
 	public static Sound slowSound;
+	public static Sound selectSound;
+
+	// サウンドON/OFFフラグ
+	public static boolean isMute;
 
 
 	public static Texture loadTexture(String file) {
@@ -60,6 +74,16 @@ public class Assets {
 		devilAnim = new Animation(0.1f, devil.split(32, 32)[0]);
 		devilAnim.setPlayMode(Animation.PlayMode.LOOP);
 
+		// タイトルスクリーン
+		titleTexture = loadTexture("title.png");
+		playTexture = textureAtlas.findRegion("play");
+		selectTexture = textureAtlas.findRegion("select_stage");
+		soundTexture = textureAtlas.findRegion("sound");
+		onTexture = textureAtlas.findRegion("on");
+		offTexture = textureAtlas.findRegion("off");
+		quitTexture = textureAtlas.findRegion("quit");
+
+
 		// 画像文字
 		ready = textureAtlas.findRegion("ready");
 		gameclear = textureAtlas.findRegion("gameclear");
@@ -75,21 +99,21 @@ public class Assets {
 		// 背景要素
 		gate = textureAtlas.findRegion("gate");
 
-		titleTexture = loadTexture("title.png");
-
 		loadMusic();
 		loadSound();
 	}
 
-	public static void playSound (Sound sound) {
+	public static void playSound(Sound sound) {
+		if (isMute) return;
 		sound.play(1);
 	}
 
 	private static void loadSound() {
-		jumpSound = Gdx.audio.newSound(Gdx.files.internal("sound/jump.wav"));
-		hitSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.wav"));
-		goalSound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.wav"));
-		slowSound = Gdx.audio.newSound(Gdx.files.internal("sound/slowmode.wav"));
+		jumpSound = Gdx.audio.newSound(Gdx.files.internal("sound/jump.ogg"));
+		hitSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.ogg"));
+		goalSound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.ogg"));
+		slowSound = Gdx.audio.newSound(Gdx.files.internal("sound/slowmode.ogg"));
+		selectSound = Gdx.audio.newSound(Gdx.files.internal("sound/select.ogg"));
 	}
 
 	private static void loadMusic() {
@@ -103,6 +127,7 @@ public class Assets {
 	}
 
 	public static void titleMusicPlay() {
+		if (isMute) return;
 		titleMusic.play();
 	}
 
@@ -111,6 +136,7 @@ public class Assets {
 	}
 
 	public static void stage1MusicPlay() {
+		if (isMute) return;
 		stage1Music.play();
 	}
 

@@ -17,72 +17,114 @@ gameover
   orig: 427, 107
   offset: 0, 0
   index: -1
+select_stage
+  rotate: false
+  xy: 438, 189
+  size: 377, 64
+  orig: 377, 64
+  offset: 0, 0
+  index: -1
+sound
+  rotate: false
+  xy: 438, 123
+  size: 210, 64
+  orig: 210, 64
+  offset: 0, 0
+  index: -1
 devil
   rotate: false
-  xy: 438, 221
+  xy: 1, 1
   size: 192, 32
   orig: 192, 32
   offset: 0, 0
   index: -1
+play
+  rotate: false
+  xy: 817, 189
+  size: 132, 64
+  orig: 132, 64
+  offset: 0, 0
+  index: -1
+quit
+  rotate: false
+  xy: 650, 123
+  size: 131, 64
+  orig: 131, 64
+  offset: 0, 0
+  index: -1
+off
+  rotate: false
+  xy: 783, 123
+  size: 98, 64
+  orig: 98, 64
+  offset: 0, 0
+  index: -1
 ready
   rotate: false
-  xy: 438, 168
+  xy: 430, 70
   size: 107, 51
   orig: 107, 51
   offset: 0, 0
   index: -1
+on
+  rotate: false
+  xy: 539, 57
+  size: 86, 64
+  orig: 86, 64
+  offset: 0, 0
+  index: -1
 gate
   rotate: false
-  xy: 547, 155
+  xy: 951, 189
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 pause
   rotate: false
-  xy: 632, 189
+  xy: 883, 123
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 resume
   rotate: false
-  xy: 698, 189
+  xy: 627, 57
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 robo
   rotate: false
-  xy: 1, 1
+  xy: 195, 1
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 robo_hit
   rotate: false
-  xy: 764, 221
+  xy: 430, 36
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 hitpoint
   rotate: false
-  xy: 67, 1
+  xy: 949, 155
   size: 36, 32
   orig: 36, 32
   offset: 0, 0
   index: -1
 clockUI
   rotate: false
-  xy: 830, 221
+  xy: 693, 89
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 slowgauge
   rotate: false
-  xy: 430, 118
+  xy: 1017, 229
   size: 1, 24
   orig: 1, 24
   offset: 0, 0

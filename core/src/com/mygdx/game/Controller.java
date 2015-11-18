@@ -58,11 +58,13 @@ public class Controller extends KeyInput implements InputProcessor {
 			case RUNNING:
 				_world._touchPoint = _world._viewport.unproject(new Vector2(screenX, screenY));
 				if (isTouchPause(_world._touchPoint.x, _world._touchPoint.y)) {
+					Assets.playSound(Assets.selectSound);
 					_world.setState(GameScreen.State.PAUSE);
 				}
 				_world._robo.setSlow(false);
 				break;
 			case PAUSE:
+				Assets.playSound(Assets.selectSound);
 				_world.setState(GameScreen.State.RUNNING);
 				break;
 		}
