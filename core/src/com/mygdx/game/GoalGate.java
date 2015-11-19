@@ -14,7 +14,7 @@ public class GoalGate {
 	}
 
 	public void draw(SpriteBatch batch) {
-		batch.draw(Assets.gate,  _position.x, _position.y, 64, 64);
+		batch.draw(Assets.gateTexture,  _position.x, _position.y, 64, 64);
 	}
 
 	public boolean isReach(Rectangle roboRect) {

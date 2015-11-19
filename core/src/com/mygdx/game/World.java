@@ -1,11 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
@@ -13,40 +10,27 @@ import java.util.ArrayList;
 import static com.mygdx.game.GameScreen.State;
 
 public class World {//implements InputProcessor {
-	public OrthographicCamera _camera;
-	public Viewport _viewport;
-
-	public Vector2 _touchPoint;
+	private OrthographicCamera _camera;
 	private GameMap _map;
-	private BitmapFont _font;
-	GameParticle _particle;
-
-	private State _state = State.READY;
-
-	// todo:コントロール処理をまとめたい
-	Controller _controller;
-
+	private GameParticle _particle;
+	private State _state;
+	private Controller _controller;
 
 	// Character
 	Robo _robo;
 	ArrayList<Devil> _devils;
 	GoalGate _gate;
 
-	public World(OrthographicCamera camera, Viewport viewport) {
+
+	public World(Ascend game, OrthographicCamera camera, Viewport viewport) {
 		_camera = camera;
-		_viewport = viewport;
 		initGame();
-		_controller = new Controller(this);
+		// todo:viewport持ちたくない
+		_controller = new Controller(game, this, viewport);
 	}
 
 	private void initGame() {
-//		Gdx.input.setInputProcessor(this);
-
-		_touchPoint = new Vector2();
 		_map = new GameMap();
-
-		_font = new BitmapFont();
-		_font.setColor(Color.BLACK);
 		_particle = new GameParticle();
 		Assets.stage1MusicPlay();
 
@@ -58,6 +42,8 @@ public class World {//implements InputProcessor {
 		Rectangle rect = _map.getGoalRect();
 		_particle.generateGateParticle(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
 		_gate = new GoalGate(rect.getX(), rect.getY());
+
+		_state = State.READY;
 	}
 
 	public void update() {
@@ -148,6 +134,14 @@ public class World {//implements InputProcessor {
 
 	public GameMap getMap() {
 		return _map;
+	}
+
+	public float getBottomY() {
+		return _camera.position.y - Ascend.GAME_HEIGHT / 2;
+	}
+
+	public GameParticle getParticle() {
+		return _particle;
 	}
 }
 

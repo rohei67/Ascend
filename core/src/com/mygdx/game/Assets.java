@@ -12,12 +12,12 @@ public class Assets {
 	public static TextureAtlas textureAtlas;
 	// タイトル画面
 	public static Texture titleTexture;
-	public static TextureRegion playTexture;
-	public static TextureRegion selectTexture;
-	public static TextureRegion soundTexture;
-	public static TextureRegion onTexture;
-	public static TextureRegion offTexture;
-	public static TextureRegion quitTexture;
+	public static TextureRegion play;
+	public static TextureRegion select;
+	public static TextureRegion sound;
+	public static TextureRegion on;
+	public static TextureRegion off;
+	public static TextureRegion quit;
 
 	// キャラクター
 	public static Animation roboJumpAnim;
@@ -25,19 +25,24 @@ public class Assets {
 	public static Animation devilAnim;
 
 	// ステージ構造物
-	public static TextureRegion gate;
+	public static TextureRegion gateTexture;
 
-	// 表示テキスト画像
+	// メッセージ画像
 	public static TextureRegion ready;
 	public static TextureRegion gameclear;
 	public static TextureRegion gameover;
+	public static TextureRegion pause;
+	public static TextureRegion resume;
+	public static TextureRegion backtomenu;
 
 	// UI要素
 	public static TextureRegion slowgauge;
 	public static TextureRegion hitpoint;
+	public static TextureRegion damage;
 	public static TextureRegion clockUI;
-	public static TextureRegion pause;
-	public static TextureRegion resume;
+	public static TextureRegion pause_button;
+	public static TextureRegion resume_button;
+	public static TextureRegion touchme;
 
 	// 音楽
 	public static Music titleMusic;
@@ -76,31 +81,38 @@ public class Assets {
 
 		// タイトルスクリーン
 		titleTexture = loadTexture("title.png");
-		playTexture = textureAtlas.findRegion("play");
-		selectTexture = textureAtlas.findRegion("select_stage");
-		soundTexture = textureAtlas.findRegion("sound");
-		onTexture = textureAtlas.findRegion("on");
-		offTexture = textureAtlas.findRegion("off");
-		quitTexture = textureAtlas.findRegion("quit");
+		play = textureAtlas.findRegion("play");
+		select = textureAtlas.findRegion("select_stage");
+		sound = textureAtlas.findRegion("sound");
+		on = textureAtlas.findRegion("on");
+		off = textureAtlas.findRegion("off");
+		quit = textureAtlas.findRegion("quit");
 
-
-		// 画像文字
+		// 表示画像文字
 		ready = textureAtlas.findRegion("ready");
 		gameclear = textureAtlas.findRegion("gameclear");
+		pause = textureAtlas.findRegion("pause");
 		gameover = textureAtlas.findRegion("gameover");
 
-		// UI要素
+		// 選択画像文字
+		resume = textureAtlas.findRegion("resume");
+		backtomenu = textureAtlas.findRegion("backtomenu");
+
+		// UI
 		slowgauge = textureAtlas.findRegion("slowgauge");
 		hitpoint = textureAtlas.findRegion("hitpoint");
+		damage = textureAtlas.findRegion("damage");
 		clockUI = textureAtlas.findRegion("clockUI");
-		pause = textureAtlas.findRegion("pause");
-		resume = textureAtlas.findRegion("resume");
+		pause_button = textureAtlas.findRegion("pause_button");
+		resume_button = textureAtlas.findRegion("resume_button");
+		touchme = textureAtlas.findRegion("touchme");
 
-		// 背景要素
-		gate = textureAtlas.findRegion("gate");
+		// 背景オブジェクト
+		gateTexture = textureAtlas.findRegion("gate");
 
 		loadMusic();
 		loadSound();
+		UIBounds.load();
 	}
 
 	public static void playSound(Sound sound) {
@@ -131,17 +143,14 @@ public class Assets {
 		titleMusic.play();
 	}
 
-	public static void titleMusicStop() {
+	public static void musicStop() {
 		titleMusic.stop();
+		stage1Music.stop();
 	}
 
 	public static void stage1MusicPlay() {
 		if (isMute) return;
 		stage1Music.play();
-	}
-
-	public static void stage1MusicStop() {
-		stage1Music.stop();
 	}
 
 	public static void dispose() {

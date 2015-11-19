@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -32,10 +33,10 @@ public class GameScreen extends ScreenAdapter {
 
 		Assets.stage1MusicPlay();
 
-		_world = new World(_camera, _viewport);
+		_world = new World(_game, _camera, _viewport);
 		_renderer = new WorldRenderer(_world, _camera);
 	}
-
+	Vector2 pos = new Vector2();
 	@Override
 	public void render(float delta) {
 		update();
@@ -50,9 +51,6 @@ public class GameScreen extends ScreenAdapter {
 			case RUNNING:
 				updateRunning();
 				break;
-			case PAUSE:
-				updatePause();
-				break;
 			case GAMEOVER:
 				updateGameOver();
 				break;
@@ -62,17 +60,16 @@ public class GameScreen extends ScreenAdapter {
 		}
 	}
 
-	private void updatePause() {
-	}
-
 	private void updateGameClear() {
 		if (Gdx.input.justTouched()) {
+			Assets.playSound(Assets.selectSound);
 			setReady(State.READY);
 		}
 	}
 
 	private void updateReady() {
 		if (Gdx.input.justTouched()) {
+			Assets.playSound(Assets.selectSound);
 			setReady(State.RUNNING);
 		}
 	}
@@ -85,6 +82,7 @@ public class GameScreen extends ScreenAdapter {
 
 	private void updateGameOver() {
 		if (Gdx.input.justTouched()) {
+			Assets.playSound(Assets.selectSound);
 			setReady(State.READY);
 		}
 	}

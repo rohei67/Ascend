@@ -4,13 +4,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Controller extends KeyInput implements InputProcessor {
 	private World _world;
+	private Vector2 _touchPoint;
+	private Viewport _viewport;
+	private Ascend _game;    // setScreen()で必要
 
-	public Controller(World world) {
+
+	public Controller(Ascend game, World world, Viewport viewport) {
 		Gdx.input.setInputProcessor(this);
 		_world = world;
+		_viewport = viewport;
+		_touchPoint = new Vector2();
+		_game = game;
 	}
 
 	@Override
@@ -37,11 +45,13 @@ public class Controller extends KeyInput implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		_touchPoint = _viewport.unproject(new Vector2(screenX, screenY));
+
 		switch (_world.getState()) {
 			case RUNNING:
-				_world._touchPoint = _world._viewport.unproject(new Vector2(screenX, screenY));
-				if (isTouchPause(_world._touchPoint.x, _world._touchPoint.y))
+				if (isTouchPause(_touchPoint.x, _touchPoint.y)) {
 					return true;
+				}
 				_world._robo.setSlow(true);
 				break;
 		}
@@ -49,26 +59,40 @@ public class Controller extends KeyInput implements InputProcessor {
 	}
 
 	public boolean isTouchPause(float screenX, float screenY) {
-		return screenX < 64 && screenY < _world._camera.position.y - Ascend.GAME_HEIGHT / 2 + 64;
+		return UIBounds.pauseButton.contains(screenX, screenY - _world.getBottomY());
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		_touchPoint = _viewport.unproject(new Vector2(screenX, screenY));
+
 		switch (_world.getState()) {
 			case RUNNING:
-				_world._touchPoint = _world._viewport.unproject(new Vector2(screenX, screenY));
-				if (isTouchPause(_world._touchPoint.x, _world._touchPoint.y)) {
+				if (isTouchPause(_touchPoint.x, _touchPoint.y)) {
 					Assets.playSound(Assets.selectSound);
 					_world.setState(GameScreen.State.PAUSE);
 				}
 				_world._robo.setSlow(false);
 				break;
 			case PAUSE:
-				Assets.playSound(Assets.selectSound);
-				_world.setState(GameScreen.State.RUNNING);
+				if (isResumePressed()) {
+					Assets.playSound(Assets.selectSound);
+					_world.setState(GameScreen.State.RUNNING);
+				}
+				if(isMeinMenuPressed()) {
+					Assets.playSound(Assets.selectSound);
+					Assets.musicStop();
+					_game.setScreen(new MainMenuScreen(_game));
+				}
 				break;
 		}
+
 		return true;
+	}
+
+	private boolean isResumePressed() {
+		return UIBounds.resume.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY())
+				|| UIBounds.pauseButton.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
 	}
 
 	@Override
@@ -84,5 +108,9 @@ public class Controller extends KeyInput implements InputProcessor {
 	@Override
 	public boolean scrolled(int amount) {
 		return false;
+	}
+
+	public boolean isMeinMenuPressed() {
+		return UIBounds.backToMenu.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
 	}
 }

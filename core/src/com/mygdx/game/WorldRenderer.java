@@ -13,6 +13,10 @@ public class WorldRenderer {
 	private OrthographicCamera _camera;
 	private SpriteBatch _batch;
 
+	// ポーズ時の選択メッセージ矩形領域
+	Rectangle _resumeBounds;
+
+
 	public WorldRenderer (World world, OrthographicCamera cam) {
 		_world = world;
 		_camera = cam;
@@ -27,7 +31,7 @@ public class WorldRenderer {
 
 		_batch.setProjectionMatrix(_camera.combined);
 		_batch.begin();
-		_world._particle.render(_batch);    // パーティクルエフェクト描画
+		_world.getParticle().render(_batch);    // パーティクルエフェクト描画
 		_world._gate.draw(_batch);
 		drawCharacter();
 		drawUI();
@@ -52,13 +56,20 @@ public class WorldRenderer {
 	private void drawMessage() {
 		switch (_world.getState()) {
 			case READY:
-				_batch.draw(Assets.ready, Ascend.GAME_WIDTH / 2 - Assets.ready.getRegionWidth() / 2, Ascend.GAME_HEIGHT / 2 + 100);
+				_batch.draw(Assets.ready, getCenterX() - Assets.ready.getRegionWidth() / 2, Ascend.GAME_HEIGHT / 2 + 100);
+				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, Ascend.GAME_HEIGHT / 2 - 200);
+				break;
+			case PAUSE:
+				_batch.draw(Assets.pause, getCenterX() - Assets.pause.getRegionWidth() / 2, _camera.position.y+150);
+				_batch.draw(Assets.resume, getCenterX() - Assets.resume.getRegionWidth() / 2, _camera.position.y);
+				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y-100);
 				break;
 			case GAMEOVER:
-				_batch.draw(Assets.gameover, Ascend.GAME_WIDTH / 2 - Assets.gameover.getRegionWidth() / 2, _camera.position.y);
+				_batch.draw(Assets.gameover, getCenterX() - Assets.gameover.getRegionWidth() / 2, _camera.position.y+100);
+				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, _camera.position.y - 200);
 				break;
 			case GAMECLEAR:
-				_batch.draw(Assets.gameclear, Ascend.GAME_WIDTH / 2 - Assets.gameclear.getRegionWidth() / 2, _camera.position.y);
+				_batch.draw(Assets.gameclear, getCenterX() - Assets.gameclear.getRegionWidth() / 2, _camera.position.y);
 				break;
 		}
 	}
@@ -70,20 +81,34 @@ public class WorldRenderer {
 		}
 	}
 
+	private float getCenterX() {
+		return Ascend.GAME_WIDTH / 2;
+	}
+
+	private float getTopY() {
+		return _camera.position.y + Ascend.GAME_HEIGHT / 2;
+	}
+	private float getBottomY() {
+		return _camera.position.y - Ascend.GAME_HEIGHT / 2;
+	}
+
 	private void drawUI() {
 		// スローゲージ
-		_batch.draw(Assets.slowgauge, 50, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 40, _world._robo.getSlowGauge() * 2, 24);
+		_batch.draw(Assets.slowgauge, 50, getTopY() - 40, _world._robo.getSlowGauge() * 2, 24);
 		// ハート
-		for (int i = 0; i < _world._robo.getHitPoint(); i++) {
-			_batch.draw(Assets.hitpoint, 300 + i * 40, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 45, 32, 32);
+		for (int i = 0; i < _world._robo.MAX_HP; i++) {
+			if(_world._robo.getHitPoint() > i)
+				_batch.draw(Assets.hitpoint, 300 + i * 40, getTopY() - 45, 32, 32);
+			else
+				_batch.draw(Assets.damage, 300 + i * 40, getTopY() - 45, 32, 32);
 		}
 		// 時計マーク
-		_batch.draw(Assets.clockUI, 10, _camera.position.y + Ascend.GAME_HEIGHT / 2 - 42, 32, 32);
+		_batch.draw(Assets.clockUI, 10, getTopY() - 42, 32, 32);
 		// 一時停止ボタン/レジューム
 		if (_world.getState() == GameScreen.State.RUNNING)
-			_batch.draw(Assets.pause, 10, _camera.position.y - Ascend.GAME_HEIGHT / 2, 64, 64);
+			_batch.draw(Assets.pause_button, UIBounds.pauseButton.getX(), getBottomY(), 64, 64);
 		else
-			_batch.draw(Assets.resume, 10, _camera.position.y - Ascend.GAME_HEIGHT / 2, 64, 64);
+			_batch.draw(Assets.resume_button, 0, getBottomY(), 64, 64);
 	}
 
 }

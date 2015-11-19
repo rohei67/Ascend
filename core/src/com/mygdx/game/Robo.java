@@ -11,14 +11,15 @@ public class Robo {
 		JUMP, FALL, HIT, DEAD
 	}
 
-	static final float JUMP_VELOCITY = 600;
-	static final float MOVE_VELOCITY = 10;
-	static final int WIDTH = 32;
-	static final int HEIGHT = 32;
-	static final float GRAVITY = -820;
-	static final int MAX_SLOW_GAUGE = 100;
-	static final int HIT_RECOVER_TIME = 3;
-	static final float SLOW_RATE = 0.3f;
+	float JUMP_VELOCITY = 600;
+	float MOVE_VELOCITY = 10;
+	int WIDTH = 32;
+	int HEIGHT = 32;
+	float GRAVITY = -820;
+	int MAX_SLOW_GAUGE = 100;
+	int HIT_RECOVER_TIME = 1; // second
+	float SLOW_RATE = 0.3f;
+	int MAX_HP = 3;
 
 	Vector2 _velocity;
 	Vector2 _position;
@@ -26,6 +27,7 @@ public class Robo {
 
 	State _state;
 	float _stateTime;
+	float _frameAnimTime;
 	boolean _isFaceRight;
 	float _heightSoFar;
 	int _hitPoint;
@@ -40,7 +42,8 @@ public class Robo {
 
 		_state = State.JUMP;
 		_stateTime = 0;
-		_hitPoint = 3;
+		_frameAnimTime = 0;
+		_hitPoint = MAX_HP;
 		_slowGauge = MAX_SLOW_GAUGE;
 		_slowRate = 1;
 		_isFaceRight = false;
@@ -96,6 +99,7 @@ public class Robo {
 			_heightSoFar = maxHeight;
 
 		// Hit状態なら一定時間後にJump状態に戻る
+		//todo: pause時にstateTime が更新されてしまう問題
 		if (isHit() && _stateTime > HIT_RECOVER_TIME)
 			_state = State.JUMP;
 	}
@@ -107,16 +111,16 @@ public class Robo {
 	boolean _blinkSwitcher;
 
 	public void draw(SpriteBatch batch) {
-		_stateTime += Gdx.graphics.getDeltaTime();
+		_frameAnimTime += Gdx.graphics.getDeltaTime();
 		TextureRegion currentFrame;
 		if (isHit() || isDead()) {
-			currentFrame = Assets.roboHitAnim.getKeyFrame(_stateTime);
+			currentFrame = Assets.roboHitAnim.getKeyFrame(_frameAnimTime);
 			if (_blinkSwitcher || isDead())
 				batch.draw(currentFrame, getX(), getY(), getWidth(), getHeight());
 			_blinkSwitcher = !_blinkSwitcher;
 			return;
 		} else
-			currentFrame = Assets.roboJumpAnim.getKeyFrame(_stateTime);
+			currentFrame = Assets.roboJumpAnim.getKeyFrame(_frameAnimTime);
 		if (_isFaceRight)
 			batch.draw(currentFrame, getX() + getWidth(), getY(), -getWidth(), getHeight());
 		else
