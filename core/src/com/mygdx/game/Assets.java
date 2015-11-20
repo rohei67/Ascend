@@ -24,8 +24,9 @@ public class Assets {
 	public static Animation roboHitAnim;
 	public static Animation devilAnim;
 
-	// ステージ構造物
-	public static TextureRegion gateTexture;
+	// ステージ背景
+	public static TextureRegion gate;
+	public static TextureRegion sun;
 
 	// メッセージ画像
 	public static TextureRegion ready;
@@ -108,7 +109,8 @@ public class Assets {
 		touchme = textureAtlas.findRegion("touchme");
 
 		// 背景オブジェクト
-		gateTexture = textureAtlas.findRegion("gate");
+		gate = textureAtlas.findRegion("gate");
+		sun = textureAtlas.findRegion("sun");
 
 		loadMusic();
 		loadSound();

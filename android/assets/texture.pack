@@ -59,30 +59,37 @@ resume
   orig: 238, 64
   offset: 0, 0
   index: -1
-devil
+sun
   rotate: false
-  xy: 665, 393
-  size: 192, 32
-  orig: 192, 32
+  xy: 665, 225
+  size: 200, 200
+  orig: 200, 200
   offset: 0, 0
   index: -1
 touchme
   rotate: false
-  xy: 417, 199
+  xy: 867, 265
   size: 138, 160
   orig: 138, 160
   offset: 0, 0
   index: -1
+devil
+  rotate: false
+  xy: 417, 327
+  size: 192, 32
+  orig: 192, 32
+  offset: 0, 0
+  index: -1
 play
   rotate: false
-  xy: 557, 295
+  xy: 867, 199
   size: 132, 64
   orig: 132, 64
   offset: 0, 0
   index: -1
 quit
   rotate: false
-  xy: 557, 229
+  xy: 417, 261
   size: 131, 64
   orig: 131, 64
   offset: 0, 0
@@ -103,23 +110,9 @@ gate
   index: -1
 on
   rotate: false
-  xy: 859, 361
+  xy: 550, 261
   size: 86, 64
   orig: 86, 64
-  offset: 0, 0
-  index: -1
-pause_button
-  rotate: false
-  xy: 947, 361
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
-resume_button
-  rotate: false
-  xy: 691, 327
-  size: 64, 64
-  orig: 64, 64
   offset: 0, 0
   index: -1
 robo
@@ -129,30 +122,44 @@ robo
   orig: 64, 32
   offset: 0, 0
   index: -1
+pause_button
+  rotate: false
+  xy: 397, 195
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+resume_button
+  rotate: false
+  xy: 463, 195
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 robo_hit
   rotate: false
-  xy: 757, 359
+  xy: 529, 227
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 clockUI
   rotate: false
-  xy: 823, 359
+  xy: 611, 327
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 damage
   rotate: false
-  xy: 252, 1
+  xy: 595, 227
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 hitpoint
   rotate: false
-  xy: 286, 1
+  xy: 252, 1
   size: 32, 32
   orig: 32, 32
   offset: 0, 0

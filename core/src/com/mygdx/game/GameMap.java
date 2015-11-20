@@ -24,6 +24,9 @@ public class GameMap {
 	private int _mapPixelHeight;
 	MapObjects _objects;
 	Rectangle _goalRect;
+	private static final int[] BACKGROUND = new int[]{0};
+	private static final int[] FOREGROUND = new int[]{2};
+
 
 	public GameMap() {
 		_tiledMap = new TmxMapLoader().load("stage1.tmx");
@@ -57,6 +60,14 @@ public class GameMap {
 	public void render(OrthographicCamera camera) {
 		_tiledMapRenderer.setView(camera);
 		_tiledMapRenderer.render();
+	}
+	public void renderBackground(OrthographicCamera camera) {
+		_tiledMapRenderer.setView(camera);
+		_tiledMapRenderer.render(BACKGROUND);
+	}
+	public void renderForeground(OrthographicCamera camera) {
+		_tiledMapRenderer.setView(camera);
+		_tiledMapRenderer.render(FOREGROUND);
 	}
 
 	public MapLayer getLayer(int n) {

@@ -20,10 +20,10 @@
  </tileset>
  <layer name="background" width="15" height="100">
   <data encoding="base64" compression="zlib">
-   eJztw0ENAAAMA6Grf9MTsS8krJqqqqqqqvp60UQF3Q==
+   eJztl8kOwzAIRJ2uly5K0+X//7T4YCmKSm0wQ2nVw5NyCQkwg/GQUho6uBI34k48OmO9YiQugLgSDsSR2BI7Yi9450Scld+dQPlY9Ozdv41B+iWtPVLHVmySTIcSEF6z8MEnKf+fnzW+mXsB5WcO9NzU5hNhpi+RaFOTt6cPrGYEp3fE7OE00uOZec29e2BBzSOaPrfMsOhnYARq+0+Ldntq7K3lojVk7FYdo+8cc75lVmQ8ztXJuf5okDlw/i87YYuHI+5KLSw9Hd1H3Mz21jp3d0be+zRY7WUSTUS4nxY99NbAM0cLavVB6HMFyCPHXBvGs/bBL5ypf3ieQwYPWg==
   </data>
  </layer>
- <objectgroup color="#aaffff" draworder="index" name="object">
+ <objectgroup color="#aaffff" draworder="index" name="object" visible="0">
   <object id="2" x="208" y="65" width="64" height="64">
    <properties>
     <property name="goal" value=""/>
@@ -97,7 +97,7 @@
  </objectgroup>
  <layer name="foreground" width="15" height="100">
   <data encoding="base64" compression="zlib">
-   eJztl1EKwDAIQ8v+1t3/vmsZhTKECSWzhjzwX1ONthTROVvUFld0Ig5GrlnyRcKuRa9PdYk/yOSBTMwe9hV6m73QzNggdWHf+RG8PUi64vHMiO6kB/XnXsiD12DUz7pjWWpDguoF7Y415v18BOeSGTav8/7VrbgBh1cDzQ==
+   eJztl+EKgCAMhP1bPUHv/6IpEUhITfJyO+6D+yvb3G6akigsWWvWNjsQA1esUeJFwl6Lkp/yEn8QyQOZqD3sTbobX2hm2iDrwr7zZ3D3INUVj2VG9E46UX/6Qh78Dcb6td6xLLkhQfXCyN2xP2g0qHN7qfezh3iiwuZ11r96SweAlATF
   </data>
  </layer>
 </map>

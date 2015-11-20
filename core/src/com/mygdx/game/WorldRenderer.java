@@ -27,9 +27,12 @@ public class WorldRenderer {
 		Gdx.gl20.glClearColor(0, 0, 0, 1);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		_camera.update();
-		_world.getMap().render(_camera);
-
 		_batch.setProjectionMatrix(_camera.combined);
+
+		_world.getMap().renderBackground(_camera);
+		stageBgDraw();
+		_world.getMap().renderForeground(_camera);
+
 		_batch.begin();
 		_world.getParticle().render(_batch);    // パーティクルエフェクト描画
 		_world._gate.draw(_batch);
@@ -38,9 +41,13 @@ public class WorldRenderer {
 		drawMessage();
 		_batch.end();
 
-		// todo:暫定的なデバッグ用描画
 //		drawDebug();
 	}
+
+	private void stageBgDraw() {
+		// todo: ステージごとの背景表示
+	}
+
 	ShapeRenderer _shapeRenderer = new ShapeRenderer();
 
 	private void drawDebug() {
