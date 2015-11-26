@@ -71,21 +71,30 @@ public class WorldRenderer {
 				_batch.draw(Assets.resume, getCenterX() - Assets.resume.getRegionWidth() / 2, _camera.position.y);
 				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y-100);
 				break;
-			case GAMEOVER:
+			case GAME_OVER:
 				_batch.draw(Assets.gameover, getCenterX() - Assets.gameover.getRegionWidth() / 2, _camera.position.y+100);
 				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, _camera.position.y - 200);
 				break;
-			case GAMECLEAR:
+			case GAME_CLEAR:
 				_batch.draw(Assets.gameclear, getCenterX() - Assets.gameclear.getRegionWidth() / 2, _camera.position.y);
+				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, _camera.position.y - 200);
+				break;
+			case NEXT_STAGE:
+				_batch.draw(Assets.stageclear, getCenterX() - Assets.stageclear.getRegionWidth() / 2, _camera.position.y+150);
+				_batch.draw(Assets.nextstage, getCenterX() - Assets.nextstage.getRegionWidth() / 2, _camera.position.y);
+				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y-100);
 				break;
 		}
 	}
 
 	private void drawCharacter() {
-		_world._robo.draw(_batch);
 		for (Devil devil : _world._devils) {
 			devil.draw(_batch);
 		}
+		for (MovingPlatform platform : _world._movingPlatforms) {
+			platform.draw(_batch);
+		}
+		_world._robo.draw(_batch);
 	}
 
 	private float getCenterX() {

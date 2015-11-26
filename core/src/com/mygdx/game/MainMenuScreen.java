@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen extends ScreenAdapter {
+	private static final int STAGE_DEBUG = 1;
 	Ascend _game;
 	OrthographicCamera _camera;
 	Viewport _viewport;
@@ -26,6 +27,7 @@ public class MainMenuScreen extends ScreenAdapter {
 		_batch = new SpriteBatch();
 		_touchPoint = new Vector3();
 
+		Assets.musicStop();
 		Assets.titleMusicPlay();
 	}
 
@@ -68,7 +70,7 @@ public class MainMenuScreen extends ScreenAdapter {
 			if (UIBounds.play.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
-				_game.setScreen(new GameScreen(_game));
+				_game.setScreen(new GameScreen(_game, STAGE_DEBUG));	// １面からスタート
 			}
 			if (UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.isMute = !Assets.isMute;

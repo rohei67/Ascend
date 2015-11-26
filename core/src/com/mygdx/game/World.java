@@ -15,29 +15,43 @@ public class World {//implements InputProcessor {
 	private GameParticle _particle;
 	private State _state;
 	private Controller _controller;
+	private int _stage;
+
+	private final int FINAL_STAGE = 2;    // 最終面を設定
 
 	// Character
 	Robo _robo;
 	ArrayList<Devil> _devils;
 	GoalGate _gate;
+	ArrayList<MovingPlatform> _movingPlatforms;
 
 
-	public World(Ascend game, OrthographicCamera camera, Viewport viewport) {
+	public World(Ascend game, OrthographicCamera camera, Viewport viewport, int stage) {
 		_camera = camera;
+		_stage = stage;
 		initGame();
 		// todo:viewport持ちたくない
 		_controller = new Controller(game, this, viewport);
 	}
 
-	private void initGame() {
-		_map = new GameMap();
+	public void nextStage() {
+		_stage++;
+		initGame();
+	}
+
+	public void initGame() {
+		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
+		_map = new GameMap(_stage);
 		_particle = new GameParticle();
-		Assets.stage1MusicPlay();
+		Assets.musicStop();
+		Assets.stageMusicPlay(_stage);
 
 		// Character
 		_robo = new Robo();
 		_devils = new ArrayList<Devil>();
 		_map.generateDevils(_devils);
+		_movingPlatforms = new ArrayList<MovingPlatform>();
+		_map.generatePlatforms(_movingPlatforms);
 
 		Rectangle rect = _map.getGoalRect();
 		_particle.generateGateParticle(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
@@ -50,12 +64,15 @@ public class World {//implements InputProcessor {
 		_robo.updateY(_map.getMaxHeight());
 
 		if (_robo.checkFallout())
-			_state = State.GAMEOVER;
+			_state = State.GAME_OVER;
 		if (_robo.isDead()) return;
 
 		if (_gate.isReach(_robo.getBounds())) {
 			Assets.playSound(Assets.goalSound);
-			_state = State.GAMECLEAR;
+			if (_stage + 1 <= FINAL_STAGE)
+				_state = State.NEXT_STAGE;
+			else
+				_state = State.GAME_CLEAR;
 			_particle.generateGoalParticle(_robo.getCenterX(), _robo.getCenterY());
 		}
 
@@ -67,6 +84,21 @@ public class World {//implements InputProcessor {
 		_camera.position.y = _robo.getMaxHeight();
 
 		enemyUpdate();
+		movingPlatformUpdate();
+	}
+
+	private void movingPlatformUpdate() {
+		for (MovingPlatform platform : _movingPlatforms) {
+			if (!inDisplay(platform.getY(), platform.getHeight()))
+				continue;
+			platform.update(_robo.getSlowRate());
+			if (!_robo.isFall()) continue;
+			if (_robo.getBottomBounds().overlaps(platform.getBounds())) {
+				Assets.playSound(Assets.jumpSound);
+				_robo.jump();
+				_particle.generateJumpParticle(_robo.getCenterX(), _robo.getY());
+			}
+		}
 	}
 
 	private void enemyUpdate() {
@@ -84,6 +116,10 @@ public class World {//implements InputProcessor {
 					_robo.dead();
 			}
 		}
+	}
+
+	public void cameraInit() {
+		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
 	}
 
 	private boolean inDisplay(float y, int h) {
@@ -113,8 +149,8 @@ public class World {//implements InputProcessor {
 
 	private void mapPlatformCollision() {
 		if (_robo.isFall()) {
-			boolean canJump = _map.isCellPlatform(_robo.getX(), _robo.getY());    // bottom left
-			canJump |= _map.isCellPlatform(_robo.getX() + _robo.getWidth(), _robo.getY());    // bottom right
+			boolean canJump = _map.isCellPlatform(_robo.getX()+5, _robo.getY());    // bottom left
+			canJump |= _map.isCellPlatform(_robo.getX() + _robo.getWidth()-5, _robo.getY());    // bottom right
 
 			if (canJump) {
 				Assets.playSound(Assets.jumpSound);

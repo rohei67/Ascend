@@ -26,15 +26,17 @@ public class Assets {
 
 	// ステージ背景
 	public static TextureRegion gate;
-	public static TextureRegion sun;
+	public static TextureRegion movingPlatform;
 
 	// メッセージ画像
 	public static TextureRegion ready;
+	public static TextureRegion stageclear;
 	public static TextureRegion gameclear;
 	public static TextureRegion gameover;
 	public static TextureRegion pause;
 	public static TextureRegion resume;
 	public static TextureRegion backtomenu;
+	public static TextureRegion nextstage;
 
 	// UI要素
 	public static TextureRegion slowgauge;
@@ -48,6 +50,7 @@ public class Assets {
 	// 音楽
 	public static Music titleMusic;
 	public static Music stage1Music;
+	public static Music stage2Music;
 	// 効果音
 	public static Sound jumpSound;
 	public static Sound hitSound;
@@ -94,10 +97,12 @@ public class Assets {
 		gameclear = textureAtlas.findRegion("gameclear");
 		pause = textureAtlas.findRegion("pause");
 		gameover = textureAtlas.findRegion("gameover");
+		stageclear = textureAtlas.findRegion("stageclear");
 
 		// 選択画像文字
 		resume = textureAtlas.findRegion("resume");
 		backtomenu = textureAtlas.findRegion("backtomenu");
+		nextstage = textureAtlas.findRegion("nextstage");
 
 		// UI
 		slowgauge = textureAtlas.findRegion("slowgauge");
@@ -110,7 +115,7 @@ public class Assets {
 
 		// 背景オブジェクト
 		gate = textureAtlas.findRegion("gate");
-		sun = textureAtlas.findRegion("sun");
+		movingPlatform = textureAtlas.findRegion("moving_platform");
 
 		loadMusic();
 		loadSound();
@@ -138,6 +143,10 @@ public class Assets {
 		stage1Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage1.ogg"));
 		stage1Music.setLooping(true);
 		stage1Music.setVolume(1.0f);
+
+		stage2Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage2.ogg"));
+		stage2Music.setLooping(true);
+		stage2Music.setVolume(1.0f);
 	}
 
 	public static void titleMusicPlay() {
@@ -148,11 +157,19 @@ public class Assets {
 	public static void musicStop() {
 		titleMusic.stop();
 		stage1Music.stop();
+		stage2Music.stop();
 	}
 
-	public static void stage1MusicPlay() {
+	public static void stageMusicPlay(int stage) {
 		if (isMute) return;
-		stage1Music.play();
+		switch (stage) {
+			case 1:
+				stage1Music.play();
+				break;
+			case 2:
+				stage2Music.play();
+				break;
+		}
 	}
 
 	public static void dispose() {

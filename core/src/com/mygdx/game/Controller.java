@@ -45,10 +45,10 @@ public class Controller extends KeyInput implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		_touchPoint = _viewport.unproject(new Vector2(screenX, screenY));
 
 		switch (_world.getState()) {
 			case RUNNING:
+				_touchPoint = _viewport.unproject(new Vector2(screenX, screenY));
 				if (isTouchPause(_touchPoint.x, _touchPoint.y)) {
 					return true;
 				}
@@ -85,6 +85,19 @@ public class Controller extends KeyInput implements InputProcessor {
 					_game.setScreen(new MainMenuScreen(_game));
 				}
 				break;
+			case NEXT_STAGE:
+				if(isNextStagePressed()) {
+					Assets.playSound(Assets.selectSound);
+					Assets.musicStop();
+					_world.nextStage();
+//					_world.cameraInit();
+				}
+				if(isMeinMenuPressed()) {
+					Assets.playSound(Assets.selectSound);
+					Assets.musicStop();
+					_game.setScreen(new MainMenuScreen(_game));
+				}
+				break;
 		}
 
 		return true;
@@ -112,5 +125,9 @@ public class Controller extends KeyInput implements InputProcessor {
 
 	public boolean isMeinMenuPressed() {
 		return UIBounds.backToMenu.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
+	}
+
+	public boolean isNextStagePressed() {
+		return UIBounds.nextStage.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
 	}
 }

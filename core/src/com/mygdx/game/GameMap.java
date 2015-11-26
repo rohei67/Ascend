@@ -28,8 +28,9 @@ public class GameMap {
 	private static final int[] FOREGROUND = new int[]{2};
 
 
-	public GameMap() {
-		_tiledMap = new TmxMapLoader().load("stage1.tmx");
+	public GameMap(int stageNum) {
+		String tmxName = "map/stage"+stageNum+".tmx";
+		_tiledMap = new TmxMapLoader().load(tmxName);
 		_tiledMapRenderer = new OrthogonalTiledMapRenderer(_tiledMap);
 		calcMapPixel();
 		// object layer
@@ -114,6 +115,15 @@ public class GameMap {
 			if (object.getProperties().containsKey("devil") && object instanceof RectangleMapObject) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				devils.add(new Devil(rect.getX(), rect.getY()));
+			}
+		}
+	}
+
+	public void generatePlatforms(ArrayList<MovingPlatform> platforms) {
+		for (MapObject object : _objects) {
+			if (object.getProperties().containsKey("moving_platform") && object instanceof RectangleMapObject) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				platforms.add(new MovingPlatform(rect.getX(), rect.getY()));
 			}
 		}
 	}

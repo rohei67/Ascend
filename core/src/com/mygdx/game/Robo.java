@@ -7,6 +7,10 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robo {
+	public Rectangle getBottomBounds() {
+		return new Rectangle(_bounds.x, _bounds.y, _bounds.width, _bounds.height/3);
+	}
+
 	enum State {
 		JUMP, FALL, HIT, DEAD
 	}

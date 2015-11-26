@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="21">
- <tileset firstgid="1" name="stage" tilewidth="32" tileheight="32" tilecount="48">
-  <image source="tiledmap.png" width="256" height="192"/>
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="56">
+  <image source="tiledmap_out.png" width="288" height="252"/>
   <tile id="8">
    <properties>
     <property name="platform" value=""/>
@@ -17,13 +17,33 @@
     <property name="platform" value=""/>
    </properties>
   </tile>
+  <tile id="26">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
  </tileset>
  <layer name="background" width="15" height="100">
   <data encoding="base64" compression="zlib">
-   eJztl8kOwzAIRJ2uly5K0+X//7T4YCmKSm0wQ2nVw5NyCQkwg/GQUho6uBI34k48OmO9YiQugLgSDsSR2BI7Yi9450Scld+dQPlY9Ozdv41B+iWtPVLHVmySTIcSEF6z8MEnKf+fnzW+mXsB5WcO9NzU5hNhpi+RaFOTt6cPrGYEp3fE7OE00uOZec29e2BBzSOaPrfMsOhnYARq+0+Ldntq7K3lojVk7FYdo+8cc75lVmQ8ztXJuf5okDlw/i87YYuHI+5KLSw9Hd1H3Mz21jp3d0be+zRY7WUSTUS4nxY99NbAM0cLavVB6HMFyCPHXBvGs/bBL5ypf3ieQwYPWg==
+   eJztmMkOwyAMREm6XbqoTdr+/5/WHJBQFBewPcipenhSLiHYnrEhQwhhUDATT+JFvJVrrTESO8C6LZyJC3EgjsSp4Z0rcRN+dwLFY1Gzb3u7O6lXa+6ROrZiH9p02EKs28NJLbyQ9h+fJb7JvYDyM4d1LZdI40HoTEuL5yVx9/SBVY/g9I7oPZxGNJ7Jc967BhaUPCKpc00P8z4DPVA6/9Ro10rbPbSctIZcu1bH6DtHzlZ6RaTHXJ065x8NMgbO3+lMWONhj2elGpae9u4jrmf31jp3d0be+yRoZpc0FoQXpLNHmwMOD/+71ij5F6HPcQP5tT7D/cJM/cPzAUoSDuI=
   </data>
  </layer>
- <objectgroup color="#aaffff" draworder="index" name="object" visible="0">
+ <objectgroup color="#aaffff" draworder="index" name="object">
   <object id="2" x="208" y="65" width="64" height="64">
    <properties>
     <property name="goal" value=""/>
@@ -97,7 +117,7 @@
  </objectgroup>
  <layer name="foreground" width="15" height="100">
   <data encoding="base64" compression="zlib">
-   eJztl+EKgCAMhP1bPUHv/6IpEUhITfJyO+6D+yvb3G6akigsWWvWNjsQA1esUeJFwl6Lkp/yEn8QyQOZqD3sTbobX2hm2iDrwr7zZ3D3INUVj2VG9E46UX/6Qh78Dcb6td6xLLkhQfXCyN2xP2g0qHN7qfezh3iiwuZ11r96SweAlATF
+   eJztl+EKgCAMhP1bvYTv/5QpEUiMMvKaO+6D+yvb3G6akqgsRWvR5h1IB2esUeJFwl6Lmp/yEn8QyQOZaD3sSbqbudDM2CDrwr7zPbh6kOqKp2dG9E46UH/OhTz4G4z1s96xLLkhQfXCyN2RbzQa1Llvafdz9g0lNGxe1/tXt7QDVwMFCw==
   </data>
  </layer>
 </map>

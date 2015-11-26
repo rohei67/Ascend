@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen extends ScreenAdapter {
 	public enum State {
-		READY, RUNNING, GAMEOVER, PAUSE, GAMECLEAR
+		READY, RUNNING, GAME_OVER, PAUSE, NEXT_STAGE, GAME_CLEAR
 	}
 
 	private Ascend _game;    // setScreen()で必要
@@ -20,20 +20,21 @@ public class GameScreen extends ScreenAdapter {
 	private WorldRenderer _renderer;
 
 
-	public GameScreen(Ascend game) {
+	public GameScreen(Ascend game, int stage) {
 		this._game = game;
-		initGame();
+		initGame(stage);
 	}
 
-	private void initGame() {
+	private void initGame(int stageNum) {
 		_camera = new OrthographicCamera(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT);
 		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
 		_viewport = new FitViewport(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT, _camera);
 		_viewport.apply();
 
-		Assets.stage1MusicPlay();
+		Assets.musicStop();
+		Assets.stageMusicPlay(stageNum);
 
-		_world = new World(_game, _camera, _viewport);
+		_world = new World(_game, _camera, _viewport, stageNum);
 		_renderer = new WorldRenderer(_world, _camera);
 	}
 	Vector2 pos = new Vector2();
@@ -51,19 +52,32 @@ public class GameScreen extends ScreenAdapter {
 			case RUNNING:
 				updateRunning();
 				break;
-			case GAMEOVER:
+			case GAME_OVER:
 				updateGameOver();
 				break;
-			case GAMECLEAR:
+			case NEXT_STAGE:
+				updateNextStage();
+				break;
+			case GAME_CLEAR:
 				updateGameClear();
 				break;
 		}
 	}
 
 	private void updateGameClear() {
+		// todo: 全ステージクリアで、暫定的にメインメニューに戻す
 		if (Gdx.input.justTouched()) {
 			Assets.playSound(Assets.selectSound);
-			setReady(State.READY);
+			Assets.musicStop();
+			_game.setScreen(new MainMenuScreen(_game));
+		}
+	}
+
+	private void updateNextStage() {
+		if (Gdx.input.justTouched()) {
+//			_world.nextStage();
+//			Assets.playSound(Assets.selectSound);
+//			setReady(State.READY);
 		}
 	}
 
@@ -76,7 +90,7 @@ public class GameScreen extends ScreenAdapter {
 
 	private void setReady(State running) {
 		_world._robo.initialize();
-		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
+		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 1);
 		_world.setState(running);
 	}
 

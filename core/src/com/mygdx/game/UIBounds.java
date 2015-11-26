@@ -16,6 +16,9 @@ public class UIBounds {
 	// プレイ画面UI
 	public static Rectangle pauseButton;
 
+	// ステージクリア時
+	public static Rectangle nextStage;
+
 	public static void load() {
 		// Main Menuの矩形領域取得
 		play = new Rectangle(getCenterX() - Assets.play.getRegionWidth() / 2, 480, Assets.play.getRegionWidth(), Assets.play.getRegionHeight());
@@ -27,6 +30,9 @@ public class UIBounds {
 		pauseButton = new Rectangle(0, 0, 64, 64);
 		resume = new Rectangle(getCenterX() - Assets.resume.getRegionWidth() / 2, Ascend.GAME_HEIGHT/2,
 				Assets.resume.getRegionWidth(), Assets.resume.getRegionHeight());
+		nextStage = new Rectangle(getCenterX() - Assets.nextstage.getRegionWidth() / 2, Ascend.GAME_HEIGHT/2,
+				Assets.nextstage.getRegionWidth(), Assets.nextstage.getRegionHeight());
+
 		backToMenu = new Rectangle(getCenterX() - Assets.backtomenu.getRegionWidth() / 2, Ascend.GAME_HEIGHT/2-100,
 				Assets.backtomenu.getRegionWidth(), Assets.backtomenu.getRegionHeight());
 	}
