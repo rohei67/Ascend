@@ -118,10 +118,6 @@ public class World {//implements InputProcessor {
 		}
 	}
 
-	public void cameraInit() {
-		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
-	}
-
 	private boolean inDisplay(float y, int h) {
 		return y < _camera.position.y + Ascend.GAME_HEIGHT / 2 &&    // キャラの下端
 				y + h > _camera.position.y - Ascend.GAME_HEIGHT / 2;    // キャラの上端
@@ -179,5 +175,6 @@ public class World {//implements InputProcessor {
 	public GameParticle getParticle() {
 		return _particle;
 	}
+
 }
 

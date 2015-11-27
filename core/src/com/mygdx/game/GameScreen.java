@@ -3,13 +3,12 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameScreen extends ScreenAdapter {
 	public enum State {
-		READY, RUNNING, GAME_OVER, PAUSE, NEXT_STAGE, GAME_CLEAR
+		READY, RUNNING, GAME_OVER, PAUSE, NEXT_STAGE, GAME_CLEAR, TO_MENU
 	}
 
 	private Ascend _game;    // setScreen()で必要
@@ -19,6 +18,12 @@ public class GameScreen extends ScreenAdapter {
 	private World _world;
 	private WorldRenderer _renderer;
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		_renderer.dispose();
+		_world.getMap().dispose();
+	}
 
 	public GameScreen(Ascend game, int stage) {
 		this._game = game;
@@ -37,7 +42,7 @@ public class GameScreen extends ScreenAdapter {
 		_world = new World(_game, _camera, _viewport, stageNum);
 		_renderer = new WorldRenderer(_world, _camera);
 	}
-	Vector2 pos = new Vector2();
+
 	@Override
 	public void render(float delta) {
 		update();
@@ -56,7 +61,6 @@ public class GameScreen extends ScreenAdapter {
 				updateGameOver();
 				break;
 			case NEXT_STAGE:
-				updateNextStage();
 				break;
 			case GAME_CLEAR:
 				updateGameClear();
@@ -69,15 +73,8 @@ public class GameScreen extends ScreenAdapter {
 		if (Gdx.input.justTouched()) {
 			Assets.playSound(Assets.selectSound);
 			Assets.musicStop();
+			_world.setState(State.TO_MENU);
 			_game.setScreen(new MainMenuScreen(_game));
-		}
-	}
-
-	private void updateNextStage() {
-		if (Gdx.input.justTouched()) {
-//			_world.nextStage();
-//			Assets.playSound(Assets.selectSound);
-//			setReady(State.READY);
 		}
 	}
 

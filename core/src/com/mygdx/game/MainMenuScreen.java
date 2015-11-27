@@ -18,6 +18,12 @@ public class MainMenuScreen extends ScreenAdapter {
 	Vector3 _touchPoint;
 	SpriteBatch _batch;
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		_batch.dispose();
+	}
+
 	public MainMenuScreen(Ascend game) {
 		this._game = game;
 		_camera = new OrthographicCamera(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT);
@@ -27,7 +33,6 @@ public class MainMenuScreen extends ScreenAdapter {
 		_batch = new SpriteBatch();
 		_touchPoint = new Vector3();
 
-		Assets.musicStop();
 		Assets.titleMusicPlay();
 	}
 
@@ -84,6 +89,7 @@ public class MainMenuScreen extends ScreenAdapter {
 				Assets.playSound(Assets.selectSound);
 			}
 			if (UIBounds.quit.contains(_touchPoint.x, _touchPoint.y)) {
+				Assets.dispose();
 				Gdx.app.exit();
 			}
 		}

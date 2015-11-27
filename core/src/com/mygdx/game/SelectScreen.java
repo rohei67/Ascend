@@ -41,6 +41,14 @@ public class SelectScreen extends ScreenAdapter {
 	final int DEBUG_FINAL_STAGE = 2;
 	int _stage = -1;
 
+	@Override
+	public void dispose() {
+		super.dispose();
+		_tiledMap.dispose();
+		_tiledMapRenderer.dispose();
+		_batch.dispose();
+	}
+
 	public SelectScreen(Ascend game) {
 		_game = game;
 		_camera = new OrthographicCamera(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT);
@@ -64,7 +72,7 @@ public class SelectScreen extends ScreenAdapter {
 		_objects = _tiledMap.getLayers().get("object").getObjects();
 		for (MapObject object : _objects) {
 			if (object.getProperties().containsKey("stage") && object instanceof RectangleMapObject) {
-				String prop = (String)object.getProperties().get("stage");
+				String prop = (String) object.getProperties().get("stage");
 				_stages.put(((RectangleMapObject) object).getRectangle(), Integer.parseInt(prop));
 			}
 		}
@@ -87,19 +95,18 @@ public class SelectScreen extends ScreenAdapter {
 				_game.setScreen(new MainMenuScreen(_game));
 			}
 			_stage = touchStage();
-			if(touchStage() != -1) {
+			if (touchStage() != -1) {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
-				dispose();
 				_game.setScreen(new GameScreen(_game, _stage));
 			}
 		}
 	}
 
 	private int touchStage() {
-		for(Map.Entry<Rectangle, Integer> e : _stages.entrySet()) {
+		for (Map.Entry<Rectangle, Integer> e : _stages.entrySet()) {
 			Rectangle rect = e.getKey();
-			if(rect. contains(_touchPoint.x, _touchPoint.y))
+			if (rect.contains(_touchPoint.x, _touchPoint.y))
 				return e.getValue();
 		}
 		return -1;
@@ -138,11 +145,6 @@ public class SelectScreen extends ScreenAdapter {
 		_batch.begin();
 		_batch.draw(Assets.backtomenu, _mainmenuBounds.getX(), _mainmenuBounds.getY());
 		_batch.end();
-	}
-
-	public void dispose() {
-		_tiledMap.dispose();
-		_tiledMapRenderer.dispose();
 	}
 
 	@Override

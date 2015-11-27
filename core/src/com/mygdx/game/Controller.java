@@ -10,7 +10,7 @@ public class Controller extends KeyInput implements InputProcessor {
 	private World _world;
 	private Vector2 _touchPoint;
 	private Viewport _viewport;
-	private Ascend _game;    // setScreen()で必要
+	private Ascend _game;
 
 
 	public Controller(Ascend game, World world, Viewport viewport) {
@@ -82,6 +82,7 @@ public class Controller extends KeyInput implements InputProcessor {
 				if(isMeinMenuPressed()) {
 					Assets.playSound(Assets.selectSound);
 					Assets.musicStop();
+					_world.setState(GameScreen.State.TO_MENU);
 					_game.setScreen(new MainMenuScreen(_game));
 				}
 				break;
@@ -90,7 +91,6 @@ public class Controller extends KeyInput implements InputProcessor {
 					Assets.playSound(Assets.selectSound);
 					Assets.musicStop();
 					_world.nextStage();
-//					_world.cameraInit();
 				}
 				if(isMeinMenuPressed()) {
 					Assets.playSound(Assets.selectSound);

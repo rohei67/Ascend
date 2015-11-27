@@ -13,10 +13,6 @@ public class WorldRenderer {
 	private OrthographicCamera _camera;
 	private SpriteBatch _batch;
 
-	// ポーズ時の選択メッセージ矩形領域
-	Rectangle _resumeBounds;
-
-
 	public WorldRenderer (World world, OrthographicCamera cam) {
 		_world = world;
 		_camera = cam;
@@ -127,4 +123,7 @@ public class WorldRenderer {
 			_batch.draw(Assets.resume_button, 0, getBottomY(), 64, 64);
 	}
 
+	public void dispose() {
+		_batch.dispose();
+	}
 }

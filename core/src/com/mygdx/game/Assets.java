@@ -151,23 +151,29 @@ public class Assets {
 
 	public static void titleMusicPlay() {
 		if (isMute) return;
-		titleMusic.play();
+		if (!titleMusic.isPlaying())
+			titleMusic.play();
 	}
 
 	public static void musicStop() {
-		titleMusic.stop();
-		stage1Music.stop();
-		stage2Music.stop();
+		if (titleMusic.isPlaying())
+			titleMusic.stop();
+		if (stage1Music.isPlaying())
+			stage1Music.stop();
+		if (stage2Music.isPlaying())
+			stage2Music.stop();
 	}
 
 	public static void stageMusicPlay(int stage) {
 		if (isMute) return;
 		switch (stage) {
 			case 1:
-				stage1Music.play();
+				if (!stage1Music.isPlaying())
+					stage1Music.play();
 				break;
 			case 2:
-				stage2Music.play();
+				if (!stage2Music.isPlaying())
+					stage2Music.play();
 				break;
 		}
 	}
