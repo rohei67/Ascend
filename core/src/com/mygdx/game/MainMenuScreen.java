@@ -52,8 +52,7 @@ public class MainMenuScreen extends ScreenAdapter {
 
 	private void drawSelectionMessage() {
 		_batch.draw(Assets.play, UIBounds.play.getX(), UIBounds.play.getY());
-		// todo: おいおい実装
-//		_batch.draw(Assets.select, UIBounds.select.getX(), UIBounds.select.getY());
+		_batch.draw(Assets.select, UIBounds.select.getX(), UIBounds.select.getY());
 		_batch.draw(Assets.sound, UIBounds.sound.getX(), UIBounds.sound.getY());
 		if (Assets.isMute)
 			_batch.draw(Assets.off, UIBounds.sound.getX() + UIBounds.sound.getWidth() - Assets.off.getRegionWidth(), UIBounds.sound.getY());
@@ -71,6 +70,10 @@ public class MainMenuScreen extends ScreenAdapter {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
 				_game.setScreen(new GameScreen(_game, STAGE_DEBUG));	// １面からスタート
+			}
+			if (UIBounds.select.contains(_touchPoint.x, _touchPoint.y)) {
+				Assets.playSound(Assets.selectSound);
+				_game.setScreen(new SelectScreen(_game));	// １面からスタート
 			}
 			if (UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.isMute = !Assets.isMute;
