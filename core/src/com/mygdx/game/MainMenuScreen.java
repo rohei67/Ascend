@@ -75,20 +75,17 @@ public class MainMenuScreen extends ScreenAdapter {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
 				_game.setScreen(new GameScreen(_game, STAGE_DEBUG));	// １面からスタート
-			}
-			if (UIBounds.select.contains(_touchPoint.x, _touchPoint.y)) {
+			} else if (UIBounds.select.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.playSound(Assets.selectSound);
-				_game.setScreen(new SelectScreen(_game));	// １面からスタート
-			}
-			if (UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
+				_game.setScreen(new SelectScreen(_game));	// ステージセレクト
+			} else if (UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.isMute = !Assets.isMute;
 				if (Assets.isMute)
 					Assets.musicStop();
 				else
 					Assets.titleMusicPlay();
 				Assets.playSound(Assets.selectSound);
-			}
-			if (UIBounds.quit.contains(_touchPoint.x, _touchPoint.y)) {
+			} else if (UIBounds.quit.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.dispose();
 				Gdx.app.exit();
 			}

@@ -19,11 +19,16 @@ public class GameScreen extends ScreenAdapter {
 	private WorldRenderer _renderer;
 
 	@Override
+	public void hide() {
+		super.hide();
+		Gdx.input.setInputProcessor(null);	// 入力が残るような気がするのでここでdisposeしておく
+	}
+
+	@Override
 	public void dispose() {
 		super.dispose();
 		_renderer.dispose();
 		_world.getMap().dispose();
-		Gdx.input.setInputProcessor(null);	// 入力が残るような気がするのでここでdisposeしておく
 	}
 
 	public GameScreen(Ascend game, int stage) {
