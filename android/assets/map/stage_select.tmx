@@ -8,7 +8,7 @@
    eJzt0bENACAMA8FkAfYfFxagCQWydIX1lavrqlpnPejk8/v70sRvohFfvnz5phjx5cuXb4oRX758+aYY8eXLl2+KEV++t25YfivZ
   </data>
  </layer>
- <objectgroup name="object">
+ <objectgroup name="object" visible="0">
   <object id="4" x="224" y="64" width="160" height="96">
    <properties>
     <property name="stage" value="1"/>
