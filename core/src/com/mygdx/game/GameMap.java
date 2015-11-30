@@ -112,9 +112,12 @@ public class GameMap {
 
 	public void generateDevils(ArrayList<Devil> devils) {
 		for (MapObject object : _objects) {
-			if (object.getProperties().containsKey("devil") && object instanceof RectangleMapObject) {
+			if (object.getProperties().containsKey("devil")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				devils.add(new Devil(rect.getX(), rect.getY()));
+			} else if(object.getProperties().containsKey("devil1")) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				devils.add(new Devil1(rect.getX(), rect.getY()));
 			}
 		}
 	}

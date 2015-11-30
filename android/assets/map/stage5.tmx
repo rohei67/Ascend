@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="40">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="56">
+  <image source="tiledmap_out.png" width="288" height="252"/>
+  <tile id="8">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJx1173Oq0AMhGFKypRAB/d/kec7EpaevNoUKEAW2+ufmdlj27bn7zre3+vvut/r//3n79rf34P7872/3utkzfPef7ifNQfP9fm8Ng/+v3N/YPfE78RhnPV5/Ih7f+3d+B9fE9sVm7P+zvobOycxzR529nri7+T9RS5O/j/xfcbHsfBx5Z1+9u0795/sU9+zh/E79R/f3k/c5n7sW4fxP/bHx+RqcjH9N9exqMsH39bG74/tu8e6znfGdGPjzvonObS3zY295zc7/zfn5s2e85vP9j2fzqV7sw9qd89/c1kf/YgFxnNt635rz+xZN3W78+y68Xvjy/zb72dsXrmcySe2nc0na83l5Kh7elj/wY61Effah7O/zvQn9/baHnurXm1NnOVj++65wYfi857n4qq9IiaLFdb5XPxfLGpd68d8Hdt3za2vM2Rcxdc7dp2dicfcOtNidLHJeH9xpHV4tu+an/Ev/s08yx/mb97Ps1zUXhabnXN7Rm1gf5m74l1jW83+gw97QhywJ50p9Ys5UTcYg/gnjs437knfap/Wyxw+edd459cZtafK4/v2PYPaKW/Mc/vL/hG3rPNKw6gVxLni18Rj3q3h2F7hkLxuXpxteb5ztceP8dg/d/yM3z0+it3ldXFmz/3UvT3nXjp7v2JSCxXTjOnhqlZ1T3K9nFYOqg5Rz3Vuyt3Vu+ol67PSC+1Ve8T5Fi/aH9qQy8R1NYYxqa2al5WWl3fl5Goxa1ydcGdNa6IWsZ+eha3mpxyuXtCePVE9a2wrzaiNzua+8FNuNe/+iqHqDG2ok+xv+9RZtGbl1jO+e367+XZ1ZlQXybvm2310Ht2z54viQc+lYo6YJ0+KIdZK7JRn5M9fHGxM1Y/yvzWRg1b4LJZ4dtOmeeqsG1O5rbyiTl7x7cQ16+u3nFNOte/Kxf22PFu/1lhsEFc8r5jP/qrz1Fnm546PXxqjurx7LPeszgrlWjFDLnUPYr64VL3VPfhO/us5wNmwvlMX611NMHFZyw/fVX+Ze+eha82dtVcb2sfjv7q3PK8WHz/u3b5vHnouXPHeme+sn5zpHtxv81Btv8evHFudLV/8miG1hLksR9hr1rnnMn2V63tOaKxiajWo568VXvmN2so50o+4L4bK49ZLTXKxpnXrObT8qHZxbs7cO7PWyljNh32k3nwWdtU51tYZr8byTCGfWBvPwhPfP2hgijc=
+  </data>
+ </layer>
+ <objectgroup color="#aaffff" draworder="index" name="object">
+  <object id="2" x="208" y="65" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="8" x="335" y="2550" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="13" x="171" y="1682" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="18" x="235" y="701" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="21" x="108" y="2876" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="22" x="147" y="2479" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="23" x="395" y="2033" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="24" x="16" y="1981" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="25" x="27" y="1728" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="26" x="295" y="1575" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="27" x="113" y="1071" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="28" x="217" y="934" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="29" x="97" y="474" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="31" x="337" y="368" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="32" x="59" y="238" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="33" x="248" y="1408" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="34" x="224" y="1159" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="35" x="116" y="841" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="37" x="369" y="186" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="38" x="223" y="2987" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="39" x="211" y="2362" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztmNEOgyAMRfsfbsv9/6+cPpARUkrXgkXCSc4LwqViRCLR5uJ1+j79RBeiAIV3zTljDkhei17zRQGab+29gHz3ld5VTs/7a60nkoNpu9bHsg6ge/cUD6D5aoVC6zhNRi+keTY/wKil3MN6nzsizzOoODI/we2Hqa1VQ5nV6rsSYJwd0LPqLQFjifVbvhoQlMZ45xzZPxqQvWYQ/wy4/bdE02d1wOjNGwFIVx8ENzz5GQ2MXnrl5Fk1e3EMyLSAhpYs6fo/7RHAOTb36dT+PWn8AtrrF+g=
+  </data>
+ </layer>
+</map>

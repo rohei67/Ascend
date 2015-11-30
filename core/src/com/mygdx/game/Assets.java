@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,6 +24,7 @@ public class Assets {
 	public static Animation roboJumpAnim;
 	public static Animation roboHitAnim;
 	public static Animation devilAnim;
+	public static Animation devil1Anim;
 
 	// ステージ背景
 	public static TextureRegion gate;
@@ -37,6 +39,8 @@ public class Assets {
 	public static TextureRegion resume;
 	public static TextureRegion backtomenu;
 	public static TextureRegion nextstage;
+	public static TextureRegion numbers;
+	public static TextureRegion time;
 
 	// UI要素
 	public static TextureRegion slowgauge;
@@ -61,6 +65,8 @@ public class Assets {
 	// サウンドON/OFFフラグ
 	public static boolean isMute;
 
+	// 設定ファイル
+	public static Preferences prefs;
 
 	public static Texture loadTexture(String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -82,6 +88,9 @@ public class Assets {
 		TextureRegion devil = textureAtlas.findRegion("devil");
 		devilAnim = new Animation(0.1f, devil.split(32, 32)[0]);
 		devilAnim.setPlayMode(Animation.PlayMode.LOOP);
+		TextureRegion devil1 = textureAtlas.findRegion("devil1");
+		devil1Anim = new Animation(0.1f, devil1.split(32, 32)[0]);
+		devil1Anim.setPlayMode(Animation.PlayMode.LOOP);
 
 		// タイトルスクリーン
 		titleTexture = loadTexture("title.png");
@@ -98,6 +107,8 @@ public class Assets {
 		pause = textureAtlas.findRegion("pause");
 		gameover = textureAtlas.findRegion("gameover");
 		stageclear = textureAtlas.findRegion("stageclear");
+		numbers = textureAtlas.findRegion("numbers");
+		time = textureAtlas.findRegion("time");
 
 		// 選択画像文字
 		resume = textureAtlas.findRegion("resume");
@@ -120,6 +131,8 @@ public class Assets {
 		loadMusic();
 		loadSound();
 		UIBounds.load();
+
+		prefs = Gdx.app.getPreferences("savedata");
 	}
 
 	public static void playSound(Sound sound) {
@@ -184,5 +197,6 @@ public class Assets {
 
 		titleMusic.dispose();
 		stage1Music.dispose();
+		prefs.flush();
 	}
 }

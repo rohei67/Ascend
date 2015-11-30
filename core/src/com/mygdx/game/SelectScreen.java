@@ -38,8 +38,9 @@ public class SelectScreen extends ScreenAdapter {
 
 	int _page;
 	final int FINAL_PAGE = 4;
-	final int DEBUG_FINAL_STAGE = 2;
+	final int FINAL_STAGE = 16;
 	int _stage = -1;
+	String[] times = new String[FINAL_STAGE+1];
 
 	@Override
 	public void dispose() {
@@ -76,13 +77,41 @@ public class SelectScreen extends ScreenAdapter {
 				_stages.put(((RectangleMapObject) object).getRectangle(), Integer.parseInt(prop));
 			}
 		}
-
+		// タイムの読み込み
+		for (int i = 1; i <= FINAL_STAGE; i++) {
+			if(Assets.prefs.contains(""+i)) {
+				float time = Assets.prefs.getFloat("" + i);
+				times[i] = String.format("%02d:%02.02f", (int) (time / 60f), time);
+			} else {
+				times[i] = "--:--.--";
+			}
+		}
 	}
 
 	@Override
 	public void render(float delta) {
 		update();
 		draw();
+	}
+
+	private void drawTime(String str, float x, float y) {
+		for (int i = 0; i < str.length(); i++) {
+			char ch = str.charAt(i);
+			switch (ch) {
+				case ':':
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+10*16, Assets.numbers.getRegionY(), 16, 32);
+					break;
+				case '.':
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+11*16, Assets.numbers.getRegionY(), 16, 32);
+					break;
+				case '-':
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+12*16, Assets.numbers.getRegionY(), 16, 32);
+					break;
+				default:
+					int n = ch - '0';
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+n*16, Assets.numbers.getRegionY(), 16, 32);
+			}
+		}
 	}
 
 	private void update() {
@@ -144,6 +173,11 @@ public class SelectScreen extends ScreenAdapter {
 		_tiledMapRenderer.render();
 		_batch.begin();
 		_batch.draw(Assets.backtomenu, _mainmenuBounds.getX(), _mainmenuBounds.getY());
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				drawTime(times[i*4+j+1], Ascend.GAME_WIDTH/2+i*Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT-230-j*160);
+			}
+		}
 		_batch.end();
 	}
 

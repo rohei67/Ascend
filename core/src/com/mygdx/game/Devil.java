@@ -9,18 +9,22 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 public class Devil {
-	static final int WIDTH = 32;
-	static final int HEIGHT = 32;
-	static final int MIN_SPEED = 150;
-	static final int MAX_SPEED = 250;
+	final int WIDTH = 32;
+	final int HEIGHT = 32;
+	final int MIN_SPEED = 150;
+	final int MAX_SPEED = 250;
 
-	private Vector2 _position;
-	private Vector2 _velocity;
-	private Rectangle _bounds;
+	protected Vector2 _position;
+	protected Vector2 _velocity;
+	protected Rectangle _bounds;
 	private Random rand = new Random();
 
 	float _stateTime;
 	boolean _isFaceRight;
+
+	public Devil() {
+		this(0, 0);
+	}
 
 	public Devil(float x, float y) {
 		this._position = new Vector2(x, y);

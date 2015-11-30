@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Rectangle;
@@ -16,8 +17,10 @@ public class World {//implements InputProcessor {
 	private State _state;
 	private Controller _controller;
 	private int _stage;
+	float _time;
+	String _timeStr;
 
-	private final int FINAL_STAGE = 2;    // 最終面を設定
+	private final int FINAL_STAGE = 4;    // 最終面を設定
 
 	// Character
 	Robo _robo;
@@ -30,7 +33,6 @@ public class World {//implements InputProcessor {
 		_camera = camera;
 		_stage = stage;
 		initGame();
-		// todo:viewport持ちたくない
 		_controller = new Controller(game, this, viewport);
 	}
 
@@ -58,9 +60,11 @@ public class World {//implements InputProcessor {
 		_gate = new GoalGate(rect.getX(), rect.getY());
 
 		_state = State.READY;
+		_time = 0f;
 	}
 
 	public void update() {
+		_time += Gdx.graphics.getDeltaTime();
 		_robo.updateY(_map.getMaxHeight());
 
 		if (_robo.checkFallout())
@@ -69,6 +73,8 @@ public class World {//implements InputProcessor {
 
 		if (_gate.isReach(_robo.getBounds())) {
 			Assets.playSound(Assets.goalSound);
+			savePreference();
+
 			if (_stage + 1 <= FINAL_STAGE)
 				_state = State.NEXT_STAGE;
 			else
@@ -85,6 +91,18 @@ public class World {//implements InputProcessor {
 
 		enemyUpdate();
 		movingPlatformUpdate();
+	}
+
+	private void savePreference() {
+		// 時間を算出して、プリファレンスにセーブ
+		_timeStr = String.format("%02d:%02.02f", (int) (_time / 60f), _time);
+		float bestTime = 0;
+		if(Assets.prefs.contains(""+_stage))
+			bestTime = Assets.prefs.getFloat("" + _stage);
+		if (bestTime == 0 || _time < bestTime) {
+			Assets.prefs.putFloat("" + _stage, _time);
+			Assets.prefs.flush();
+		}
 	}
 
 	private void movingPlatformUpdate() {
@@ -119,8 +137,8 @@ public class World {//implements InputProcessor {
 	}
 
 	private boolean inDisplay(float y, int h) {
-		return y < _camera.position.y + Ascend.GAME_HEIGHT / 2 &&    // キャラの下端
-				y + h > _camera.position.y - Ascend.GAME_HEIGHT / 2;    // キャラの上端
+		return y < _camera.position.y + Ascend.GAME_HEIGHT &&    // キャラの下端
+				y + h > _camera.position.y - Ascend.GAME_HEIGHT;    // キャラの上端
 	}
 
 	private void determineSlowMode() {
@@ -145,8 +163,8 @@ public class World {//implements InputProcessor {
 
 	private void mapPlatformCollision() {
 		if (_robo.isFall()) {
-			boolean canJump = _map.isCellPlatform(_robo.getX()+5, _robo.getY());    // bottom left
-			canJump |= _map.isCellPlatform(_robo.getX() + _robo.getWidth()-5, _robo.getY());    // bottom right
+			boolean canJump = _map.isCellPlatform(_robo.getX() + 5, _robo.getY());    // bottom left
+			canJump |= _map.isCellPlatform(_robo.getX() + _robo.getWidth() - 5, _robo.getY());    // bottom right
 
 			if (canJump) {
 				Assets.playSound(Assets.jumpSound);

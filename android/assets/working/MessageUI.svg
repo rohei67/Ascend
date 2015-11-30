@@ -78,9 +78,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.98994949"
-     inkscape:cx="33.749936"
-     inkscape:cy="472.60927"
+     inkscape:zoom="2.8"
+     inkscape:cx="-219.57692"
+     inkscape:cy="432.3926"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -98,7 +98,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -278,5 +278,35 @@
            id="tspan5297"
            sodipodi:role="line">Pause</tspan></text>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;font-size:40.80799103px;line-height:125%;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Condensed';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.81615978px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-325.81015"
+       y="628.19019"
+       id="text4172"
+       sodipodi:linespacing="125%"
+       inkscape:export-xdpi="90.038399"
+       inkscape:export-ydpi="90.038399"><tspan
+         sodipodi:role="line"
+         id="tspan4174"
+         x="-325.81015"
+         y="628.19019"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Bold Condensed';letter-spacing:1.39000082px;fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.81615978px;stroke-opacity:1;font-size:40px"
+         dx="0">0123456789:.-</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:51.31867599px;line-height:125%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-290.9444"
+       y="674.81781"
+       id="text4176"
+       sodipodi:linespacing="125%"
+       inkscape:export-filename="C:\Users\0701AND\Pictures\Ascend\input\time.png"
+       inkscape:export-xdpi="90.038399"
+       inkscape:export-ydpi="90.038399"><tspan
+         sodipodi:role="line"
+         id="tspan4178"
+         x="-290.9444"
+         y="674.81781"
+         style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:condensed;font-size:41.8760376px;font-family:'Agency FB';-inkscape-font-specification:'Agency FB Bold Condensed';fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:1.02637351px;stroke-opacity:1">Time:</tspan></text>
   </g>
 </svg>

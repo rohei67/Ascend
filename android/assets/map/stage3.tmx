@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="21">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="56">
+  <image source="tiledmap_out.png" width="288" height="252"/>
+  <tile id="8">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztmMkOwyAMREm6XbqoTdr+/5/WHJBQFBewPcipenhSLiHYnrEhQwhhUDATT+JFvJVrrTESO8C6LZyJC3EgjsSp4Z0rcRN+dwLFY1Gzb3u7O6lXa+6ROrZiH9p02EKs28NJLbyQ9h+fJb7JvYDyM4d1LZdI40HoTEuL5yVx9/SBVY/g9I7oPZxGNJ7Jc967BhaUPCKpc00P8z4DPVA6/9Ro10rbPbSctIZcu1bH6DtHzlZ6RaTHXJ065x8NMgbO3+lMWONhj2elGpae9u4jrmf31jp3d0be+yRoZpc0FoQXpLNHmwMOD/+71ij5F6HPcQP5tT7D/cJM/cPzAUoSDuI=
+  </data>
+ </layer>
+ <objectgroup color="#aaffff" draworder="index" name="object">
+  <object id="2" x="208" y="65" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="8" x="335" y="2550" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="9" x="69" y="2294" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="10" x="354" y="2120" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="11" x="67" y="2028" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="12" x="374" y="1883" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="13" x="83" y="1687" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="14" x="241" y="1530" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="15" x="252" y="1344" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="16" x="118" y="983" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="17" x="283" y="949" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="18" x="235" y="701" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="19" x="164" y="398" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="20" x="123" y="23" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztl+EKgCAMhP1bvYTv/5QpEUiMMvKaO+6D+yvb3G6akqgsRWvR5h1IB2esUeJFwl6Lmp/yEn8QyQOZaD3sSbqbudDM2CDrwr7zPbh6kOqKp2dG9E46UH/OhTz4G4z1s96xLLkhQfXCyN2RbzQa1Llvafdz9g0lNGxe1/tXt7QDVwMFCw==
+  </data>
+ </layer>
+</map>

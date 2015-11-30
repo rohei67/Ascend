@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="25" tilewidth="32" tileheight="32" nextobjectid="8">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="25" tilewidth="32" tileheight="32" nextobjectid="16">
  <tileset firstgid="1" name="stage_select_output" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="56">
   <image source="stage_select_output.png" width="288" height="252"/>
  </tileset>
@@ -17,6 +17,21 @@
   <object id="5" x="224" y="256" width="160" height="96">
    <properties>
     <property name="stage" value="2"/>
+   </properties>
+  </object>
+  <object id="13" x="224" y="416" width="160" height="96">
+   <properties>
+    <property name="stage" value="3"/>
+   </properties>
+  </object>
+  <object id="14" x="224" y="576" width="160" height="96">
+   <properties>
+    <property name="stage" value="4"/>
+   </properties>
+  </object>
+  <object id="15" x="704" y="96" width="160" height="96">
+   <properties>
+    <property name="stage" value="5"/>
    </properties>
   </object>
  </objectgroup>

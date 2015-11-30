@@ -5,189 +5,210 @@ filter: Nearest,Nearest
 repeat: none
 gameclear
   rotate: false
-  xy: 0, 344
-  size: 440, 160
-  orig: 440, 160
+  xy: 1, 859
+  size: 432, 160
+  orig: 432, 160
   offset: 0, 0
   index: -1
 stageclear
   rotate: false
-  xy: 0, 230
+  xy: 435, 907
   size: 437, 112
   orig: 437, 112
   offset: 0, 0
   index: -1
 gameover
   rotate: false
-  xy: 442, 408
+  xy: 1, 761
   size: 414, 96
   orig: 414, 96
   offset: 0, 0
   index: -1
 ready
   rotate: false
-  xy: 0, 100
+  xy: 1, 631
   size: 328, 128
   orig: 328, 128
   offset: 0, 0
   index: -1
 select_stage
   rotate: false
-  xy: 442, 342
+  xy: 435, 841
   size: 377, 64
   orig: 377, 64
   offset: 0, 0
   index: -1
+sun
+  rotate: false
+  xy: 1, 429
+  size: 200, 200
+  orig: 200, 200
+  offset: 0, 0
+  index: -1
 backtomenu
   rotate: false
-  xy: 0, 34
+  xy: 417, 775
   size: 329, 64
   orig: 329, 64
   offset: 0, 0
   index: -1
 nextstage
   rotate: false
-  xy: 439, 275
+  xy: 417, 708
   size: 326, 65
   orig: 326, 65
   offset: 0, 0
   index: -1
+numbers
+  rotate: false
+  xy: 1, 299
+  size: 256, 128
+  orig: 256, 128
+  offset: 0, 0
+  index: -1
 pause
   rotate: false
-  xy: 439, 177
+  xy: 1, 201
   size: 249, 96
   orig: 249, 96
   offset: 0, 0
   index: -1
-touchme
-  rotate: false
-  xy: 858, 344
-  size: 138, 160
-  orig: 138, 160
-  offset: 0, 0
-  index: -1
-devil
-  rotate: false
-  xy: 0, 0
-  size: 192, 32
-  orig: 192, 32
-  offset: 0, 0
-  index: -1
 resume
   rotate: false
-  xy: 330, 111
+  xy: 1, 135
   size: 238, 64
   orig: 238, 64
   offset: 0, 0
   index: -1
+touchme
+  rotate: false
+  xy: 203, 469
+  size: 138, 160
+  orig: 138, 160
+  offset: 0, 0
+  index: -1
 sound
   rotate: false
-  xy: 331, 45
+  xy: 1, 69
   size: 210, 64
   orig: 210, 64
   offset: 0, 0
   index: -1
+devil
+  rotate: false
+  xy: 1, 35
+  size: 192, 32
+  orig: 192, 32
+  offset: 0, 0
+  index: -1
 play
   rotate: false
-  xy: 570, 111
+  xy: 874, 955
   size: 132, 64
   orig: 132, 64
   offset: 0, 0
   index: -1
 quit
   rotate: false
-  xy: 543, 45
+  xy: 874, 889
   size: 131, 64
   orig: 131, 64
   offset: 0, 0
   index: -1
+devil1
+  rotate: false
+  xy: 203, 435
+  size: 128, 32
+  orig: 128, 32
+  offset: 0, 0
+  index: -1
 off
   rotate: false
-  xy: 690, 209
+  xy: 259, 369
   size: 98, 64
   orig: 98, 64
   offset: 0, 0
   index: -1
-sun
-  rotate: false
-  xy: 704, 7
-  size: 200, 200
-  orig: 200, 200
-  offset: 0, 0
-  index: -1
-gate
-  rotate: false
-  xy: 767, 276
-  size: 64, 64
-  orig: 64, 64
-  offset: 0, 0
-  index: -1
 on
   rotate: false
-  xy: 833, 278
+  xy: 259, 303
   size: 86, 64
   orig: 86, 64
   offset: 0, 0
   index: -1
+gate
+  rotate: false
+  xy: 748, 775
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
 pause_button
   rotate: false
-  xy: 921, 278
+  xy: 745, 709
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 resume_button
   rotate: false
-  xy: 790, 210
+  xy: 331, 695
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
+time
+  rotate: false
+  xy: 1, 1
+  size: 73, 32
+  orig: 73, 32
+  offset: 0, 0
+  index: -1
 moving_platform
   rotate: false
-  xy: 330, 196
+  xy: 331, 661
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 robo
   rotate: false
-  xy: 194, 0
+  xy: 76, 1
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 robo_hit
   rotate: false
-  xy: 260, 0
+  xy: 142, 1
   size: 64, 32
   orig: 64, 32
   offset: 0, 0
   index: -1
 clockUI
   rotate: false
-  xy: 821, 374
+  xy: 333, 435
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 damage
   rotate: false
-  xy: 396, 196
+  xy: 814, 873
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 hitpoint
   rotate: false
-  xy: 856, 244
+  xy: 814, 839
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 slowgauge
   rotate: false
-  xy: 855, 382
+  xy: 252, 273
   size: 1, 24
   orig: 1, 24
   offset: 0, 0

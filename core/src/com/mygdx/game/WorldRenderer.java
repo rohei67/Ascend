@@ -13,7 +13,7 @@ public class WorldRenderer {
 	private OrthographicCamera _camera;
 	private SpriteBatch _batch;
 
-	public WorldRenderer (World world, OrthographicCamera cam) {
+	public WorldRenderer(World world, OrthographicCamera cam) {
 		_world = world;
 		_camera = cam;
 		_batch = new SpriteBatch();
@@ -40,6 +40,8 @@ public class WorldRenderer {
 //		drawDebug();
 	}
 
+	String str;
+
 	private void stageBgDraw() {
 		// todo: ステージごとの背景表示
 	}
@@ -60,26 +62,47 @@ public class WorldRenderer {
 		switch (_world.getState()) {
 			case READY:
 				_batch.draw(Assets.ready, getCenterX() - Assets.ready.getRegionWidth() / 2, Ascend.GAME_HEIGHT / 2 + 100);
-				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, Ascend.GAME_HEIGHT / 2 - 200);
+				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2 + 20, Ascend.GAME_HEIGHT / 2 - 200);
 				break;
 			case PAUSE:
-				_batch.draw(Assets.pause, getCenterX() - Assets.pause.getRegionWidth() / 2, _camera.position.y+150);
+				_batch.draw(Assets.pause, getCenterX() - Assets.pause.getRegionWidth() / 2, _camera.position.y + 150);
 				_batch.draw(Assets.resume, getCenterX() - Assets.resume.getRegionWidth() / 2, _camera.position.y);
-				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y-100);
+				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y - 100);
 				break;
 			case GAME_OVER:
-				_batch.draw(Assets.gameover, getCenterX() - Assets.gameover.getRegionWidth() / 2, _camera.position.y+100);
-				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, _camera.position.y - 200);
+				_batch.draw(Assets.gameover, getCenterX() - Assets.gameover.getRegionWidth() / 2, _camera.position.y + 100);
+				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2 + 20, _camera.position.y - 200);
 				break;
 			case GAME_CLEAR:
-				_batch.draw(Assets.gameclear, getCenterX() - Assets.gameclear.getRegionWidth() / 2, _camera.position.y);
-				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2+20, _camera.position.y - 200);
+				_batch.draw(Assets.gameclear, getCenterX() - Assets.gameclear.getRegionWidth() / 2, _camera.position.y-100);
+				_batch.draw(Assets.time, getCenterX() - Assets.time.getRegionWidth()-20, _camera.position.y + 100);
+				drawTime();
+				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2 + 20, _camera.position.y - 280);
 				break;
 			case NEXT_STAGE:
-				_batch.draw(Assets.stageclear, getCenterX() - Assets.stageclear.getRegionWidth() / 2, _camera.position.y+150);
+				_batch.draw(Assets.stageclear, getCenterX() - Assets.stageclear.getRegionWidth() / 2, _camera.position.y + 150);
+				_batch.draw(Assets.time, getCenterX() - Assets.time.getRegionWidth()-20, _camera.position.y + 100);
+				drawTime();
 				_batch.draw(Assets.nextstage, getCenterX() - Assets.nextstage.getRegionWidth() / 2, _camera.position.y);
-				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y-100);
+				_batch.draw(Assets.backtomenu, getCenterX() - Assets.backtomenu.getRegionWidth() / 2, _camera.position.y - 100);
 				break;
+		}
+	}
+
+	private void drawTime() {
+		for (int i = 0; i < _world._timeStr.length(); i++) {
+			char ch = _world._timeStr.charAt(i);
+			switch (ch) {
+				case ':':
+					_batch.draw(Assets.numbers.getTexture(), getCenterX() + i * 16, _camera.position.y + 100, Assets.numbers.getRegionX()+10*16, Assets.numbers.getRegionY(), 16, 32);
+					break;
+				case '.':
+					_batch.draw(Assets.numbers.getTexture(), getCenterX() + i * 16, _camera.position.y + 100, Assets.numbers.getRegionX()+11*16, Assets.numbers.getRegionY(), 16, 32);
+					break;
+				default:
+					int n = ch - '0';
+					_batch.draw(Assets.numbers.getTexture(), getCenterX() + i * 16, _camera.position.y + 100, Assets.numbers.getRegionX()+n*16, Assets.numbers.getRegionY(), 16, 32);
+			}
 		}
 	}
 
@@ -100,6 +123,7 @@ public class WorldRenderer {
 	private float getTopY() {
 		return _camera.position.y + Ascend.GAME_HEIGHT / 2;
 	}
+
 	private float getBottomY() {
 		return _camera.position.y - Ascend.GAME_HEIGHT / 2;
 	}
@@ -109,7 +133,7 @@ public class WorldRenderer {
 		_batch.draw(Assets.slowgauge, 50, getTopY() - 40, _world._robo.getSlowGauge() * 2, 24);
 		// ハート
 		for (int i = 0; i < _world._robo.MAX_HP; i++) {
-			if(_world._robo.getHitPoint() > i)
+			if (_world._robo.getHitPoint() > i)
 				_batch.draw(Assets.hitpoint, 300 + i * 40, getTopY() - 45, 32, 32);
 			else
 				_batch.draw(Assets.damage, 300 + i * 40, getTopY() - 45, 32, 32);
