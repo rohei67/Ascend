@@ -41,6 +41,7 @@ public class SelectScreen extends ScreenAdapter {
 	final int FINAL_STAGE = 16;
 	int _stage = -1;
 	String[] times = new String[FINAL_STAGE+1];
+	int[] HPs = new int[FINAL_STAGE+1];
 
 	@Override
 	public void dispose() {
@@ -77,13 +78,15 @@ public class SelectScreen extends ScreenAdapter {
 				_stages.put(((RectangleMapObject) object).getRectangle(), Integer.parseInt(prop));
 			}
 		}
-		// タイムの読み込み
+		// ベストタイムとHPの読み込み
 		for (int i = 1; i <= FINAL_STAGE; i++) {
-			if(Assets.prefs.contains(""+i)) {
-				float time = Assets.prefs.getFloat("" + i);
-				times[i] = String.format("%02d:%02.02f", (int) (time / 60f), time);
+			if(Assets.prefsTime.contains(""+i)) {
+				float time = Assets.prefsTime.getFloat("" + i);
+				times[i] = String.format("%02d:%02.02f", (int) (time / 60f), time%60);
+				HPs[i] = Assets.prefsHP.getInteger(""+i);
 			} else {
 				times[i] = "--:--.--";
+				HPs[i] = 0;
 			}
 		}
 	}
@@ -175,10 +178,21 @@ public class SelectScreen extends ScreenAdapter {
 		_batch.draw(Assets.backtomenu, _mainmenuBounds.getX(), _mainmenuBounds.getY());
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				drawTime(times[i*4+j+1], Ascend.GAME_WIDTH/2+i*Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT-230-j*160);
+				drawTime(times[i*4+j+1], Ascend.GAME_WIDTH/2+i*Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT-200-j*160);
+				if(HPs[i*4+j+1] != 0)
+					drawHP(HPs[i*4+j+1], Ascend.GAME_WIDTH/2-175+i*Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT-170-j*160);
 			}
 		}
 		_batch.end();
+	}
+
+	private void drawHP(int hp, int x, int y) {
+		for (int i = 1; i <= 3; i++) {
+			if(hp >= i)
+				_batch.draw(Assets.hitpoint, x+(i-1)*32, y);
+			else
+				_batch.draw(Assets.damage, x+(i-1)*32, y);
+		}
 	}
 
 	@Override

@@ -16,11 +16,11 @@ public class World {//implements InputProcessor {
 	private GameParticle _particle;
 	private State _state;
 	private Controller _controller;
-	private int _stage;
+	public int _stage;
 	float _time;
 	String _timeStr;
 
-	private final int FINAL_STAGE = 4;    // 最終面を設定
+	private final int FINAL_STAGE = 5;    // 最終面を設定
 
 	// Character
 	Robo _robo;
@@ -45,8 +45,7 @@ public class World {//implements InputProcessor {
 		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
 		_map = new GameMap(_stage);
 		_particle = new GameParticle();
-		Assets.musicStop();
-		Assets.stageMusicPlay(_stage);
+		Assets.stageMusicPlay((_stage-1)/4+1);
 
 		// Character
 		_robo = new Robo();
@@ -95,13 +94,15 @@ public class World {//implements InputProcessor {
 
 	private void savePreference() {
 		// 時間を算出して、プリファレンスにセーブ
-		_timeStr = String.format("%02d:%02.02f", (int) (_time / 60f), _time);
+		_timeStr = String.format("%02d:%02.02f", (int) (_time / 60f), _time%60);
 		float bestTime = 0;
-		if(Assets.prefs.contains(""+_stage))
-			bestTime = Assets.prefs.getFloat("" + _stage);
+		if(Assets.prefsTime.contains(""+_stage))
+			bestTime = Assets.prefsTime.getFloat("" + _stage);
 		if (bestTime == 0 || _time < bestTime) {
-			Assets.prefs.putFloat("" + _stage, _time);
-			Assets.prefs.flush();
+			Assets.prefsTime.putFloat("" + _stage, _time);
+			Assets.prefsTime.flush();
+			Assets.prefsHP.putInteger("" + _stage, _robo.getHitPoint());
+			Assets.prefsHP.flush();
 		}
 	}
 

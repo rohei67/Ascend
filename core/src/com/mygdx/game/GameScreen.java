@@ -23,6 +23,7 @@ public class GameScreen extends ScreenAdapter {
 		super.dispose();
 		_renderer.dispose();
 		_world.getMap().dispose();
+		Gdx.input.setInputProcessor(null);	// 入力が残るような気がするのでここでdisposeしておく
 	}
 
 	public GameScreen(Ascend game, int stage) {
@@ -35,9 +36,6 @@ public class GameScreen extends ScreenAdapter {
 		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
 		_viewport = new FitViewport(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT, _camera);
 		_viewport.apply();
-
-		Assets.musicStop();
-		Assets.stageMusicPlay(stageNum);
 
 		_world = new World(_game, _camera, _viewport, stageNum);
 		_renderer = new WorldRenderer(_world, _camera);

@@ -210,7 +210,7 @@ public class Robo {
 		return _slowGauge;
 	}
 
-	public float getHitPoint() {
+	public int getHitPoint() {
 		return _hitPoint;
 	}
 

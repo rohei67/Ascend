@@ -89,7 +89,8 @@ public class Controller extends KeyInput implements InputProcessor {
 			case NEXT_STAGE:
 				if(isNextStagePressed()) {
 					Assets.playSound(Assets.selectSound);
-					Assets.musicStop();
+					if(_world._stage % 4 == 0)
+						Assets.musicStop();
 					_world.nextStage();
 				}
 				if(isMeinMenuPressed()) {

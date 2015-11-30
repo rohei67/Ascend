@@ -55,6 +55,8 @@ public class Assets {
 	public static Music titleMusic;
 	public static Music stage1Music;
 	public static Music stage2Music;
+	public static Music stage3Music;
+	public static Music stage4Music;
 	// 効果音
 	public static Sound jumpSound;
 	public static Sound hitSound;
@@ -66,7 +68,8 @@ public class Assets {
 	public static boolean isMute;
 
 	// 設定ファイル
-	public static Preferences prefs;
+	public static Preferences prefsTime;
+	public static Preferences prefsHP;
 
 	public static Texture loadTexture(String file) {
 		return new Texture(Gdx.files.internal(file));
@@ -132,7 +135,8 @@ public class Assets {
 		loadSound();
 		UIBounds.load();
 
-		prefs = Gdx.app.getPreferences("savedata");
+		prefsTime = Gdx.app.getPreferences("besttime");
+		prefsHP = Gdx.app.getPreferences("hitpoint");
 	}
 
 	public static void playSound(Sound sound) {
@@ -160,6 +164,14 @@ public class Assets {
 		stage2Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage2.ogg"));
 		stage2Music.setLooping(true);
 		stage2Music.setVolume(1.0f);
+
+		stage3Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage3.ogg"));
+		stage3Music.setLooping(true);
+		stage3Music.setVolume(1.0f);
+
+		stage4Music = Gdx.audio.newMusic(Gdx.files.internal("sound/stage4.ogg"));
+		stage4Music.setLooping(true);
+		stage4Music.setVolume(1.0f);
 	}
 
 	public static void titleMusicPlay() {
@@ -175,6 +187,10 @@ public class Assets {
 			stage1Music.stop();
 		if (stage2Music.isPlaying())
 			stage2Music.stop();
+		if (stage3Music.isPlaying())
+			stage3Music.stop();
+		if (stage4Music.isPlaying())
+			stage4Music.stop();
 	}
 
 	public static void stageMusicPlay(int stage) {
@@ -188,6 +204,14 @@ public class Assets {
 				if (!stage2Music.isPlaying())
 					stage2Music.play();
 				break;
+			case 3:
+				if (!stage3Music.isPlaying())
+					stage3Music.play();
+				break;
+			case 4:
+				if (!stage4Music.isPlaying())
+					stage4Music.play();
+				break;
 		}
 	}
 
@@ -197,6 +221,7 @@ public class Assets {
 
 		titleMusic.dispose();
 		stage1Music.dispose();
-		prefs.flush();
+		prefsTime.flush();
+		prefsHP.flush();
 	}
 }

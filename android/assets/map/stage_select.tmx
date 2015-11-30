@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="25" tilewidth="32" tileheight="32" nextobjectid="16">
  <tileset firstgid="1" name="stage_select_output" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="56">
   <image source="stage_select_output.png" width="288" height="252"/>
@@ -9,27 +8,27 @@
   </data>
  </layer>
  <objectgroup name="object">
-  <object id="4" x="224" y="96" width="160" height="96">
+  <object id="4" x="224" y="64" width="160" height="96">
    <properties>
     <property name="stage" value="1"/>
    </properties>
   </object>
-  <object id="5" x="224" y="256" width="160" height="96">
+  <object id="5" x="224" y="224" width="160" height="96">
    <properties>
     <property name="stage" value="2"/>
    </properties>
   </object>
-  <object id="13" x="224" y="416" width="160" height="96">
+  <object id="13" x="224" y="384" width="160" height="96">
    <properties>
     <property name="stage" value="3"/>
    </properties>
   </object>
-  <object id="14" x="224" y="576" width="160" height="96">
+  <object id="14" x="224" y="544" width="160" height="96">
    <properties>
     <property name="stage" value="4"/>
    </properties>
   </object>
-  <object id="15" x="704" y="96" width="160" height="96">
+  <object id="15" x="704" y="64" width="160" height="96">
    <properties>
     <property name="stage" value="5"/>
    </properties>
@@ -37,7 +36,7 @@
  </objectgroup>
  <layer name="foreground" width="60" height="25">
   <data encoding="base64" compression="zlib">
-   eJztlMkKAkEMBYdZ3EZxR2dU9P+/0nfwQYPdh04unSYPikCgrtU0+VuCFbiBuxFXsz04gDf4GHF9/1uDDRjBFuwqcluw+F3uCE7gDC7gmnA7hdsr3EHhxjaBGTzAE7wqd311r/TmaFz2qgt+ub2SuOyVxGWvJG5sFpvjvfKlVnpzNC571Qe/3F5JXPZK4rJXEjc2i83xXvlSK705Gpe9GoJfbq8kLnslcdkriRubxeZ4r3y+evcFpCoUdQ==
+   eJztlNkKAjEQBIO7q+uFN97o/3+lHXBwXhaSibAk6YIiMFB5bOfimcEenuElkzaFDdzCF3xn0oYwhwu4hCu4zqAN7Sdw+n2FHdzDAzzC08D/TULbJrSeLrHXXOEN3uEDPgO7Mdt/9KRMatirRt1i98rSyl5ZWo/slbXXcK9ISdSwV626xe6VpZW9srQe2Strr+FekZKoYa86dYvdK0sre2VpnfvtlbXXcK8IIWQ8PgiAFHU=
   </data>
  </layer>
 </map>
