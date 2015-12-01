@@ -10,6 +10,8 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
+	public static final int DEBUG_FINAL_STAGE = 8;
+
 	public static TextureAtlas textureAtlas;
 	// タイトル画面
 	public static Texture titleTexture;
@@ -20,11 +22,14 @@ public class Assets {
 	public static TextureRegion off;
 	public static TextureRegion quit;
 
+	public static Texture stagesTexture;
+
 	// キャラクター
 	public static Animation roboJumpAnim;
 	public static Animation roboHitAnim;
 	public static Animation devilAnim;
 	public static Animation devil1Anim;
+	public static Animation fishAnim;
 
 	// ステージ背景
 	public static TextureRegion gate;
@@ -94,6 +99,9 @@ public class Assets {
 		TextureRegion devil1 = textureAtlas.findRegion("devil1");
 		devil1Anim = new Animation(0.1f, devil1.split(32, 32)[0]);
 		devil1Anim.setPlayMode(Animation.PlayMode.LOOP);
+		TextureRegion fish = textureAtlas.findRegion("fish");
+		fishAnim = new Animation(0.1f, fish.split(32, 16)[0]);
+		fishAnim.setPlayMode(Animation.PlayMode.LOOP);
 
 		// タイトルスクリーン
 		titleTexture = loadTexture("title.png");
@@ -103,6 +111,9 @@ public class Assets {
 		on = textureAtlas.findRegion("on");
 		off = textureAtlas.findRegion("off");
 		quit = textureAtlas.findRegion("quit");
+
+		// ステージ選択画面の各ステージ画像
+		stagesTexture = loadTexture("stage_arts.png");
 
 		// 表示画像文字
 		ready = textureAtlas.findRegion("ready");
@@ -217,6 +228,7 @@ public class Assets {
 
 	public static void dispose() {
 		titleTexture.dispose();
+		stagesTexture.dispose();
 		textureAtlas.dispose();
 
 		titleMusic.dispose();

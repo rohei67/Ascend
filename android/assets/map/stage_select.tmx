@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="25" tilewidth="32" tileheight="32" nextobjectid="16">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="25" tilewidth="32" tileheight="32" nextobjectid="27">
  <tileset firstgid="1" name="stage_select_output" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="64">
   <image source="stage_select_output.png" width="288" height="288"/>
  </tileset>
@@ -8,7 +8,7 @@
    eJzt0bENACAMA8FkAfYfFxagCQWydIX1lavrqlpnPejk8/v70sRvohFfvnz5phjx5cuXb4oRX758+aYY8eXLl2+KEV++t25YfivZ
   </data>
  </layer>
- <objectgroup name="object" visible="0">
+ <objectgroup name="object">
   <object id="4" x="224" y="64" width="160" height="96">
    <properties>
     <property name="stage" value="1"/>
@@ -32,6 +32,61 @@
   <object id="15" x="704" y="64" width="160" height="96">
    <properties>
     <property name="stage" value="5"/>
+   </properties>
+  </object>
+  <object id="16" x="704" y="224" width="160" height="96">
+   <properties>
+    <property name="stage" value="6"/>
+   </properties>
+  </object>
+  <object id="17" x="704" y="384" width="160" height="96">
+   <properties>
+    <property name="stage" value="7"/>
+   </properties>
+  </object>
+  <object id="18" x="704" y="544" width="160" height="96">
+   <properties>
+    <property name="stage" value="8"/>
+   </properties>
+  </object>
+  <object id="19" x="1184" y="64" width="160" height="96">
+   <properties>
+    <property name="stage" value="9"/>
+   </properties>
+  </object>
+  <object id="20" x="1184" y="224" width="160" height="96">
+   <properties>
+    <property name="stage" value="10"/>
+   </properties>
+  </object>
+  <object id="21" x="1184" y="384" width="160" height="96">
+   <properties>
+    <property name="stage" value="11"/>
+   </properties>
+  </object>
+  <object id="22" x="1184" y="544" width="160" height="96">
+   <properties>
+    <property name="stage" value="12"/>
+   </properties>
+  </object>
+  <object id="23" x="1664" y="64" width="160" height="96">
+   <properties>
+    <property name="stage" value="13"/>
+   </properties>
+  </object>
+  <object id="24" x="1664" y="224" width="160" height="96">
+   <properties>
+    <property name="stage" value="14"/>
+   </properties>
+  </object>
+  <object id="25" x="1664" y="384" width="160" height="96">
+   <properties>
+    <property name="stage" value="15"/>
+   </properties>
+  </object>
+  <object id="26" x="1664" y="544" width="160" height="96">
+   <properties>
+    <property name="stage" value="16"/>
    </properties>
   </object>
  </objectgroup>

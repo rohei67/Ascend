@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -25,10 +24,11 @@ public class WorldRenderer {
 		_camera.update();
 		_batch.setProjectionMatrix(_camera.combined);
 
-		_world.getMap().renderBackground(_camera);
-		stageBgDraw();
-		_world.getMap().renderForeground(_camera);
+//		_world.getMap().renderBackground(_camera);
+//		_world.getMap().renderForeground(_camera);
+		_world.getMap().render(_camera);
 
+//		drawDebug();
 		_batch.begin();
 		_world.getParticle().render(_batch);    // パーティクルエフェクト描画
 		_world._gate.draw(_batch);
@@ -37,24 +37,19 @@ public class WorldRenderer {
 		drawMessage();
 		_batch.end();
 
-//		drawDebug();
-	}
-
-	String str;
-
-	private void stageBgDraw() {
-		// todo: ステージごとの背景表示
 	}
 
 	ShapeRenderer _shapeRenderer = new ShapeRenderer();
 
 	private void drawDebug() {
-		Rectangle rect = _world._gate.getBounds();
-
+		Rectangle rect;
 		_shapeRenderer.setProjectionMatrix(_camera.combined);
 		_shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		_shapeRenderer.setColor(Color.RED);
-		_shapeRenderer.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+		_shapeRenderer.setColor(255, 0, 0, 255);
+		for (Devil devil : _world._devils) {
+			rect = devil.getBounds();
+			_shapeRenderer.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
+		}
 		_shapeRenderer.end();
 	}
 
@@ -107,11 +102,11 @@ public class WorldRenderer {
 	}
 
 	private void drawCharacter() {
-		for (Devil devil : _world._devils) {
-			devil.draw(_batch);
-		}
 		for (MovingPlatform platform : _world._movingPlatforms) {
 			platform.draw(_batch);
+		}
+		for (Devil devil : _world._devils) {
+			devil.draw(_batch);
 		}
 		_world._robo.draw(_batch);
 	}

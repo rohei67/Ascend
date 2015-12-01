@@ -185,6 +185,13 @@ robo_hit
   orig: 64, 32
   offset: 0, 0
   index: -1
+fish
+  rotate: false
+  xy: 331, 643
+  size: 64, 16
+  orig: 64, 16
+  offset: 0, 0
+  index: -1
 clockUI
   rotate: false
   xy: 333, 435

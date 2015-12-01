@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="50">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="56">
+  <image source="tiledmap_out.png" width="288" height="252"/>
+  <tile id="8">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJx1173Oq0AMhGFKypRAB/d/kec7EpaevNoUKEAW2+ufmdlj27bn7zre3+vvut/r//3n79rf34P7872/3utkzfPef7ifNQfP9fm8Ng/+v3N/YPfE78RhnPV5/Ih7f+3d+B9fE9sVm7P+zvobOycxzR529nri7+T9RS5O/j/xfcbHsfBx5Z1+9u0795/sU9+zh/E79R/f3k/c5n7sW4fxP/bHx+RqcjH9N9exqMsH39bG74/tu8e6znfGdGPjzvonObS3zY295zc7/zfn5s2e85vP9j2fzqV7sw9qd89/c1kf/YgFxnNt635rz+xZN3W78+y68Xvjy/zb72dsXrmcySe2nc0na83l5Kh7elj/wY61Effah7O/zvQn9/baHnurXm1NnOVj++65wYfi857n4qq9IiaLFdb5XPxfLGpd68d8Hdt3za2vM2Rcxdc7dp2dicfcOtNidLHJeH9xpHV4tu+an/Ev/s08yx/mb97Ps1zUXhabnXN7Rm1gf5m74l1jW83+gw97QhywJ50p9Ys5UTcYg/gnjs437knfap/Wyxw+edd459cZtafK4/v2PYPaKW/Mc/vL/hG3rPNKw6gVxLni18Rj3q3h2F7hkLxuXpxteb5ztceP8dg/d/yM3z0+it3ldXFmz/3UvT3nXjp7v2JSCxXTjOnhqlZ1T3K9nFYOqg5Rz3Vuyt3Vu+ol67PSC+1Ve8T5Fi/aH9qQy8R1NYYxqa2al5WWl3fl5Goxa1ydcGdNa6IWsZ+eha3mpxyuXtCePVE9a2wrzaiNzua+8FNuNe/+iqHqDG2ok+xv+9RZtGbl1jO+e367+XZ1ZlQXybvm2310Ht2z54viQc+lYo6YJ0+KIdZK7JRn5M9fHGxM1Y/yvzWRg1b4LJZ4dtOmeeqsG1O5rbyiTl7x7cQ16+u3nFNOte/Kxf22PFu/1lhsEFc8r5jP/qrz1Fnm546PXxqjurx7LPeszgrlWjFDLnUPYr64VL3VPfhO/us5wNmwvlMX611NMHFZyw/fVX+Ze+eha82dtVcb2sfjv7q3PK8WHz/u3b5vHnouXPHeme+sn5zpHtxv81Btv8evHFudLV/8miG1hLksR9hr1rnnMn2V63tOaKxiajWo568VXvmN2so50o+4L4bK49ZLTXKxpnXrObT8qHZxbs7cO7PWyljNh32k3nwWdtU51tYZr8byTCGfWBvPwhPfP2hgijc=
+  </data>
+ </layer>
+ <objectgroup color="#aaffff" draworder="index" name="object">
+  <object id="2" x="208" y="65" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="8" x="289" y="2570" width="96" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="13" x="340" y="2724" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="18" x="231" y="721" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="21" x="59" y="2657" width="107" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="22" x="109" y="2207" width="104" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="24" x="49" y="1894" width="68" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="25" x="27" y="1728" width="142" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="26" x="225" y="1575" width="134" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="27" x="113" y="1071" width="160" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="28" x="308" y="844" width="105" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="29" x="81" y="518" width="91" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="31" x="216" y="330" width="101" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="32" x="59" y="238" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="33" x="248" y="1408" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="34" x="224" y="1159" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="35" x="333" y="964" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="37" x="351" y="186" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="38" x="18" y="2818" width="76" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="39" x="278" y="2148" width="72" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="40" x="228" y="2074" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="41" x="296" y="1658" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="42" x="113" y="629" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="43" x="306.5" y="466" width="130.5" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="44" x="353" y="303" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="45" x="316" y="1239" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="47" x="317" y="1906" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="48" x="218" y="2407" width="32" height="32">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="49" x="202" y="3059" width="76" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztl2sOhDAIhLmH62buf8rVH00aFihgu7Vxv2Tio8Bg1RqJ/py8Du2H3rMbcQCmX3nesQ7InotefrMA3W/urwK6dl1wqCC911p82W5Kb+W8NCb1J53P5JWxzagJZb8+hjCmxUT6a+WNYIZnCziUzfPU6IXlszplPZC+9aDYdUNQJDaS76FeH3hdae0YBfcuGln/RFufwbbaXPBca864x+pA0ExA7T5gaAUgyIp5MjBk5USovw2Zf8Go32xA+Z5B8j3w1Mt6jgDBeP6MRJ4TVH4Q1Mq9Mu4FhiJ53n+lpwKHenn0AA31YkTNDGjIm8/3tVjNO4MnF/TtY+Vle9G8Voav/xF9ABssIyg=
+  </data>
+ </layer>
+</map>

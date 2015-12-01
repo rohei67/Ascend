@@ -20,8 +20,6 @@ public class World {//implements InputProcessor {
 	float _time;
 	String _timeStr;
 
-	private final int FINAL_STAGE = 5;    // 最終面を設定
-
 	// Character
 	Robo _robo;
 	ArrayList<Devil> _devils;
@@ -74,7 +72,7 @@ public class World {//implements InputProcessor {
 			Assets.playSound(Assets.goalSound);
 			savePreference();
 
-			if (_stage + 1 <= FINAL_STAGE)
+			if (_stage + 1 <= Assets.DEBUG_FINAL_STAGE)
 				_state = State.NEXT_STAGE;
 			else
 				_state = State.GAME_CLEAR;

@@ -29,7 +29,7 @@ public class GameMap {
 
 
 	public GameMap(int stageNum) {
-		String tmxName = "map/stage"+stageNum+".tmx";
+		String tmxName = "map/stage" + stageNum + ".tmx";
 		_tiledMap = new TmxMapLoader().load(tmxName);
 		_tiledMapRenderer = new OrthogonalTiledMapRenderer(_tiledMap);
 		calcMapPixel();
@@ -62,10 +62,12 @@ public class GameMap {
 		_tiledMapRenderer.setView(camera);
 		_tiledMapRenderer.render();
 	}
+
 	public void renderBackground(OrthographicCamera camera) {
 		_tiledMapRenderer.setView(camera);
 		_tiledMapRenderer.render(BACKGROUND);
 	}
+
 	public void renderForeground(OrthographicCamera camera) {
 		_tiledMapRenderer.setView(camera);
 		_tiledMapRenderer.render(FOREGROUND);
@@ -111,13 +113,17 @@ public class GameMap {
 	}
 
 	public void generateDevils(ArrayList<Devil> devils) {
+		Rectangle rect;
 		for (MapObject object : _objects) {
 			if (object.getProperties().containsKey("devil")) {
-				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				rect = ((RectangleMapObject) object).getRectangle();
 				devils.add(new Devil(rect.getX(), rect.getY()));
-			} else if(object.getProperties().containsKey("devil1")) {
-				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+			} else if (object.getProperties().containsKey("devil1")) {
+				rect = ((RectangleMapObject) object).getRectangle();
 				devils.add(new Devil1(rect.getX(), rect.getY()));
+			} else if (object.getProperties().containsKey("fish")) {
+				rect = ((RectangleMapObject) object).getRectangle();
+				devils.add(new Fish(rect.getX(), rect.getY()));
 			}
 		}
 	}
@@ -126,7 +132,7 @@ public class GameMap {
 		for (MapObject object : _objects) {
 			if (object.getProperties().containsKey("moving_platform") && object instanceof RectangleMapObject) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
-				platforms.add(new MovingPlatform(rect.getX(), rect.getY()));
+				platforms.add(new MovingPlatform(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
 			}
 		}
 	}

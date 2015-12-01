@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen extends ScreenAdapter {
-	private static final int STAGE_DEBUG = 1;
 	Ascend _game;
 	OrthographicCamera _camera;
 	Viewport _viewport;
@@ -74,7 +73,7 @@ public class MainMenuScreen extends ScreenAdapter {
 			if (UIBounds.play.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
-				_game.setScreen(new GameScreen(_game, STAGE_DEBUG));	// １面からスタート
+				_game.setScreen(new GameScreen(_game, 1));	// １面からスタート
 			} else if (UIBounds.select.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.playSound(Assets.selectSound);
 				_game.setScreen(new SelectScreen(_game));	// ステージセレクト

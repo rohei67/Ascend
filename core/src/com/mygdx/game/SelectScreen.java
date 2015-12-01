@@ -34,14 +34,16 @@ public class SelectScreen extends ScreenAdapter {
 	Rectangle _mainmenuBounds;
 
 	MapObjects _objects;
-	HashMap<Rectangle, Integer> _stages;
+	HashMap<Integer, Rectangle> _stages;
 
-	int _page;
+	int _page = 1;
 	final int FINAL_PAGE = 4;
 	final int FINAL_STAGE = 16;
 	int _stage = -1;
-	String[] times = new String[FINAL_STAGE+1];
-	int[] HPs = new int[FINAL_STAGE+1];
+	int _unlockedStage = -1;
+	String[] times = new String[FINAL_STAGE + 1];
+	int[] HPs = new int[FINAL_STAGE + 1];
+	Rectangle rect;
 
 	@Override
 	public void dispose() {
@@ -62,29 +64,40 @@ public class SelectScreen extends ScreenAdapter {
 
 		_tiledMap = new TmxMapLoader().load("map/stage_select.tmx");
 		_tiledMapRenderer = new OrthogonalTiledMapRenderer(_tiledMap);
+		loadBounds();
+		loadMapObjects();
+		loadBestRecord();
+	}
 
+	private void loadBounds() {
 		// Bounds
 		_leftArrowBounds = new Rectangle(0, Ascend.GAME_HEIGHT - 64, 64, 64);
 		_rightArrowBounds = new Rectangle(Ascend.GAME_WIDTH - 64, Ascend.GAME_HEIGHT - 64, 64, 64);
 		_mainmenuBounds = new Rectangle(10, 10, Assets.backtomenu.getRegionWidth(), Assets.backtomenu.getRegionHeight());
-		_page = 1;
+	}
 
+	private void loadMapObjects() {
 		// stage objects
-		_stages = new HashMap<Rectangle, Integer>();
+		_stages = new HashMap<Integer, Rectangle>();
 		_objects = _tiledMap.getLayers().get("object").getObjects();
 		for (MapObject object : _objects) {
 			if (object.getProperties().containsKey("stage") && object instanceof RectangleMapObject) {
 				String prop = (String) object.getProperties().get("stage");
-				_stages.put(((RectangleMapObject) object).getRectangle(), Integer.parseInt(prop));
+				_stages.put(Integer.parseInt(prop), ((RectangleMapObject) object).getRectangle());
 			}
 		}
+	}
+
+	private void loadBestRecord() {
 		// ベストタイムとHPの読み込み
 		for (int i = 1; i <= FINAL_STAGE; i++) {
-			if(Assets.prefsTime.contains(""+i)) {
+			if (Assets.prefsTime.contains("" + i)) {
 				float time = Assets.prefsTime.getFloat("" + i);
-				times[i] = String.format("%02d:%02.02f", (int) (time / 60f), time%60);
-				HPs[i] = Assets.prefsHP.getInteger(""+i);
+				times[i] = String.format("%02d:%02.02f", (int) (time / 60f), time % 60);
+				HPs[i] = Assets.prefsHP.getInteger("" + i);
 			} else {
+				if (_unlockedStage == -1)
+					_unlockedStage = i;
 				times[i] = "--:--.--";
 				HPs[i] = 0;
 			}
@@ -102,17 +115,17 @@ public class SelectScreen extends ScreenAdapter {
 			char ch = str.charAt(i);
 			switch (ch) {
 				case ':':
-					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+10*16, Assets.numbers.getRegionY(), 16, 32);
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX() + 10 * 16, Assets.numbers.getRegionY(), 16, 32);
 					break;
 				case '.':
-					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+11*16, Assets.numbers.getRegionY(), 16, 32);
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX() + 11 * 16, Assets.numbers.getRegionY(), 16, 32);
 					break;
 				case '-':
-					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+12*16, Assets.numbers.getRegionY(), 16, 32);
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX() + 12 * 16, Assets.numbers.getRegionY(), 16, 32);
 					break;
 				default:
 					int n = ch - '0';
-					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX()+n*16, Assets.numbers.getRegionY(), 16, 32);
+					_batch.draw(Assets.numbers.getTexture(), x + i * 16, y, Assets.numbers.getRegionX() + n * 16, Assets.numbers.getRegionY(), 16, 32);
 			}
 		}
 	}
@@ -128,6 +141,9 @@ public class SelectScreen extends ScreenAdapter {
 			}
 			_stage = touchStage();
 			if (touchStage() != -1) {
+				// todo: まだ全ステージ作っていない
+				if(_stage > Assets.DEBUG_FINAL_STAGE)
+					return;
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
 				_game.setScreen(new GameScreen(_game, _stage));
@@ -136,10 +152,11 @@ public class SelectScreen extends ScreenAdapter {
 	}
 
 	private int touchStage() {
-		for (Map.Entry<Rectangle, Integer> e : _stages.entrySet()) {
-			Rectangle rect = e.getKey();
+		for (Map.Entry<Integer, Rectangle> e : _stages.entrySet()) {
+			Rectangle rect = e.getValue();
 			if (rect.contains(_touchPoint.x, _touchPoint.y))
-				return e.getValue();
+				if (e.getKey() <= _unlockedStage)
+					return e.getKey();
 		}
 		return -1;
 	}
@@ -176,22 +193,35 @@ public class SelectScreen extends ScreenAdapter {
 		_tiledMapRenderer.render();
 		_batch.begin();
 		_batch.draw(Assets.backtomenu, _mainmenuBounds.getX(), _mainmenuBounds.getY());
+		drawBestRecord();
+		drawStageArts();
+		_batch.end();
+	}
+
+	private void drawStageArts() {
+		// 各ステージを描画
+		for (int i = 0; i < _unlockedStage; i++) {
+			rect = _stages.get(i+1);
+			_batch.draw(Assets.stagesTexture, rect.getX(), rect.getY(), (i%4)*160, (i/4)*96, 160, 96);
+		}
+	}
+
+	private void drawBestRecord() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				drawTime(times[i*4+j+1], Ascend.GAME_WIDTH/2+i*Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT-200-j*160);
-				if(HPs[i*4+j+1] != 0)
-					drawHP(HPs[i*4+j+1], Ascend.GAME_WIDTH/2-175+i*Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT-170-j*160);
+				drawTime(times[i * 4 + j + 1], Ascend.GAME_WIDTH / 2 + i * Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT - 200 - j * 160);
+				if (HPs[i * 4 + j + 1] != 0)
+					drawHP(HPs[i * 4 + j + 1], Ascend.GAME_WIDTH / 2 - 175 + i * Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT - 170 - j * 160);
 			}
 		}
-		_batch.end();
 	}
 
 	private void drawHP(int hp, int x, int y) {
 		for (int i = 1; i <= 3; i++) {
-			if(hp >= i)
-				_batch.draw(Assets.hitpoint, x+(i-1)*32, y);
+			if (hp >= i)
+				_batch.draw(Assets.hitpoint, x + (i - 1) * 32, y);
 			else
-				_batch.draw(Assets.damage, x+(i-1)*32, y);
+				_batch.draw(Assets.damage, x + (i - 1) * 32, y);
 		}
 	}
 

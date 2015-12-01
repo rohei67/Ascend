@@ -17,7 +17,7 @@ public class Devil {
 	protected Vector2 _position;
 	protected Vector2 _velocity;
 	protected Rectangle _bounds;
-	private Random rand = new Random();
+	protected Random rand = new Random();
 
 	float _stateTime;
 	boolean _isFaceRight;

@@ -8,24 +8,26 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 public class MovingPlatform {
-	static final int WIDTH = 64;    // 1*2の大きさ
-	static final int HEIGHT = 32;
 	static final int MIN_SPEED = 150;
 	static final int MAX_SPEED = 250;
-
+	static final int ORIG_W = 64;
+	static final int ORIG_H = 32;
+	int _w, _h;
 	private Vector2 _position;
 	private Vector2 _velocity;
 	private Rectangle _bounds;
 	private Random rand = new Random();
 
-	public MovingPlatform(float x, float y) {
+	public MovingPlatform(float x, float y, int w, int h) {
 		this._position = new Vector2(x, y);
+		_w = w;
+		_h = h;
 		if (rand.nextBoolean()) {
 			this._velocity = new Vector2(getRandomVelocity(), 0);
 		} else {
 			this._velocity = new Vector2(-getRandomVelocity(), 0);
 		}
-		this._bounds = new Rectangle(x, y, WIDTH, HEIGHT);
+		this._bounds = new Rectangle(x, y, w, h);
 	}
 
 	private int getRandomVelocity() {
@@ -48,7 +50,7 @@ public class MovingPlatform {
 	}
 
 	public void draw(SpriteBatch batch) {
-		batch.draw(Assets.movingPlatform, getX(), getY(), getWidth(), getHeight());
+		batch.draw(Assets.movingPlatform, getX(), getY(), 0, 0, 64, 32, (float)getWidth()/(float)ORIG_W, 1f, 0);
 	}
 
 	public float getX() {
@@ -60,10 +62,10 @@ public class MovingPlatform {
 	}
 
 	public int getWidth() {
-		return WIDTH;
+		return _w;
 	}
 
 	public int getHeight() {
-		return HEIGHT;
+		return _h;
 	}
 }

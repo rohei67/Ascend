@@ -97,7 +97,7 @@ public class GameScreen extends ScreenAdapter {
 	private void updateGameOver() {
 		if (Gdx.input.justTouched()) {
 			Assets.playSound(Assets.selectSound);
-			setReady(State.READY);
+			_world.initGame();
 		}
 	}
 
