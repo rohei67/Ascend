@@ -140,10 +140,7 @@ public class SelectScreen extends ScreenAdapter {
 				_game.setScreen(new MainMenuScreen(_game));
 			}
 			_stage = touchStage();
-			if (touchStage() != -1) {
-				// todo: まだ全ステージ作っていない
-				if(_stage > Assets.DEBUG_FINAL_STAGE)
-					return;
+			if (_stage != -1 && _stage <= Assets.FINAL_STAGE) {	// todo: まだ全ステージ作っていない
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
 				_game.setScreen(new GameScreen(_game, _stage));
@@ -153,10 +150,12 @@ public class SelectScreen extends ScreenAdapter {
 
 	private int touchStage() {
 		for (Map.Entry<Integer, Rectangle> e : _stages.entrySet()) {
-			Rectangle rect = e.getValue();
-			if (rect.contains(_touchPoint.x, _touchPoint.y))
-				if (e.getKey() <= _unlockedStage)
-					return e.getKey();
+			Rectangle stageRect = e.getValue();
+			if (stageRect.contains(_touchPoint.x, _touchPoint.y)) {
+				int selectedStage = e.getKey();
+				if (selectedStage <= _unlockedStage)
+					return selectedStage;
+			}
 		}
 		return -1;
 	}
@@ -170,8 +169,7 @@ public class SelectScreen extends ScreenAdapter {
 			_rightArrowBounds.x -= Ascend.GAME_WIDTH;
 			_mainmenuBounds.x -= Ascend.GAME_WIDTH;
 			_camera.position.sub((float) Ascend.GAME_WIDTH, 0, 0);
-		}
-		if (_rightArrowBounds.contains(_touchPoint.x, _touchPoint.y)) {
+		}else if (_rightArrowBounds.contains(_touchPoint.x, _touchPoint.y)) {
 			if (_page == FINAL_PAGE) return false;
 			Assets.playSound(Assets.selectSound);
 			_page++;

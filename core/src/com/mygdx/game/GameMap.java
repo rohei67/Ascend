@@ -130,9 +130,22 @@ public class GameMap {
 
 	public void generatePlatforms(ArrayList<MovingPlatform> platforms) {
 		for (MapObject object : _objects) {
-			if (object.getProperties().containsKey("moving_platform") && object instanceof RectangleMapObject) {
+			if (object.getProperties().containsKey("moving_platform")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				platforms.add(new MovingPlatform(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
+			}
+			if (object.getProperties().containsKey("elevator")) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				platforms.add(new Elevator(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
+			}
+		}
+	}
+
+	public void generateCannons(ArrayList<Cannon> cannons) {
+		for (MapObject object : _objects) {
+			if (object.getProperties().containsKey("cannon")) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				cannons.add(new Cannon(rect.getX(), rect.getY()));
 			}
 		}
 	}

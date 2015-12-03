@@ -24,11 +24,8 @@ public class WorldRenderer {
 		_camera.update();
 		_batch.setProjectionMatrix(_camera.combined);
 
-//		_world.getMap().renderBackground(_camera);
-//		_world.getMap().renderForeground(_camera);
 		_world.getMap().render(_camera);
 
-//		drawDebug();
 		_batch.begin();
 		_world.getParticle().render(_batch);    // パーティクルエフェクト描画
 		_world._gate.draw(_batch);
@@ -36,7 +33,6 @@ public class WorldRenderer {
 		drawUI();
 		drawMessage();
 		_batch.end();
-
 	}
 
 	ShapeRenderer _shapeRenderer = new ShapeRenderer();
@@ -46,8 +42,8 @@ public class WorldRenderer {
 		_shapeRenderer.setProjectionMatrix(_camera.combined);
 		_shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		_shapeRenderer.setColor(255, 0, 0, 255);
-		for (Devil devil : _world._devils) {
-			rect = devil.getBounds();
+		for (CannonBall cannonBall : _world._cannonBalls) {
+			rect = cannonBall.getBounds();
 			_shapeRenderer.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 		}
 		_shapeRenderer.end();
@@ -56,6 +52,7 @@ public class WorldRenderer {
 	private void drawMessage() {
 		switch (_world.getState()) {
 			case READY:
+				drawStageNum();
 				_batch.draw(Assets.ready, getCenterX() - Assets.ready.getRegionWidth() / 2, Ascend.GAME_HEIGHT / 2 + 100);
 				_batch.draw(Assets.touchme, getCenterX() - Assets.touchme.getRegionWidth() / 2 + 20, Ascend.GAME_HEIGHT / 2 - 200);
 				break;
@@ -84,6 +81,16 @@ public class WorldRenderer {
 		}
 	}
 
+	private void drawStageNum() {
+		if(_world._stage == Assets.FINAL_STAGE) {
+			_batch.draw(Assets.stagenumbers.getTexture(), getCenterX()-(480-160)/2, _camera.position.y + 250, Assets.stagenumbers.getRegionX()+32*5, Assets.stagenumbers.getRegionY(), 480-160, Assets.stagenumbers.getRegionHeight());
+		} else {
+			_batch.draw(Assets.stagenumbers.getTexture(), getCenterX()-48, _camera.position.y + 230, Assets.stagenumbers.getRegionX()+32*((_world._stage-1)/4), Assets.stagenumbers.getRegionY(), 32, Assets.stagenumbers.getRegionHeight());
+			_batch.draw(Assets.stagenumbers.getTexture(), getCenterX()-48+32, _camera.position.y + 230, Assets.stagenumbers.getRegionX()+32*4, Assets.stagenumbers.getRegionY(), 32, Assets.stagenumbers.getRegionHeight());
+			_batch.draw(Assets.stagenumbers.getTexture(), getCenterX()-48+64, _camera.position.y + 230, Assets.stagenumbers.getRegionX()+32*((_world._stage-1)%4), Assets.stagenumbers.getRegionY(), 32, Assets.stagenumbers.getRegionHeight());
+		}
+	}
+
 	private void drawTime() {
 		for (int i = 0; i < _world._timeStr.length(); i++) {
 			char ch = _world._timeStr.charAt(i);
@@ -102,11 +109,17 @@ public class WorldRenderer {
 	}
 
 	private void drawCharacter() {
+		for (Cannon cannon : _world._cannons) {
+			cannon.draw(_batch);
+		}
 		for (MovingPlatform platform : _world._movingPlatforms) {
 			platform.draw(_batch);
 		}
 		for (Devil devil : _world._devils) {
 			devil.draw(_batch);
+		}
+		for (CannonBall cannonBall : _world._cannonBalls) {
+			cannonBall.draw(_batch);
 		}
 		_world._robo.draw(_batch);
 	}

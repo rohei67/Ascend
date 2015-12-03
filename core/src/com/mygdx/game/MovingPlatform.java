@@ -13,10 +13,10 @@ public class MovingPlatform {
 	static final int ORIG_W = 64;
 	static final int ORIG_H = 32;
 	int _w, _h;
-	private Vector2 _position;
-	private Vector2 _velocity;
-	private Rectangle _bounds;
-	private Random rand = new Random();
+	protected Vector2 _position;
+	protected Vector2 _velocity;
+	protected Rectangle _bounds;
+	protected Random rand = new Random();
 
 	public MovingPlatform(float x, float y, int w, int h) {
 		this._position = new Vector2(x, y);

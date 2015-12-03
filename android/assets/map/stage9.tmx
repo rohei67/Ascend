@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="60" tilewidth="32" tileheight="32" nextobjectid="61">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="72">
+  <image source="tiledmap_out.png" width="288" height="324"/>
+  <tile id="8">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="60">
+  <data encoding="base64" compression="zlib">
+   eJxtl1GOxCAMQ7kNgkLh/qfbrsST3lh8oGlLSIjjGGaWUvo3qn7fb4xv7G+0b6xvPGf+Pb9PPK/z/G8/z2jHxvM8jzP6sX1P7Ha+T9nMM4fdOs+P/HfZ4Id37MnHa5p+t3xuYTIiFt/JB7/O2diwtsk38/XMgwX7APN1Rjvv5PNqDfHIHax7rOla6/x4B2tyYn2T7Sy/dRuqHfsgH9aBzxPxmvBnX+BYFZP82dOQX957+a2545lDrg91xTc2rtk8Pphn30N+qNFW7K51r9Yk5u4j50je3o/5Zs7Ao4xRFd8YUCu4YnyXhnHaEd943XrNmICVeWQdgAf0u+ewHRdfxq8pLnszJ+CD58DI/ZX7ME+tB+BhHaoa2T/eIz3pfsMXeyEGtd/y63qlLsBRsLPWpLaaG9QLXOC180H7HMv77hc7sGOv2FfhjC21dS94v9YKcLXm2s58a5rzOYEd/QDn2Jv1ymcRHIMLb7yb99TK34hB3VJj8xyYYTf0a513n7ieYGMuU3vrNngYX2OZ9bLet/ADds6h6ntXfNd1XGxcc/AEE2tpV6zUPOsI2gb+W2uoIXmSN7H3xV+eW1NzPnO64pFP3gWsY11jxbzPJeLDG/RoKQ7YWwfxbR03//Hxll8NghfWLutQ1TefB3AUrlMj7MCZ+OYY2OcZ77tZ3hOtocRnL8QHt7y3WHtS61NrPef7lzFER+3bOuAzwWeUe+u5+HnKbw/18suN7MPk2u1ukpz03cw+/N8gNfCmyVs+nZ/7OO/q7iM4suTbfeT7kjXf+sM68wz7dXlmf8kn1uZ5luee7zHmm+9PPvtcpxF+rYf2R1/6fuL/Xb43gbXPcfv7Awzama8=
+  </data>
+ </layer>
+ <objectgroup color="#aaffff" draworder="index" name="object">
+  <object id="45" x="208" y="65" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="47" x="127" y="1548" width="64" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="51" x="327" y="1236" width="64" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="52" x="180" y="1072" width="64" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="53" x="383" y="889" width="64" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="55" x="196" y="693" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="56" x="225" y="556" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="57" x="239" y="789" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="58" x="249" y="1142" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="59" x="264" y="387" width="64" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="60" x="218" y="175" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="60">
+  <data encoding="base64" compression="zlib">
+   eJxjYBgFIKACxKpArDbQDqEiUKaxenwAFp6EwlQBipWhNDWAAg48HACx4TqcATXT6UCYP1zAcAwn5Pw1kvPYKBgcgJ55DJtdgymPE3KLAhY8CrADUDk3mMu20XYO+UCVAgwAkeIIeA==
+  </data>
+ </layer>
+</map>

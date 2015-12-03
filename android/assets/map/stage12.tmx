@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="63">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="72">
+  <image source="tiledmap_out.png" width="288" height="324"/>
+  <tile id="8">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzFmO2u3CAMRHkbxEIS3v/pupVypJO5ZD9Utf0RZRPANmN7huxWSnk8r3ne2/Pan9c43/1+Pp5XP8f3897j96H123lhy+P8Huf1OOcyr53vN83ZdO3n+k0xENsRvuf5m/fsx2ua7lM2p+IbC19cXXa9Z2PD2ibbjOMTX8QB5sd5tfOZ/exagz/j4/g2vWPt1BzvF1yn1jc9b+Wat6FYiIP9gAn49PDXhD9xNdmdGnMMo1z3YOzYg/3xDjvESV6zVpyzTXnyXrxfcjTl+6F1u9Yk5u4j75F9u4Zcb31hDx+sq/IPBn5Xy7W+pp7Jh7nA/hMP+u7QHUzACi5JHqAO6HePMXcsbBm/Jr/EZj6iHjxmnBnPOFynrDMe5iF8z/KzfxwjPel+wxax4IPcT92dr+QFcgJ25prkVtcG+XI9mU/x38KX434s5oEdsT7KNUbzBLl1Lzhec0X62GPervm2j/9cx35HueYfLKxF5PmOi1z35MrvbJ/8u75SB7aYN3Q3z7tPnE/26Fqe5bp365PxNZaO3etc48wFO+8h9dO5Jq/jZo710HxjLn2EL2uBeQRuA/+pNeTQ5x9zknsLe+5t58r1jW38sZ/sT/dXclSer1JfGDcfGbeucevMXW1hY9ca97S5yzzkWKwHvfyslaF57omsMbBPjffZjHfOP3x0yLa1jVjz3GLuSa5Prk0MyZUxrMLNPMA679saZbxW58Qu286nudh96DrM3m7lWlPWAeu36xVckwNXnMx4jf1t4SvPjMbR/eu6MueZT4dsDq0DN58Bj8Vv4st6yu+XHs+tXOvaZzSfJ40RGPp8P8IX2Nuez66uu+Ss1Xk2Nd9zv9W0KrzAscr+v9K0Wr7XNGrynaZxtmMP7NkYuh//lqaB67eaRmypaTPsWdPApoeNTzStys5K0zz+raaB/Z2mea/0+krTzM13mlb17k7TqLuVpuHfNQburL3TNNfmK03D/ytN83fbp5rGd+JK06psJw+4Fl9pWtqxpplT32ma69J5T02rWvc/NY043mma6zw1rWrdn2oaa90/5sZPNY35d5pmu680rWrOStP8DeMcpKaZN6hT88mudz3Wdc11Pfi7xedl44PPPJf67DXKFRf3UXJg1Zg5iX25L8xle/gyz1OD4Or/h/K/C/eQaxMMD/k0BzW9Yx+1XHvBeuDvL+Iy15k3m3yZy8ypxDvKlQuq/LjHVrZT36iBIdv+jwZ7Of4L7P8Cdw==
+  </data>
+ </layer>
+ <objectgroup color="#aaffff" draworder="index" name="object">
+  <properties>
+   <property name="cannon" value=""/>
+  </properties>
+  <object id="45" x="208" y="65" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="61" x="353" y="2912" width="64" height="64">
+   <properties>
+    <property name="cannon" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztmEsKgDAQQ3uULKz3P6IWXEiZtuNMP1jyIBvLS4orMQSSOO7EO+fqi3QCTyyOxX13SF2lTu1m7Tx/XtqWOmqbrTt8caV7WejR8XcQfO8g96VoO6z08Fduezq87gjQCCFWsMj1bmHyfgsozvMQGYR+3yB5Wq6lW+N6dke4cLpW4AghhBBC9iX979zlX+dsoiMXuq0SRQ==
+  </data>
+ </layer>
+</map>

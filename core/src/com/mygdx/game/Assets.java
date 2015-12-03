@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static final int DEBUG_FINAL_STAGE = 8;
+	public static final int FINAL_STAGE = 12;
 
 	public static TextureAtlas textureAtlas;
 	// タイトル画面
@@ -30,12 +30,16 @@ public class Assets {
 	public static Animation devilAnim;
 	public static Animation devil1Anim;
 	public static Animation fishAnim;
+	public static TextureRegion cannon;
+	public static TextureRegion cannonBall;
 
 	// ステージ背景
 	public static TextureRegion gate;
 	public static TextureRegion movingPlatform;
+	public static TextureRegion elevator;
 
 	// メッセージ画像
+	public static TextureRegion stagenumbers;
 	public static TextureRegion ready;
 	public static TextureRegion stageclear;
 	public static TextureRegion gameclear;
@@ -116,6 +120,7 @@ public class Assets {
 		stagesTexture = loadTexture("stage_arts.png");
 
 		// 表示画像文字
+		stagenumbers = textureAtlas.findRegion("stage_num");
 		ready = textureAtlas.findRegion("ready");
 		gameclear = textureAtlas.findRegion("gameclear");
 		pause = textureAtlas.findRegion("pause");
@@ -141,6 +146,9 @@ public class Assets {
 		// 背景オブジェクト
 		gate = textureAtlas.findRegion("gate");
 		movingPlatform = textureAtlas.findRegion("moving_platform");
+		elevator = textureAtlas.findRegion("elevator");
+		cannon = textureAtlas.findRegion("cannon");
+		cannonBall = textureAtlas.findRegion("cannonball");
 
 		loadMusic();
 		loadSound();

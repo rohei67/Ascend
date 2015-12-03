@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import static com.mygdx.game.GameScreen.State;
 
@@ -25,6 +26,8 @@ public class World {//implements InputProcessor {
 	ArrayList<Devil> _devils;
 	GoalGate _gate;
 	ArrayList<MovingPlatform> _movingPlatforms;
+	ArrayList<Cannon> _cannons;
+	ArrayList<CannonBall> _cannonBalls;
 
 
 	public World(Ascend game, OrthographicCamera camera, Viewport viewport, int stage) {
@@ -43,7 +46,7 @@ public class World {//implements InputProcessor {
 		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
 		_map = new GameMap(_stage);
 		_particle = new GameParticle();
-		Assets.stageMusicPlay((_stage-1)/4+1);
+		Assets.stageMusicPlay((_stage - 1) / 4 + 1);
 
 		// Character
 		_robo = new Robo();
@@ -51,6 +54,9 @@ public class World {//implements InputProcessor {
 		_map.generateDevils(_devils);
 		_movingPlatforms = new ArrayList<MovingPlatform>();
 		_map.generatePlatforms(_movingPlatforms);
+		_cannons = new ArrayList<Cannon>();
+		_map.generateCannons(_cannons);
+		_cannonBalls = new ArrayList<CannonBall>();
 
 		Rectangle rect = _map.getGoalRect();
 		_particle.generateGateParticle(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
@@ -72,7 +78,7 @@ public class World {//implements InputProcessor {
 			Assets.playSound(Assets.goalSound);
 			savePreference();
 
-			if (_stage + 1 <= Assets.DEBUG_FINAL_STAGE)
+			if (_stage + 1 <= Assets.FINAL_STAGE)
 				_state = State.NEXT_STAGE;
 			else
 				_state = State.GAME_CLEAR;
@@ -92,9 +98,9 @@ public class World {//implements InputProcessor {
 
 	private void savePreference() {
 		// 時間を算出して、プリファレンスにセーブ
-		_timeStr = String.format("%02d:%02.02f", (int) (_time / 60f), _time%60);
+		_timeStr = String.format("%02d:%02.02f", (int) (_time / 60f), _time % 60);
 		float bestTime = 0;
-		if(Assets.prefsTime.contains(""+_stage))
+		if (Assets.prefsTime.contains("" + _stage))
 			bestTime = Assets.prefsTime.getFloat("" + _stage);
 		if (bestTime == 0 || _time < bestTime) {
 			Assets.prefsTime.putFloat("" + _stage, _time);
@@ -106,7 +112,7 @@ public class World {//implements InputProcessor {
 
 	private void movingPlatformUpdate() {
 		for (MovingPlatform platform : _movingPlatforms) {
-			if (!inDisplay(platform.getY(), platform.getHeight()))
+			if (!inDisplay(platform.getY(), platform.getHeight(), Ascend.GAME_HEIGHT))
 				continue;
 			platform.update(_robo.getSlowRate());
 			if (!_robo.isFall()) continue;
@@ -120,24 +126,42 @@ public class World {//implements InputProcessor {
 
 	private void enemyUpdate() {
 		for (Devil devil : _devils) {
-			if (!inDisplay(devil.getY(), devil.getHeight()))
+			if (!inDisplay(devil.getY(), devil.getHeight(), Ascend.GAME_HEIGHT))
 				continue;
 			devil.update(_robo.getSlowRate());
-			if (_robo.isHit()) continue;
-			if (_robo.getBounds().overlaps(devil.getBounds())) {
-				Assets.playSound(Assets.hitSound);
-				_robo.hit();
-				_robo.setSlow(false);
-				_particle.generateHitParticle(_robo.getCenterX(), _robo.getCenterY());
-				if (_robo.getHitPoint() == 0)
-					_robo.dead();
-			}
+			decideHitting(devil.getBounds());
+		}
+		// 大砲処理
+		for (Cannon cannon : _cannons) {
+			if (!inDisplay(cannon.getY(), cannon.getHeight(), Ascend.GAME_HEIGHT / 2))
+				continue;
+			cannon.update(_cannonBalls, _robo.getSlowRate());
+		}
+		Iterator it = _cannonBalls.iterator();
+		while (it.hasNext()) {
+			CannonBall cannonBall = (CannonBall) it.next();
+			if (!inDisplay(cannonBall.getY(), cannonBall.getHeight(), Ascend.GAME_HEIGHT / 2))
+				it.remove();
+			cannonBall.update(_robo.getSlowRate());
+			decideHitting(cannonBall.getBounds());
 		}
 	}
 
-	private boolean inDisplay(float y, int h) {
-		return y < _camera.position.y + Ascend.GAME_HEIGHT &&    // キャラの下端
-				y + h > _camera.position.y - Ascend.GAME_HEIGHT;    // キャラの上端
+	private void decideHitting(Rectangle rect) {
+		if (_robo.isHit()) return;
+		if (_robo.getBounds().overlaps(rect)) {
+			Assets.playSound(Assets.hitSound);
+			_robo.hit();
+			_robo.setSlow(false);
+			_particle.generateHitParticle(_robo.getCenterX(), _robo.getCenterY());
+			if (_robo.getHitPoint() == 0)
+				_robo.dead();
+		}
+	}
+
+	private boolean inDisplay(float y, int h, int offsetY) {
+		return y < _camera.position.y + offsetY &&    // キャラの下端
+				y + h > _camera.position.y - offsetY;    // キャラの上端
 	}
 
 	private void determineSlowMode() {
