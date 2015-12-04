@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
@@ -12,15 +13,18 @@ public class CannonBall {
 	protected Vector2 _position;
 	protected Vector2 _velocity;
 	protected Rectangle _bounds;
+	float _stateTime;
 
 	public CannonBall(float x, float y, float vx, float vy) {
 		_position = new Vector2(x, y);
 		_velocity = new Vector2(vx, vy);
 		_bounds = new Rectangle(x, y, WIDTH, HEIGHT);
+		_stateTime = 0;
 	}
 
 	public void update(float slowRate) {
 		float deltaTime = Gdx.graphics.getDeltaTime() * slowRate;
+		_stateTime += deltaTime;
 		_position.x += _velocity.x * deltaTime;
 		_position.y += _velocity.y * deltaTime;
 		_bounds.x = _position.x;
@@ -28,7 +32,8 @@ public class CannonBall {
 	}
 
 	public void draw(SpriteBatch batch) {
-		batch.draw(Assets.cannonBall, _position.x, _position.y);
+		TextureRegion currentFrame = Assets.cannonBallAnim.getKeyFrame(_stateTime);
+		batch.draw(currentFrame, _position.x, _position.y);
 	}
 
 

@@ -236,9 +236,9 @@ hitpoint
   index: -1
 cannonball
   rotate: false
-  xy: 397, 742
-  size: 16, 16
-  orig: 16, 16
+  xy: 343, 590
+  size: 32, 16
+  orig: 32, 16
   offset: 0, 0
   index: -1
 slowgauge

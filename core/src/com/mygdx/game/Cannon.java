@@ -33,27 +33,37 @@ public class Cannon {
 		_cannonBallSpeed = getRandomVelocity();
 	}
 
-	private void shot(ArrayList<CannonBall> cannonBalls, boolean isOrthogonal) {
+	private void shot(GameParticle particle, ArrayList<CannonBall> cannonBalls, boolean isOrthogonal) {
 		if(isOrthogonal) {
 			cannonBalls.add(new CannonBall(getCenterX() - 8, getCenterY() + HEIGHT / 2, 0, _cannonBallSpeed)); // 上方向
 			cannonBalls.add(new CannonBall(getCenterX() - 8, getCenterY() - HEIGHT / 2 - 16, 0, -_cannonBallSpeed)); // 下方向
 			cannonBalls.add(new CannonBall(getCenterX() + WIDTH / 2, getCenterY() - 8, _cannonBallSpeed, 0)); // 右方向
 			cannonBalls.add(new CannonBall(getCenterX()-WIDTH/2-16, getCenterY()-8, -_cannonBallSpeed, 0)); // 左方向
+			particle.generateShotParticle(getCenterX(), _position.y + HEIGHT + 5);	// 上方向
+			particle.generateShotParticle(getCenterX(), _position.y-5);	// 下方向
+			particle.generateShotParticle(_position.x+WIDTH+5, getCenterY());	// 右方向
+			particle.generateShotParticle(_position.x-5, getCenterY());	// 左方向
+
 		} else {
 			float v = _cannonBallSpeed*0.7f;
-			cannonBalls.add(new CannonBall(_position.x+WIDTH-16, _position.y+HEIGHT-16, v, v)); // 右上方向
-			cannonBalls.add(new CannonBall(_position.x+WIDTH-16, _position.y, v, -v)); // 右下方向
-			cannonBalls.add(new CannonBall(_position.x, _position.y+HEIGHT-16, -v, v)); // 左上方向
+			cannonBalls.add(new CannonBall(_position.x + WIDTH - 16, _position.y + HEIGHT - 16, v, v)); // 右上方向
+			cannonBalls.add(new CannonBall(_position.x + WIDTH - 16, _position.y, v, -v)); // 右下方向
+			cannonBalls.add(new CannonBall(_position.x, _position.y + HEIGHT - 16, -v, v)); // 左上方向
 			cannonBalls.add(new CannonBall(_position.x, _position.y, -v, -v)); // 左下方向
+			particle.generateShotParticle(_position.x + WIDTH, _position.y + HEIGHT);	// 右上方向
+			particle.generateShotParticle(_position.x+WIDTH, _position.y);	// 右下方向
+			particle.generateShotParticle(_position.x, _position.y+HEIGHT);	// 左上方向
+			particle.generateShotParticle(_position.x, _position.y);	// 左下方向
 		}
+		Assets.playSound(Assets.shotSound);
 	}
 
-	public void update(ArrayList<CannonBall> cannonBalls, float slowRate) {
+	public void update(GameParticle particle, ArrayList<CannonBall> cannonBalls, float slowRate) {
 		float deltaTime = Gdx.graphics.getDeltaTime() * slowRate;
 
 		if(_angle >= _beforeAngle) {
 			_beforeAngle += 45;
-			shot(cannonBalls, _shotOrthogonal);
+			shot(particle, cannonBalls, _shotOrthogonal);
 			_shotOrthogonal = !_shotOrthogonal;
 		}
 		_angle += _increaseAngle * deltaTime;

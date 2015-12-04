@@ -31,7 +31,7 @@ public class Assets {
 	public static Animation devil1Anim;
 	public static Animation fishAnim;
 	public static TextureRegion cannon;
-	public static TextureRegion cannonBall;
+	public static Animation cannonBallAnim;
 
 	// ステージ背景
 	public static TextureRegion gate;
@@ -72,9 +72,10 @@ public class Assets {
 	public static Sound goalSound;
 	public static Sound slowSound;
 	public static Sound selectSound;
+	public static Sound shotSound;
 
 	// サウンドON/OFFフラグ
-	public static boolean isMute;
+	public static boolean isMute = false;
 
 	// 設定ファイル
 	public static Preferences prefsTime;
@@ -106,6 +107,9 @@ public class Assets {
 		TextureRegion fish = textureAtlas.findRegion("fish");
 		fishAnim = new Animation(0.1f, fish.split(32, 16)[0]);
 		fishAnim.setPlayMode(Animation.PlayMode.LOOP);
+		TextureRegion cannonBall = textureAtlas.findRegion("cannonball");
+		cannonBallAnim = new Animation(0.05f, cannonBall.split(16, 16)[0]);
+		cannonBallAnim.setPlayMode(Animation.PlayMode.LOOP);
 
 		// タイトルスクリーン
 		titleTexture = loadTexture("title.png");
@@ -148,13 +152,18 @@ public class Assets {
 		movingPlatform = textureAtlas.findRegion("moving_platform");
 		elevator = textureAtlas.findRegion("elevator");
 		cannon = textureAtlas.findRegion("cannon");
-		cannonBall = textureAtlas.findRegion("cannonball");
 
 		loadMusic();
 		loadSound();
 		UIBounds.load();
 
 		prefsTime = Gdx.app.getPreferences("besttime");
+		if (prefsTime.contains("mute_setting")) {
+			isMute = prefsTime.getBoolean("mute_setting");
+		} else {
+			prefsTime.putBoolean("mute_setting", isMute);
+			prefsTime.flush();
+		}
 		prefsHP = Gdx.app.getPreferences("hitpoint");
 	}
 
@@ -169,6 +178,7 @@ public class Assets {
 		goalSound = Gdx.audio.newSound(Gdx.files.internal("sound/goal.ogg"));
 		slowSound = Gdx.audio.newSound(Gdx.files.internal("sound/slowmode.ogg"));
 		selectSound = Gdx.audio.newSound(Gdx.files.internal("sound/select.ogg"));
+		shotSound = Gdx.audio.newSound(Gdx.files.internal("sound/shot.ogg"));
 	}
 
 	private static void loadMusic() {
@@ -199,17 +209,29 @@ public class Assets {
 			titleMusic.play();
 	}
 
-	public static void musicStop() {
-		if (titleMusic.isPlaying())
-			titleMusic.stop();
-		if (stage1Music.isPlaying())
-			stage1Music.stop();
-		if (stage2Music.isPlaying())
-			stage2Music.stop();
-		if (stage3Music.isPlaying())
-			stage3Music.stop();
-		if (stage4Music.isPlaying())
-			stage4Music.stop();
+	public static void musicStop(int stage) {
+		switch (stage) {
+			case 0:
+				if (titleMusic.isPlaying())
+					titleMusic.stop();
+				break;
+			case 1:
+				if (stage1Music.isPlaying())
+					stage1Music.stop();
+				break;
+			case 2:
+				if (stage2Music.isPlaying())
+					stage2Music.stop();
+				break;
+			case 3:
+				if (stage3Music.isPlaying())
+					stage3Music.stop();
+				break;
+			case 4:
+				if (stage4Music.isPlaying())
+					stage4Music.stop();
+				break;
+		}
 	}
 
 	public static void stageMusicPlay(int stage) {
@@ -241,7 +263,19 @@ public class Assets {
 
 		titleMusic.dispose();
 		stage1Music.dispose();
+		stage2Music.dispose();
+		stage3Music.dispose();
+		stage4Music.dispose();
 		prefsTime.flush();
 		prefsHP.flush();
+	}
+
+	public static void muteSwitcher() {
+		isMute = !isMute;
+		prefsTime.putBoolean("mute_setting", isMute);
+		if (isMute)
+			musicStop(0);
+		else
+			titleMusicPlay();
 	}
 }

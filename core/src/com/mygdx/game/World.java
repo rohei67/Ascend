@@ -135,7 +135,7 @@ public class World {//implements InputProcessor {
 		for (Cannon cannon : _cannons) {
 			if (!inDisplay(cannon.getY(), cannon.getHeight(), Ascend.GAME_HEIGHT / 2))
 				continue;
-			cannon.update(_cannonBalls, _robo.getSlowRate());
+			cannon.update(_particle, _cannonBalls, _robo.getSlowRate());
 		}
 		Iterator it = _cannonBalls.iterator();
 		while (it.hasNext()) {

@@ -78,11 +78,7 @@ public class MainMenuScreen extends ScreenAdapter {
 				Assets.playSound(Assets.selectSound);
 				_game.setScreen(new SelectScreen(_game));	// ステージセレクト
 			} else if (UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
-				Assets.isMute = !Assets.isMute;
-				if (Assets.isMute)
-					Assets.musicStop();
-				else
-					Assets.titleMusicPlay();
+				Assets.muteSwitcher();
 				Assets.playSound(Assets.selectSound);
 			} else if (UIBounds.quit.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.dispose();

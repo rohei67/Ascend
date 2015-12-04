@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="60" tilewidth="32" tileheight="32" nextobjectid="63">
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="80" tilewidth="32" tileheight="32" nextobjectid="73">
  <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="72">
   <image source="tiledmap_out.png" width="288" height="324"/>
   <tile id="8">
@@ -58,9 +58,9 @@
    </properties>
   </tile>
  </tileset>
- <layer name="background" width="15" height="60">
+ <layer name="background" width="15" height="80">
   <data encoding="base64" compression="zlib">
-   eJxtl1GOxCAMQ7kNgkLh/qfbrsST3lh8oGlLSIjjGGaWUvo3qn7fb4xv7G+0b6xvPGf+Pb9PPK/z/G8/z2jHxvM8jzP6sX1P7Ha+T9nMM4fdOs+P/HfZ4Id37MnHa5p+t3xuYTIiFt/JB7/O2diwtsk38/XMgwX7APN1Rjvv5PNqDfHIHax7rOla6/x4B2tyYn2T7Sy/dRuqHfsgH9aBzxPxmvBnX+BYFZP82dOQX957+a2545lDrg91xTc2rtk8Pphn30N+qNFW7K51r9Yk5u4j50je3o/5Zs7Ao4xRFd8YUCu4YnyXhnHaEd943XrNmICVeWQdgAf0u+ewHRdfxq8pLnszJ+CD58DI/ZX7ME+tB+BhHaoa2T/eIz3pfsMXeyEGtd/y63qlLsBRsLPWpLaaG9QLXOC180H7HMv77hc7sGOv2FfhjC21dS94v9YKcLXm2s58a5rzOYEd/QDn2Jv1ymcRHIMLb7yb99TK34hB3VJj8xyYYTf0a513n7ieYGMuU3vrNngYX2OZ9bLet/ADds6h6ntXfNd1XGxcc/AEE2tpV6zUPOsI2gb+W2uoIXmSN7H3xV+eW1NzPnO64pFP3gWsY11jxbzPJeLDG/RoKQ7YWwfxbR03//Hxll8NghfWLutQ1TefB3AUrlMj7MCZ+OYY2OcZ77tZ3hOtocRnL8QHt7y3WHtS61NrPef7lzFER+3bOuAzwWeUe+u5+HnKbw/18suN7MPk2u1ukpz03cw+/N8gNfCmyVs+nZ/7OO/q7iM4suTbfeT7kjXf+sM68wz7dXlmf8kn1uZ5luee7zHmm+9PPvtcpxF+rYf2R1/6fuL/Xb43gbXPcfv7Awzama8=
+   eJy1mFtu7CAQRNmNhY0x+19dHIkjHSqeZJKr+4HGNtDP6oKes5Sy3+OYv9c9+j3aPcY96vzGfNd6P1/z+XP9OUedazzPc5tjn2vRWefvqTWnfvvcf8oGbNsfdJ9aP8pqE/byOyTz83mbcy10Vek7JNd6HRv2VsnuIZtYYAcxv+ao8x1/uvag79S87fM39o7YzztxHdpfy5qrfEY3duBPnTEkPkfoq4oldhk/XXPEhZhd8f6EvUPz+OX8NH0b0umcnVMG89jdJIccDeneta9rT8bAdWQf8dsYMt6MmX3G2bXDN/TznZy4NhzfS8NxGqF/aL/jfoVccNXL6p95ABxQ755jbXshy7V1ljUPu2SDB8+RB9dX2jFiP3jCD/OQ+STrxzZSk8YlsrAFHeQeO0ZZ85W8AEaJnbkmudXYIF8Zl1FWzCWn2u491oM328r6TXFOLnEt2F5zBXFNrm9ljXfTOuMpuRp/zceuVZ9FyT093o17cuVvbfqPHXmm5Dlwxjqfk+Z514nzSWyMZeMC/4mH45uxJC7J9zXkEDv7MPQ9zwHy2h7WOOfJN5azS5c5j3XEB27DD3M/OUxeQrfjhjzXNrHOM5096MOflGceMx4S8z6X0I8u6vTSPufJ5zs22deuX8cK3metucs85Br2eQBGjb+mdeZc3/fMRdbj3Lj+nX8wd2mf80jc8t5iG5Lrk2s9hy/mBvRdIRvbD8nFZmM279GW4zp1Ps3FrsPEmms7MbVLH+ssw71BcuATJzPve9VR1jrOuzo5oW5dv8YV/mUdtbJygusz74DXw7MxbTzlPXiErlpWXOOf7wc+P32O5P0+z6I95PkuZtyZs3xPN06ezvzsf97pD7ay+pJ+cef8bX9gXjfPbtKZ/cGQ3OwPNuUn+wPu0N/1B5zb/6s/yJj/1B/Ynnf6g1HWOGV/QFzJ2b/2B+gl7j/1B5vk/LU/MHbe6Q+w8ak/IAbv9Af+v+CpPwCTxuZTf4ANr/oD++n+ALms+W1/kPftd/qDrXz161V/gE3Y811/gA0t3rMWPgDH7M9B
   </data>
  </layer>
  <objectgroup color="#aaffff" draworder="index" name="object">
@@ -74,7 +74,7 @@
     <property name="elevator" value=""/>
    </properties>
   </object>
-  <object id="51" x="244" y="1239" width="64" height="32">
+  <object id="51" x="204" y="1240" width="64" height="32">
    <properties>
     <property name="elevator" value=""/>
    </properties>
@@ -124,10 +124,45 @@
     <property name="elevator" value=""/>
    </properties>
   </object>
+  <object id="63" x="65" y="1578" width="64" height="64">
+   <properties>
+    <property name="cannon" value=""/>
+   </properties>
+  </object>
+  <object id="65" x="212" y="1710" width="32" height="16">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="66" x="371" y="2104" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="67" x="36" y="2060" width="64" height="32">
+   <properties>
+    <property name="moving_platform" value=""/>
+   </properties>
+  </object>
+  <object id="69" x="53" y="2352" width="128" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="70" x="352" y="2272" width="96" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="72" x="336" y="1215" width="113" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
  </objectgroup>
- <layer name="foreground" width="15" height="60">
+ <layer name="foreground" width="15" height="80">
   <data encoding="base64" compression="zlib">
-   eJxjYBgFIKACxKpArDbQDhlhgFbhDjN3NE5HwSgYBaNgFIyC4Q1G6/xRMAoQeYAcDABTlQQy
+   eJzt1TEKACAIheGOEpTd/4jZIDS4RRn1f/C2EDHElDBUjWhadCOf2TV3q8ufAgDwthtvfoluAN/JTubdsP3w3gHASbKQDlXxBk4=
   </data>
  </layer>
 </map>
