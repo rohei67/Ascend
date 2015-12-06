@@ -27,9 +27,10 @@ public class WorldRenderer {
 		_world.getMap().render(_camera);
 
 		_batch.begin();
+		drawCharacter();
 		_world.getParticle().render(_batch);    // パーティクルエフェクト描画
 		_world._gate.draw(_batch);
-		drawCharacter();
+		_world._robo.draw(_batch);
 		drawUI();
 		drawMessage();
 		_batch.end();
@@ -112,6 +113,9 @@ public class WorldRenderer {
 		for (Cannon cannon : _world._cannons) {
 			cannon.draw(_batch);
 		}
+		for (Komainu komainu: _world._komainus) {
+			komainu.draw(_batch);
+		}
 		for (MovingPlatform platform : _world._movingPlatforms) {
 			platform.draw(_batch);
 		}
@@ -121,7 +125,6 @@ public class WorldRenderer {
 		for (CannonBall cannonBall : _world._cannonBalls) {
 			cannonBall.draw(_batch);
 		}
-		_world._robo.draw(_batch);
 	}
 
 	private float getCenterX() {

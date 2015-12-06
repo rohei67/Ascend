@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="7">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="80">
+  <image source="tiledmap_out.png" width="288" height="360"/>
+  <tile id="49">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6GzVP/mJmJfSFg1VVVVVVX19QCrER8s
+  </data>
+ </layer>
+ <objectgroup name="object">
+  <object id="1" x="208" y="64" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="3" x="32" y="2880" width="64" height="32">
+   <properties>
+    <property name="moving_platform1" value=""/>
+   </properties>
+  </object>
+  <object id="4" x="391" y="2812" width="64" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="6" x="336" y="2914" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2LEJACAMRcGM4gzq/rMZcQJtAnIHr/9pE8HWs5HN6iEAAAAAwDda9YBL/qTn/tcW1HIEUA==
+  </data>
+ </layer>
+</map>

@@ -3,7 +3,7 @@ texture.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-gameclear
+Gameclear
   rotate: false
   xy: 1, 858
   size: 432, 160
@@ -120,6 +120,13 @@ devil
   xy: 748, 756
   size: 192, 32
   orig: 192, 32
+  offset: 0, 0
+  index: -1
+komainu
+  rotate: false
+  xy: 252, 200
+  size: 64, 96
+  orig: 64, 96
   offset: 0, 0
   index: -1
 devil1
@@ -243,7 +250,7 @@ cannonball
   index: -1
 slowgauge
   rotate: false
-  xy: 252, 272
+  xy: 333, 442
   size: 1, 24
   orig: 1, 24
   offset: 0, 0

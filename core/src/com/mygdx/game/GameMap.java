@@ -133,10 +133,15 @@ public class GameMap {
 			if (object.getProperties().containsKey("moving_platform")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				platforms.add(new MovingPlatform(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
-			}
-			if (object.getProperties().containsKey("elevator")) {
+			} else if(object.getProperties().containsKey("moving_platform1")) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				platforms.add(new MovingPlatformAlpha(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
+			} else if (object.getProperties().containsKey("elevator")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				platforms.add(new Elevator(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
+			} else if (object.getProperties().containsKey("elevator1")) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				platforms.add(new ElevatorAlpha(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
 			}
 		}
 	}
@@ -149,4 +154,14 @@ public class GameMap {
 			}
 		}
 	}
+
+	public void generateKomainu(ArrayList<Komainu> komainus) {
+		for (MapObject object : _objects) {
+			if (object.getProperties().containsKey("komainu")) {
+				Rectangle rect = ((RectangleMapObject) object).getRectangle();
+				komainus.add(new Komainu(rect.getX(), rect.getY()));
+			}
+		}
+	}
+
 }

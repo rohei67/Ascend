@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static final int FINAL_STAGE = 12;
+	public static final int FINAL_STAGE = 13;
 
 	public static TextureAtlas textureAtlas;
 	// タイトル画面
@@ -31,6 +31,7 @@ public class Assets {
 	public static Animation devil1Anim;
 	public static Animation fishAnim;
 	public static TextureRegion cannon;
+	public static TextureRegion komainu;
 	public static Animation cannonBallAnim;
 
 	// ステージ背景
@@ -152,6 +153,7 @@ public class Assets {
 		movingPlatform = textureAtlas.findRegion("moving_platform");
 		elevator = textureAtlas.findRegion("elevator");
 		cannon = textureAtlas.findRegion("cannon");
+		komainu = textureAtlas.findRegion("komainu");
 
 		loadMusic();
 		loadSound();
@@ -205,53 +207,51 @@ public class Assets {
 
 	public static void titleMusicPlay() {
 		if (isMute) return;
-		if (!titleMusic.isPlaying())
+		if (!titleMusic.isPlaying()) {
+			titleMusic.setPosition(0);
 			titleMusic.play();
+		}
 	}
 
-	public static void musicStop(int stage) {
-		switch (stage) {
-			case 0:
-				if (titleMusic.isPlaying())
-					titleMusic.stop();
-				break;
-			case 1:
-				if (stage1Music.isPlaying())
-					stage1Music.stop();
-				break;
-			case 2:
-				if (stage2Music.isPlaying())
-					stage2Music.stop();
-				break;
-			case 3:
-				if (stage3Music.isPlaying())
-					stage3Music.stop();
-				break;
-			case 4:
-				if (stage4Music.isPlaying())
-					stage4Music.stop();
-				break;
-		}
+	public static void musicStop() {
+		if (titleMusic.isPlaying())
+			titleMusic.stop();
+		if (stage1Music.isPlaying())
+			stage1Music.stop();
+		if (stage2Music.isPlaying())
+			stage2Music.stop();
+		if (stage3Music.isPlaying())
+			stage3Music.stop();
+		if (stage4Music.isPlaying())
+			stage4Music.stop();
 	}
 
 	public static void stageMusicPlay(int stage) {
 		if (isMute) return;
 		switch (stage) {
 			case 1:
-				if (!stage1Music.isPlaying())
+				if (!stage1Music.isPlaying()) {
+					stage1Music.setPosition(0);
 					stage1Music.play();
+				}
 				break;
 			case 2:
-				if (!stage2Music.isPlaying())
+				if (!stage2Music.isPlaying()) {
+					stage2Music.setPosition(0);
 					stage2Music.play();
+				}
 				break;
 			case 3:
-				if (!stage3Music.isPlaying())
+				if (!stage3Music.isPlaying()) {
+					stage3Music.setPosition(0);
 					stage3Music.play();
-				break;
+				}
+					break;
 			case 4:
-				if (!stage4Music.isPlaying())
+				if (!stage4Music.isPlaying()) {
+					stage4Music.setPosition(0);
 					stage4Music.play();
+				}
 				break;
 		}
 	}
@@ -274,7 +274,7 @@ public class Assets {
 		isMute = !isMute;
 		prefsTime.putBoolean("mute_setting", isMute);
 		if (isMute)
-			musicStop(0);
+			musicStop();
 		else
 			titleMusicPlay();
 	}

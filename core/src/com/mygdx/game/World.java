@@ -28,7 +28,7 @@ public class World {//implements InputProcessor {
 	ArrayList<MovingPlatform> _movingPlatforms;
 	ArrayList<Cannon> _cannons;
 	ArrayList<CannonBall> _cannonBalls;
-
+	ArrayList<Komainu> _komainus;
 
 	public World(Ascend game, OrthographicCamera camera, Viewport viewport, int stage) {
 		_camera = camera;
@@ -54,9 +54,13 @@ public class World {//implements InputProcessor {
 		_map.generateDevils(_devils);
 		_movingPlatforms = new ArrayList<MovingPlatform>();
 		_map.generatePlatforms(_movingPlatforms);
+
 		_cannons = new ArrayList<Cannon>();
 		_map.generateCannons(_cannons);
 		_cannonBalls = new ArrayList<CannonBall>();
+
+		_komainus = new ArrayList<Komainu>();
+		_map.generateKomainu(_komainus);
 
 		Rectangle rect = _map.getGoalRect();
 		_particle.generateGateParticle(rect.getX() + rect.getWidth() / 2, rect.getY() + rect.getHeight() / 2);
@@ -130,6 +134,12 @@ public class World {//implements InputProcessor {
 				continue;
 			devil.update(_robo.getSlowRate());
 			decideHitting(devil.getBounds());
+		}
+		// 狛犬処理
+		for (Komainu komainu : _komainus) {
+			if (!inDisplay(komainu.getY(), komainu.getHeight(), Ascend.GAME_HEIGHT / 2))
+				continue;
+			komainu.update(_particle, _cannonBalls, _robo.getSlowRate());
 		}
 		// 大砲処理
 		for (Cannon cannon : _cannons) {
