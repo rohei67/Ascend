@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="153">
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="80">
+  <image source="tiledmap_out.png" width="288" height="360"/>
+  <tile id="49">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="50">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="51">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+  <tile id="52">
+   <properties>
+    <property name="platform" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="background" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6GzVP/mJmJfSFg1VVVVVVX19QCrER8s
+  </data>
+ </layer>
+ <objectgroup name="object">
+  <object id="1" x="208" y="64" width="64" height="64">
+   <properties>
+    <property name="goal" value=""/>
+   </properties>
+  </object>
+  <object id="114" x="7" y="2934" width="64" height="64">
+   <properties>
+    <property name="cannon" value=""/>
+   </properties>
+  </object>
+  <object id="115" x="416" y="2688" width="64" height="64">
+   <properties>
+    <property name="cannon" value=""/>
+   </properties>
+  </object>
+  <object id="117" x="188" y="2579" width="64" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="119" x="198" y="2469" width="138" height="32">
+   <properties>
+    <property name="moving_platform1" value=""/>
+   </properties>
+  </object>
+  <object id="120" x="273" y="2304" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+  <object id="121" x="145" y="2305" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+  <object id="122" x="145" y="2145" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+  <object id="123" x="273" y="2146" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+  <object id="124" x="166" y="1995" width="88" height="32">
+   <properties>
+    <property name="moving_platform1" value=""/>
+   </properties>
+  </object>
+  <object id="125" x="289" y="1935" width="86" height="32">
+   <properties>
+    <property name="moving_platform1" value=""/>
+   </properties>
+  </object>
+  <object id="126" x="32" y="1856" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="127" x="440" y="1797" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="128" x="243" y="1589" width="32" height="16">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="129" x="215" y="1698" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+  <object id="130" x="406" y="1549" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="131" x="31" y="1399" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="132" x="147" y="1263" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="133" x="416" y="1130" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="134" x="25" y="949" width="32" height="32">
+   <properties>
+    <property name="devil" value=""/>
+   </properties>
+  </object>
+  <object id="135" x="72" y="764" width="143" height="32">
+   <properties>
+    <property name="moving_platform1" value=""/>
+   </properties>
+  </object>
+  <object id="136" x="141.333" y="169.333" width="32" height="16">
+   <properties>
+    <property name="fish" value=""/>
+   </properties>
+  </object>
+  <object id="137" x="214" y="544" width="64" height="64">
+   <properties>
+    <property name="cannon" value=""/>
+   </properties>
+  </object>
+  <object id="138" x="19.1667" y="514.667" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="139" x="114.917" y="565.333" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="140" x="300.25" y="506.667" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="142" x="382.917" y="669.333" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="143" x="392.25" y="286.667" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="144" x="208" y="224" width="64" height="96">
+   <properties>
+    <property name="komainu" value=""/>
+   </properties>
+  </object>
+  <object id="145" x="64" y="64" width="32" height="32">
+   <properties>
+    <property name="devil1" value=""/>
+   </properties>
+  </object>
+  <object id="147" x="9.58335" y="258.667" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="148" x="116.25" y="340" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="149" x="297.583" y="244" width="68.8333" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+  <object id="150" x="211" y="3058.67" width="57" height="32">
+   <properties>
+    <property name="moving_platform1" value=""/>
+   </properties>
+  </object>
+  <object id="151" x="120.833" y="2920" width="57" height="32">
+   <properties>
+    <property name="elevator" value=""/>
+   </properties>
+  </object>
+  <object id="152" x="256" y="2678.67" width="64" height="32">
+   <properties>
+    <property name="elevator1" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
+ <layer name="foreground" width="15" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztllEKgDAMQ3cmdfe/mvNDEGHaatNVmwcFP8bSBllTCtmYWs2tltGN/Bz6TEhOqvE5C6x7iti79rzmXvS8tfON1EHcF6F3VA9o71BaXjojkOYs5jEZu093RR9zEXnfo7DYN+d35+odejK3157w0NB49VY/yj/mSZaZreakXzYcMwVzw3eQ5MBerXABEgI=
+  </data>
+ </layer>
+</map>

@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Assets {
-	public static final int FINAL_STAGE = 13;
+	public static final int FINAL_STAGE = 16;
 
 	public static TextureAtlas textureAtlas;
 	// タイトル画面

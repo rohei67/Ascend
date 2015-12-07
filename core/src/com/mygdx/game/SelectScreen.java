@@ -102,6 +102,8 @@ public class SelectScreen extends ScreenAdapter {
 				HPs[i] = 0;
 			}
 		}
+		if(_unlockedStage == -1)
+			_unlockedStage = FINAL_STAGE;
 	}
 
 	@Override
@@ -140,7 +142,7 @@ public class SelectScreen extends ScreenAdapter {
 				_game.setScreen(new MainMenuScreen(_game));
 			}
 			_stage = touchStage();
-			if (_stage != -1 && _stage <= Assets.FINAL_STAGE) {	// todo: まだ全ステージ作っていない
+			if (_stage != -1 && _stage <= Assets.FINAL_STAGE) {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
 				_game.setScreen(new GameScreen(_game, _stage));

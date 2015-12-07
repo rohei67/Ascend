@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-up" width="15" height="100" tilewidth="32" tileheight="32" nextobjectid="110">
- <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="72">
-  <image source="tiledmap_out.png" width="288" height="324"/>
+ <tileset firstgid="1" name="tiledmap_out" tilewidth="32" tileheight="32" spacing="4" margin="2" tilecount="80">
+  <image source="tiledmap_out.png" width="288" height="360"/>
   <tile id="8">
    <properties>
     <property name="platform" value=""/>
@@ -70,11 +70,6 @@
   <object id="45" x="208" y="65" width="64" height="64">
    <properties>
     <property name="goal" value=""/>
-   </properties>
-  </object>
-  <object id="61" x="353" y="2912" width="64" height="64">
-   <properties>
-    <property name="cannon" value=""/>
    </properties>
   </object>
   <object id="63" x="84" y="2627" width="32" height="16">
