@@ -129,11 +129,14 @@ public class World {//implements InputProcessor {
 	}
 
 	private void enemyUpdate() {
-		for (Devil devil : _devils) {
+		Iterator it = _devils.iterator();
+		while (it.hasNext()) {
+			Devil devil = (Devil) it.next();
 			if (!inDisplay(devil.getY(), devil.getHeight(), Ascend.GAME_HEIGHT))
 				continue;
 			devil.update(_robo.getSlowRate());
-			decideHitting(devil.getBounds());
+			if(decideHitting(devil.getBounds()))
+				it.remove();
 		}
 		// 狛犬処理
 		for (Komainu komainu : _komainus) {
@@ -147,7 +150,7 @@ public class World {//implements InputProcessor {
 				continue;
 			cannon.update(_particle, _cannonBalls, _robo.getSlowRate());
 		}
-		Iterator it = _cannonBalls.iterator();
+		it = _cannonBalls.iterator();
 		while (it.hasNext()) {
 			CannonBall cannonBall = (CannonBall) it.next();
 			if (!inDisplay(cannonBall.getY(), cannonBall.getHeight(), Ascend.GAME_HEIGHT / 2))

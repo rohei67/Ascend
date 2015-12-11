@@ -26,8 +26,11 @@ public class Cannon {
 	public Cannon(float x, float y) {
 		this._position = new Vector2(x, y);
 		_fireVelocity = getRandomVelocity();
-		_shotOrthogonal = true;
-		_beforeAngle = 0;
+		_angle = _beforeAngle = 0;
+		_shotOrthogonal = rand.nextBoolean();
+		if(!_shotOrthogonal) {
+			_angle = _beforeAngle = 45f;
+		}
 		_increaseAngle = rand.nextInt(30)+20;
 		_isRotateRight = rand.nextBoolean();
 		_cannonBallSpeed = getRandomVelocity();
