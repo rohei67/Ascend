@@ -153,12 +153,13 @@ public class World {//implements InputProcessor {
 			if (!inDisplay(cannonBall.getY(), cannonBall.getHeight(), Ascend.GAME_HEIGHT / 2))
 				it.remove();
 			cannonBall.update(_robo.getSlowRate());
-			decideHitting(cannonBall.getBounds());
+			if(decideHitting(cannonBall.getBounds()))
+				it.remove();
 		}
 	}
 
-	private void decideHitting(Rectangle rect) {
-		if (_robo.isHit()) return;
+	private boolean decideHitting(Rectangle rect) {
+		if (_robo.isHit()) return false;
 		if (_robo.getBounds().overlaps(rect)) {
 			Assets.playSound(Assets.hitSound);
 			_robo.hit();
@@ -166,7 +167,9 @@ public class World {//implements InputProcessor {
 			_particle.generateHitParticle(_robo.getCenterX(), _robo.getCenterY());
 			if (_robo.getHitPoint() == 0)
 				_robo.dead();
+			return true;
 		}
+		return false;
 	}
 
 	private boolean inDisplay(float y, int h, int offsetY) {
