@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SelectScreen extends ScreenAdapter {
-	Ascend _game;
+	com.mygdx.ascendjumper.Ascend _game;
 	OrthographicCamera _camera;
 	Viewport _viewport;
 	Vector3 _touchPoint;
@@ -53,11 +53,11 @@ public class SelectScreen extends ScreenAdapter {
 		_batch.dispose();
 	}
 
-	public SelectScreen(Ascend game) {
+	public SelectScreen(com.mygdx.ascendjumper.Ascend game) {
 		_game = game;
-		_camera = new OrthographicCamera(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT);
+		_camera = new OrthographicCamera(com.mygdx.ascendjumper.Ascend.GAME_WIDTH, com.mygdx.ascendjumper.Ascend.GAME_HEIGHT);
 		_camera.position.set(_camera.viewportWidth / 2, _camera.viewportHeight / 2, 0);
-		_viewport = new FitViewport(Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT, _camera);
+		_viewport = new FitViewport(com.mygdx.ascendjumper.Ascend.GAME_WIDTH, com.mygdx.ascendjumper.Ascend.GAME_HEIGHT, _camera);
 		_viewport.apply();
 		_batch = new SpriteBatch();
 		_touchPoint = new Vector3();
@@ -71,8 +71,8 @@ public class SelectScreen extends ScreenAdapter {
 
 	private void loadBounds() {
 		// Bounds
-		_leftArrowBounds = new Rectangle(0, Ascend.GAME_HEIGHT - 64, 64, 64);
-		_rightArrowBounds = new Rectangle(Ascend.GAME_WIDTH - 64, Ascend.GAME_HEIGHT - 64, 64, 64);
+		_leftArrowBounds = new Rectangle(0, com.mygdx.ascendjumper.Ascend.GAME_HEIGHT - 64, 64, 64);
+		_rightArrowBounds = new Rectangle(com.mygdx.ascendjumper.Ascend.GAME_WIDTH - 64, com.mygdx.ascendjumper.Ascend.GAME_HEIGHT - 64, 64, 64);
 		_mainmenuBounds = new Rectangle(10, 10, Assets.backtomenu.getRegionWidth(), Assets.backtomenu.getRegionHeight());
 	}
 
@@ -145,7 +145,7 @@ public class SelectScreen extends ScreenAdapter {
 			if (_stage != -1 && _stage <= Assets.FINAL_STAGE) {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
-				_game.setScreen(new GameScreen(_game, _stage));
+				_game.setScreen(new com.mygdx.ascendjumper.GameScreen(_game, _stage));
 			}
 		}
 	}
@@ -167,18 +167,18 @@ public class SelectScreen extends ScreenAdapter {
 			if (_page == 1) return false;
 			Assets.playSound(Assets.selectSound);
 			_page--;
-			_leftArrowBounds.x -= Ascend.GAME_WIDTH;
-			_rightArrowBounds.x -= Ascend.GAME_WIDTH;
-			_mainmenuBounds.x -= Ascend.GAME_WIDTH;
-			_camera.position.sub((float) Ascend.GAME_WIDTH, 0, 0);
+			_leftArrowBounds.x -= com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+			_rightArrowBounds.x -= com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+			_mainmenuBounds.x -= com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+			_camera.position.sub((float) com.mygdx.ascendjumper.Ascend.GAME_WIDTH, 0, 0);
 		}else if (_rightArrowBounds.contains(_touchPoint.x, _touchPoint.y)) {
 			if (_page == FINAL_PAGE) return false;
 			Assets.playSound(Assets.selectSound);
 			_page++;
-			_leftArrowBounds.x += Ascend.GAME_WIDTH;
-			_rightArrowBounds.x += Ascend.GAME_WIDTH;
-			_mainmenuBounds.x += Ascend.GAME_WIDTH;
-			_camera.position.add((float) Ascend.GAME_WIDTH, 0, 0);
+			_leftArrowBounds.x += com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+			_rightArrowBounds.x += com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+			_mainmenuBounds.x += com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+			_camera.position.add((float) com.mygdx.ascendjumper.Ascend.GAME_WIDTH, 0, 0);
 		}
 		return true;
 	}
@@ -209,9 +209,9 @@ public class SelectScreen extends ScreenAdapter {
 	private void drawBestRecord() {
 		for (int i = 0; i < 4; i++) {
 			for (int j = 0; j < 4; j++) {
-				drawTime(times[i * 4 + j + 1], Ascend.GAME_WIDTH / 2 + i * Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT - 200 - j * 160);
+				drawTime(times[i * 4 + j + 1], com.mygdx.ascendjumper.Ascend.GAME_WIDTH / 2 + i * com.mygdx.ascendjumper.Ascend.GAME_WIDTH, com.mygdx.ascendjumper.Ascend.GAME_HEIGHT - 200 - j * 160);
 				if (HPs[i * 4 + j + 1] != 0)
-					drawHP(HPs[i * 4 + j + 1], Ascend.GAME_WIDTH / 2 - 175 + i * Ascend.GAME_WIDTH, Ascend.GAME_HEIGHT - 170 - j * 160);
+					drawHP(HPs[i * 4 + j + 1], com.mygdx.ascendjumper.Ascend.GAME_WIDTH / 2 - 175 + i * com.mygdx.ascendjumper.Ascend.GAME_WIDTH, com.mygdx.ascendjumper.Ascend.GAME_HEIGHT - 170 - j * 160);
 			}
 		}
 	}

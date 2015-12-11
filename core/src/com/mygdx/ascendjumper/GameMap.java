@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapLayer;
@@ -128,17 +128,17 @@ public class GameMap {
 		}
 	}
 
-	public void generatePlatforms(ArrayList<MovingPlatform> platforms) {
+	public void generatePlatforms(ArrayList<com.mygdx.ascendjumper.MovingPlatform> platforms) {
 		for (MapObject object : _objects) {
 			if (object.getProperties().containsKey("moving_platform")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
-				platforms.add(new MovingPlatform(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
+				platforms.add(new com.mygdx.ascendjumper.MovingPlatform(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
 			} else if(object.getProperties().containsKey("moving_platform1")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				platforms.add(new MovingPlatformAlpha(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
 			} else if (object.getProperties().containsKey("elevator")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
-				platforms.add(new Elevator(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
+				platforms.add(new com.mygdx.ascendjumper.Elevator(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
 			} else if (object.getProperties().containsKey("elevator1")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
 				platforms.add(new ElevatorAlpha(rect.getX(), rect.getY(), (int) rect.getWidth(), (int) rect.getHeight()));
@@ -146,11 +146,11 @@ public class GameMap {
 		}
 	}
 
-	public void generateCannons(ArrayList<Cannon> cannons) {
+	public void generateCannons(ArrayList<com.mygdx.ascendjumper.Cannon> cannons) {
 		for (MapObject object : _objects) {
 			if (object.getProperties().containsKey("cannon")) {
 				Rectangle rect = ((RectangleMapObject) object).getRectangle();
-				cannons.add(new Cannon(rect.getX(), rect.getY()));
+				cannons.add(new com.mygdx.ascendjumper.Cannon(rect.getX(), rect.getY()));
 			}
 		}
 	}

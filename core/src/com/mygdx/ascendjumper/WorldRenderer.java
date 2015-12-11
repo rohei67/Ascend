@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -43,7 +43,7 @@ public class WorldRenderer {
 		_shapeRenderer.setProjectionMatrix(_camera.combined);
 		_shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
 		_shapeRenderer.setColor(255, 0, 0, 255);
-		for (CannonBall cannonBall : _world._cannonBalls) {
+		for (com.mygdx.ascendjumper.CannonBall cannonBall : _world._cannonBalls) {
 			rect = cannonBall.getBounds();
 			_shapeRenderer.rect(rect.getX(), rect.getY(), rect.getWidth(), rect.getHeight());
 		}
@@ -116,13 +116,13 @@ public class WorldRenderer {
 		for (Komainu komainu: _world._komainus) {
 			komainu.draw(_batch);
 		}
-		for (MovingPlatform platform : _world._movingPlatforms) {
+		for (com.mygdx.ascendjumper.MovingPlatform platform : _world._movingPlatforms) {
 			platform.draw(_batch);
 		}
 		for (Devil devil : _world._devils) {
 			devil.draw(_batch);
 		}
-		for (CannonBall cannonBall : _world._cannonBalls) {
+		for (com.mygdx.ascendjumper.CannonBall cannonBall : _world._cannonBalls) {
 			cannonBall.draw(_batch);
 		}
 	}
@@ -152,8 +152,8 @@ public class WorldRenderer {
 		// 時計マーク
 		_batch.draw(Assets.clockUI, 10, getTopY() - 42, 32, 32);
 		// 一時停止ボタン/レジューム
-		if (_world.getState() == GameScreen.State.RUNNING)
-			_batch.draw(Assets.pause_button, UIBounds.pauseButton.getX(), getBottomY(), 64, 64);
+		if (_world.getState() == com.mygdx.ascendjumper.GameScreen.State.RUNNING)
+			_batch.draw(Assets.pause_button, com.mygdx.ascendjumper.UIBounds.pauseButton.getX(), getBottomY(), 64, 64);
 		else
 			_batch.draw(Assets.resume_button, 0, getBottomY(), 64, 64);
 	}

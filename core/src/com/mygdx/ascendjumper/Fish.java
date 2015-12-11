@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -22,8 +22,8 @@ public class Fish extends Devil {
 
 		_position.add(_velocity.x*deltaTime, _velocity.y *deltaTime);
 		if (_position.x < -WIDTH/2)
-			_position.x = Ascend.GAME_WIDTH;
-		if (_position.x > Ascend.GAME_WIDTH) {
+			_position.x = com.mygdx.ascendjumper.Ascend.GAME_WIDTH;
+		if (_position.x > com.mygdx.ascendjumper.Ascend.GAME_WIDTH) {
 			_position.x = -WIDTH/2;
 		}
 		_bounds.x = _position.x;
@@ -31,7 +31,7 @@ public class Fish extends Devil {
 	}
 
 	public void draw(SpriteBatch batch) {
-		TextureRegion currentFrame = Assets.fishAnim.getKeyFrame(_stateTime);
+		TextureRegion currentFrame = com.mygdx.ascendjumper.Assets.fishAnim.getKeyFrame(_stateTime);
 		if (_isFaceRight)
 			batch.draw(currentFrame, getX() + getWidth(), getY(), -getWidth(), getHeight());
 		else

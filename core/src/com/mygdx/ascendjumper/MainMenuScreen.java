@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
@@ -55,14 +55,14 @@ public class MainMenuScreen extends ScreenAdapter {
 	}
 
 	private void drawSelectionMessage() {
-		_batch.draw(Assets.play, UIBounds.play.getX(), UIBounds.play.getY());
-		_batch.draw(Assets.select, UIBounds.select.getX(), UIBounds.select.getY());
-		_batch.draw(Assets.sound, UIBounds.sound.getX(), UIBounds.sound.getY());
+		_batch.draw(Assets.play, com.mygdx.ascendjumper.UIBounds.play.getX(), com.mygdx.ascendjumper.UIBounds.play.getY());
+		_batch.draw(Assets.select, com.mygdx.ascendjumper.UIBounds.select.getX(), com.mygdx.ascendjumper.UIBounds.select.getY());
+		_batch.draw(Assets.sound, com.mygdx.ascendjumper.UIBounds.sound.getX(), com.mygdx.ascendjumper.UIBounds.sound.getY());
 		if (Assets.isMute)
-			_batch.draw(Assets.off, UIBounds.sound.getX() + UIBounds.sound.getWidth() - Assets.off.getRegionWidth(), UIBounds.sound.getY());
+			_batch.draw(Assets.off, com.mygdx.ascendjumper.UIBounds.sound.getX() + com.mygdx.ascendjumper.UIBounds.sound.getWidth() - Assets.off.getRegionWidth(), com.mygdx.ascendjumper.UIBounds.sound.getY());
 		else
-			_batch.draw(Assets.on, UIBounds.sound.getX() + UIBounds.sound.getWidth() - Assets.off.getRegionWidth(), UIBounds.sound.getY());
-		_batch.draw(Assets.quit, UIBounds.quit.getX(), UIBounds.quit.getY());
+			_batch.draw(Assets.on, com.mygdx.ascendjumper.UIBounds.sound.getX() + com.mygdx.ascendjumper.UIBounds.sound.getWidth() - Assets.off.getRegionWidth(), com.mygdx.ascendjumper.UIBounds.sound.getY());
+		_batch.draw(Assets.quit, com.mygdx.ascendjumper.UIBounds.quit.getX(), com.mygdx.ascendjumper.UIBounds.quit.getY());
 
 	}
 
@@ -70,17 +70,17 @@ public class MainMenuScreen extends ScreenAdapter {
 		if (Gdx.input.justTouched()) {
 			_viewport.unproject(_touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
 
-			if (UIBounds.play.contains(_touchPoint.x, _touchPoint.y)) {
+			if (com.mygdx.ascendjumper.UIBounds.play.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.playSound(Assets.selectSound);
 				Assets.musicStop();
 				_game.setScreen(new GameScreen(_game, 1));	// １面からスタート
-			} else if (UIBounds.select.contains(_touchPoint.x, _touchPoint.y)) {
+			} else if (com.mygdx.ascendjumper.UIBounds.select.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.playSound(Assets.selectSound);
 				_game.setScreen(new SelectScreen(_game));	// ステージセレクト
-			} else if (UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
+			} else if (com.mygdx.ascendjumper.UIBounds.sound.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.muteSwitcher();
 				Assets.playSound(Assets.selectSound);
-			} else if (UIBounds.quit.contains(_touchPoint.x, _touchPoint.y)) {
+			} else if (com.mygdx.ascendjumper.UIBounds.quit.contains(_touchPoint.x, _touchPoint.y)) {
 				Assets.dispose();
 				Gdx.app.exit();
 			}

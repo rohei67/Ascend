@@ -1,13 +1,13 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class ElevatorAlpha extends Elevator {
+public class MovingPlatformAlpha extends MovingPlatform {
 	float r, g, b;
 	float rNext, gNext, bNext;
 	boolean rPlus, gPlus, bPlus;
 
-	public ElevatorAlpha(float x, float y, int w, int h) {
+	public MovingPlatformAlpha(float x, float y, int w, int h) {
 		super(x, y, w, h);
 		r = rand.nextFloat();
 		g = rand.nextFloat();
@@ -79,7 +79,7 @@ public class ElevatorAlpha extends Elevator {
 	@Override
 	public void draw(SpriteBatch batch) {
 		batch.setColor(r, g, b, 1);
-		batch.draw(Assets.movingPlatform, getX(), getY(), 0, 0, 64, 32, (float) getWidth() / (float) ORIG_W, 1f, 0);
+		super.draw(batch);
 		batch.setColor(com.badlogic.gdx.graphics.Color.WHITE);
 	}
 }

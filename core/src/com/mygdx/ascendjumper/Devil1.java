@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,7 +30,7 @@ public class Devil1 extends Devil {
 
 	@Override
 	public void draw(SpriteBatch batch) {
-		TextureRegion currentFrame = Assets.devil1Anim.getKeyFrame(_stateTime);
+		TextureRegion currentFrame = com.mygdx.ascendjumper.Assets.devil1Anim.getKeyFrame(_stateTime);
 		if (_isFaceRight)
 			batch.draw(currentFrame, getX() + getWidth(), getY(), -getWidth(), getHeight());
 		else

@@ -1,4 +1,4 @@
-package com.mygdx.game;
+package com.mygdx.ascendjumper;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -59,7 +59,7 @@ public class Controller extends KeyInput implements InputProcessor {
 	}
 
 	public boolean isTouchPause(float screenX, float screenY) {
-		return UIBounds.pauseButton.contains(screenX, screenY - _world.getBottomY());
+		return com.mygdx.ascendjumper.UIBounds.pauseButton.contains(screenX, screenY - _world.getBottomY());
 	}
 
 	@Override
@@ -105,8 +105,8 @@ public class Controller extends KeyInput implements InputProcessor {
 	}
 
 	private boolean isResumePressed() {
-		return UIBounds.resume.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY())
-				|| UIBounds.pauseButton.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
+		return com.mygdx.ascendjumper.UIBounds.resume.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY())
+				|| com.mygdx.ascendjumper.UIBounds.pauseButton.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
 	}
 
 	@Override
@@ -125,10 +125,10 @@ public class Controller extends KeyInput implements InputProcessor {
 	}
 
 	public boolean isMeinMenuPressed() {
-		return UIBounds.backToMenu.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
+		return com.mygdx.ascendjumper.UIBounds.backToMenu.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
 	}
 
 	public boolean isNextStagePressed() {
-		return UIBounds.nextStage.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
+		return com.mygdx.ascendjumper.UIBounds.nextStage.contains(_touchPoint.x, _touchPoint.y - _world.getBottomY());
 	}
 }
