@@ -135,8 +135,9 @@ public class World {//implements InputProcessor {
 			if (!inDisplay(devil.getY(), devil.getHeight(), com.mygdx.ascendjumper.Ascend.GAME_HEIGHT))
 				continue;
 			devil.update(_robo.getSlowRate());
-			if(decideHitting(devil.getBounds()))
+			if(decideHitting(devil.getBounds())) {
 				it.remove();
+			}
 		}
 		// 狛犬処理
 		for (com.mygdx.ascendjumper.Komainu komainu : _komainus) {
@@ -156,13 +157,14 @@ public class World {//implements InputProcessor {
 			if (!inDisplay(cannonBall.getY(), cannonBall.getHeight(), com.mygdx.ascendjumper.Ascend.GAME_HEIGHT / 2))
 				it.remove();
 			cannonBall.update(_robo.getSlowRate());
-			if(decideHitting(cannonBall.getBounds()))
+			if(decideHitting(cannonBall.getBounds())) {
 				it.remove();
+			}
 		}
 	}
 
 	private boolean decideHitting(Rectangle rect) {
-		if (_robo.isHit()) return false;
+		if (_robo.isHit() || _robo.isDead()) return false;
 		if (_robo.getBounds().overlaps(rect)) {
 			com.mygdx.ascendjumper.Assets.playSound(com.mygdx.ascendjumper.Assets.hitSound);
 			_robo.hit();
